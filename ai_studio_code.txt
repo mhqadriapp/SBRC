@@ -1,0 +1,21 @@
+{
+  "name": "सिपाही बाबा रूहानी सेंटर",
+  "short_name": "सिपाही बाबा",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#f0f4f0",
+  "theme_color": "#1b5e20",
+  "description": "सिपाही बाबा रूहानी सेंटर द्वारा इस्तिखारा और रूहानी गणना के लिए एक वेब एप्लीकेशन।",
+  "icons": [
+    {
+      "src": "icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
