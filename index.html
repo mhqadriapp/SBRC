@@ -125,6 +125,7 @@
     </header>
 
     <div class="top-management-bar">
+        <button class="management-btn" id="home-btn" style="background-color: #28a745;">होम</button>
         <button class="management-btn" id="open-name-management-modal-btn">नाम प्रबंधन</button>
         <button class="management-btn" id="open-unified-management-modal-btn" style="background-color: #ff9800;">कैटिगरी / पेज / कलम प्रबंधन</button>
     </div>
@@ -297,13 +298,13 @@
                     </div>
 
                     <table class="mgmt-table">
-                        <thead><tr><th>पेज का नाम</th><th>तक्शीम (➗)</th><th>सवाल (अंक)</th><th>जवाब</th><th>नियम (✖️)</th></tr></thead>
+                        <thead><tr><th>पेज का नाम</th><th>सवाल का अदद (अंक)</th><th>तक्शीम (➗)</th><th>नियम (✖️)</th><th>जवाब</th></tr></thead>
                         <tbody><tr>
                             <td><input type="text" id="new-page-text" required placeholder="पेज का नाम (जैसे: क्या शादी होगी?)"></td>
-                            <td><input type="number" id="new-page-modulus" required placeholder="जैसे: 10" min="2"></td>
                             <td><input type="number" id="new-page-adad" placeholder="जैसे: 789" min="0"></td>
-                            <td><textarea id="new-page-results" required placeholder="उदाहरण:&#10;13579: चोर मर्द है&#10;21: ق = क़ाफ"></textarea></td>
+                            <td><input type="number" id="new-page-modulus" required placeholder="जैसे: 10" min="2"></td>
                             <td><input type="number" id="new-page-rule" placeholder="जैसे: 2"></td>
+                            <td><textarea id="new-page-results" required placeholder="उदाहरण:&#10;13579: चोर मर्द है&#10;21: ق = क़ाफ"></textarea></td>
                         </tr></tbody>
                     </table>
                     <div class="button-group">
@@ -373,7 +374,6 @@
             let allQuestions = {};
             const defaultColumns = { name: true, motherName: true, fatherName: true, day: true, date: true, month: true, year: true, saad: true };
             
-            // Added default category for "चोर का नाम" with all 28 letters.
             const defaultQuestions = {
                 istikhara1: { title: "इस्तिखारा 1 (निकाह के लिए)", description: "यह कैटिगरी शादी और रिश्ते से जुड़े पेज के लिए है।", questions: { "15013": { text: "क्या शादी का प्रस्ताव स्वीकार करना चाहिए", adad: 15013, modulus: 6, rule: '', columns: defaultColumns, results: {0: 'प्रस्ताव स्वीकार करना शुभ होगा', 1: 'प्रस्ताव पर और विचार करना चाहिए', 2: 'प्रस्ताव में कुछ कमी हो सकती है', 3: 'प्रस्ताव अस्वीकार करना बेहतर है', 4: 'प्रस्ताव में देरी हो सकती है', 5: 'प्रस्ताव पर परिवार की राय लेनी चाहिए'} }, "482": { text: "शादी होगी या नहीं", adad: 482, modulus: 2, rule: '', columns: defaultColumns, results: {0: 'शादी जल्दी होगी', 1: 'शादी में देरी होगी या नहीं होगी'} }}},
                 istikhara2: { title: "इस्तिखारा 2 (रोजगार के लिए)", description: "", questions: {} },
@@ -404,6 +404,23 @@
             const selectionContainer = document.getElementById('selection-container'), formContainer = document.getElementById('form-container'), resultDiv = document.getElementById('result'), formTitle = document.getElementById('form-title'), entryForm = document.getElementById('entryForm'), questionSelect = document.getElementById('question'), settingsIcon = document.getElementById('settings-icon'), sidebar = document.getElementById('sidebar'), sidebarOverlay = document.getElementById('sidebar-overlay'), backToSelectionBtn = document.getElementById('back-to-selection-btn'), nameInput = document.getElementById('name_input'), motherNameInput = document.getElementById('motherName_input'), fatherNameInput = document.getElementById('fatherName_input'), nameUrduDisplay = document.getElementById('name_urdu_display'), motherNameUrduDisplay = document.getElementById('motherName_urdu_display'), fatherNameUrduDisplay = document.getElementById('fatherName_urdu_display'), nameUrduHidden = document.getElementById('name_urdu'), motherNameUrduHidden = document.getElementById('motherName_urdu'), fatherNameUrduHidden = document.getElementById('fatherName_urdu'), formDescription = document.getElementById('form-description');
             let currentCategoryKey = null;
 
+            // --- Home Button Event Listener ---
+            document.getElementById('home-btn').addEventListener('click', () => {
+                // Close any open modals
+                document.getElementById('nameManagementModal').style.display = 'none';
+                document.getElementById('unifiedManagementModal').style.display = 'none';
+                document.getElementById('privacyPolicyModal').style.display = 'none';
+                document.getElementById('termsConditionsModal').style.display = 'none';
+                
+                // Go back to main category selection screen
+                formContainer.style.display = 'none'; 
+                resultDiv.style.display = 'none';
+                selectionContainer.style.display = 'block'; 
+                currentCategoryKey = null; 
+                resetFullForm();
+            });
+            // ----------------------------------
+
             function loadCustomNames() { const storedNames = localStorage.getItem('customTranslations'); customTranslations = storedNames ? JSON.parse(storedNames) : {}; }
             function saveCustomNames() { localStorage.setItem('customTranslations', JSON.stringify(customTranslations)); }
             function mergeSpecialCases() { hindiSpecialCases = { ...defaultSpecialCases, ...customTranslations }; }
@@ -424,7 +441,6 @@
             function loadData() { const stored = localStorage.getItem('allQuestionsData'); allQuestions = stored ? JSON.parse(stored) : JSON.parse(JSON.stringify(defaultQuestions)); }
             function saveData() { localStorage.setItem('allQuestionsData', JSON.stringify(allQuestions)); }
 
-            // === MAIN SCREEN LOGIC ===
             function renderSelectionButtons() { 
                 const wrapper = document.getElementById('istikhara-buttons-wrapper'); 
                 wrapper.innerHTML = ''; 
@@ -489,7 +505,6 @@
 
             questionSelect.addEventListener('change', (e) => { applyColumnSettings(e.target.value); });
 
-            // === UNIFIED MANAGEMENT LOGIC ===
             const unifiedModal = document.getElementById('unifiedManagementModal');
             const catSelect = document.getElementById('mgmt-category-select');
             const showAddCatBtn = document.getElementById('show-add-category-btn');
@@ -523,7 +538,6 @@
                 addPageForm.style.display = 'none';
             });
 
-            // Add / Edit Category Logic
             showAddCatBtn.addEventListener('click', () => {
                 addCatForm.reset();
                 document.getElementById('editing-category-key').value = '';
@@ -542,7 +556,6 @@
                 addCatForm.style.display = 'block';
             });
 
-            // Delete Category Logic
             document.getElementById('delete-category-btn').addEventListener('click', () => {
                 const catId = catSelect.value;
                 if(!catId) { alert("डिलीट करने के लिए कैटिगरी चुनें!"); return; }
@@ -578,7 +591,6 @@
                 alert('कैटिगरी सेव हो गई!');
             });
 
-            // Add / Edit Page Logic
             addPageBtn.addEventListener('click', () => { 
                 if(!catSelect.value) { alert("पहले कैटिगरी चुनें!"); return; }
                 addPageForm.reset(); 
@@ -672,7 +684,6 @@
                 } 
             });
 
-            // === BUG FIX: Improved Parser logic ===
             function parseSimpleResults(text) { 
                 const results = {}; 
                 text.split('\n').forEach(line => { 
@@ -686,11 +697,8 @@
                             if (keysStr.includes(',')) { 
                                 keys = keysStr.split(','); 
                             } else if (keysStr.length <= 2) {
-                                // BUG FIXED HERE: If user enters "21", it won't split it into '2' and '1'. 
-                                // It will treat it as a single valid number for modulus logic.
                                 keys = [keysStr];
                             } else {
-                                // For things like "13579", it splits into '1', '3', '5', '7', '9'
                                 keys = keysStr.split(''); 
                             }
                             
@@ -703,7 +711,6 @@
                 }); 
                 return results; 
             }
-            // ======================================
 
             function formatJsonToSimpleText(json) { const valueToKeys = {}; for (const key in json) { const value = json[key]; if (!valueToKeys[value]) valueToKeys[value] = []; valueToKeys[value].push(key); } return Object.entries(valueToKeys).map(([value, keys]) => `${keys.sort((a, b) => a - b).join(',')}: ${value}`).join('\n'); }
 
@@ -727,10 +734,10 @@
                             <thead style="background-color: #e8f5e9; color: #1b5e20;">
                                 <tr>
                                     <th style="padding: 6px; width: 20%;">पेज (सवाल)</th>
+                                    <th style="padding: 6px; width: 10%;">सवाल का अदद (अंक)</th>
                                     <th style="padding: 6px; width: 8%;">तक्शीम (➗)</th>
-                                    <th style="padding: 6px; width: 8%;">अदद</th>
                                     <th style="padding: 6px; width: 8%;">नियम (✖️)</th>
-                                    <th style="padding: 6px; width: 25%;">जरूरी कलम (Fields)</th>
+                                    <th style="padding: 6px; width: 23%;">जरूरी कलम (Fields)</th>
                                     <th style="padding: 6px; width: 31%;">जवाब</th>
                                 </tr>
                             </thead>
@@ -754,8 +761,8 @@
                         html += `
                                 <tr>
                                     <td style="padding: 6px;">${p.text}</td>
+                                    <td style="padding: 6px; font-weight: bold;">${p.adad}</td>
                                     <td style="padding: 6px;">${p.modulus}</td>
-                                    <td style="padding: 6px;">${p.adad}</td>
                                     <td style="padding: 6px;">${p.rule || '-'}</td>
                                     <td style="padding: 6px; color:#0d47a1;">${activeCols.join(', ')}</td>
                                     <td style="padding: 6px;">${resultsStr}</td>
@@ -767,23 +774,21 @@
                 return html;
             }
 
-            // --- Download ALL PDF ---
             document.getElementById('download-all-pdf').addEventListener('click', () => {
                 let tempDiv = document.createElement('div');
-                tempDiv.innerHTML = generatePDFHTML(null); // null means all
+                tempDiv.innerHTML = generatePDFHTML(null); 
                 document.body.appendChild(tempDiv);
 
                 let opt = { margin: 0.3, filename: 'Sipahi_Baba_All_Categories.pdf', image: { type: 'jpeg', quality: 0.98 }, html2canvas: { scale: 2 }, jsPDF: { unit: 'in', format: 'letter', orientation: 'landscape' } };
                 html2pdf().set(opt).from(tempDiv).save().then(() => { document.body.removeChild(tempDiv); });
             });
 
-            // --- Download SELECTED CATEGORY PDF ---
             document.getElementById('download-category-pdf').addEventListener('click', () => {
                 const catId = catSelect.value;
                 if(!catId) { alert("कृपया पहले ड्रॉपडाउन से कोई कैटिगरी चुनें!"); return; }
 
                 let tempDiv = document.createElement('div');
-                tempDiv.innerHTML = generatePDFHTML(catId); // only specific category
+                tempDiv.innerHTML = generatePDFHTML(catId); 
                 document.body.appendChild(tempDiv);
 
                 let opt = { margin: 0.3, filename: `Sipahi_Baba_${allQuestions[catId].title}.pdf`, image: { type: 'jpeg', quality: 0.98 }, html2canvas: { scale: 2 }, jsPDF: { unit: 'in', format: 'letter', orientation: 'landscape' } };
