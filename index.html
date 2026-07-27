@@ -4,186 +4,253 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>सिपाही बाबा रूहानी सेंटर</title>
-    <meta name="theme-color" content="#1b5e20">
+    <meta name="theme-color" content="#064E3B">
     <link rel="manifest" href="manifest.json">
-    <!-- PDF जनरेट करने के लिए लाइब्रेरी -->
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- PDF Library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <style>
         :root {
-            --primary-color: #1b5e20;
-            --secondary-color: #007BFF;
-            --danger-color: #dc3545;
-            --background-color: #f0f4f0;
-            --form-background: #ffffff;
-            --text-color: #333333;
-            --header-height: 75px;
+            /* Premium Spiritual Theme */
+            --primary-color: #064E3B; /* Deep Emerald Green */
+            --primary-light: #10B981;
+            --primary-gradient: linear-gradient(135deg, #064E3B 0%, #047857 100%);
+            --secondary-color: #D97706; /* Golden Amber */
+            --danger-color: #E11D48;
+            --background-color: #F3F4F6;
+            --form-background: #FFFFFF;
+            --text-color: #1F2937;
+            --text-light: #4B5563;
+            --header-height: 60px;
             --footer-height: 40px;
-            --card-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            --card-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            --btn-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
+
         html, body { height: 100%; margin: 0; }
-        body { font-family: 'Roboto', -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; background: var(--background-color); color: var(--text-color); display: flex; flex-direction: column; }
-        header { background: linear-gradient(to right, var(--primary-color), #2e7d32); color: white; text-align: center; padding: 10px; position: fixed; top: 0; left: 0; width: 100%; z-index: 1000; box-shadow: var(--card-shadow); height: var(--header-height); box-sizing: border-box; display: flex; align-items: center; justify-content: center; border-bottom-left-radius: 15px; border-bottom-right-radius: 15px; }
+        body { 
+            font-family: 'Poppins', 'Noto Sans Devanagari', sans-serif; 
+            background: var(--background-color); 
+            color: var(--text-color); 
+            display: flex; 
+            flex-direction: column; 
+        }
+
+        /* Header Styles */
+        header { 
+            background: var(--primary-gradient); 
+            color: white; 
+            text-align: center; 
+            position: fixed; 
+            top: 0; left: 0; width: 100%; 
+            z-index: 1000; 
+            box-shadow: 0 2px 10px rgba(6, 78, 59, 0.2); 
+            height: var(--header-height); 
+            display: flex; align-items: center; justify-content: center; 
+            border-bottom-left-radius: 15px; border-bottom-right-radius: 15px; 
+        }
         
-        #settings-icon { position: absolute; left: 20px; font-size: 26px; cursor: pointer; user-select: none; }
-        #refresh-icon { position: absolute; right: 20px; font-size: 24px; cursor: pointer; user-select: none; transition: transform 0.3s; }
+        #settings-icon { position: absolute; left: 15px; font-size: 22px; cursor: pointer; user-select: none; transition: transform 0.3s ease; }
+        #settings-icon:hover { transform: rotate(45deg); }
+        
+        #refresh-icon { position: absolute; right: 15px; font-size: 20px; cursor: pointer; user-select: none; transition: transform 0.4s ease; }
         #refresh-icon:active { transform: rotate(180deg); }
         
-        header h1 { font-size: 1.4em; margin: 0; }
+        header h1 { font-size: 1.15em; margin: 0; font-weight: 600; letter-spacing: 0.5px; }
         
-        .top-management-bar { background: white; padding: 5px 10px; box-shadow: var(--card-shadow); display: flex; gap: 5px; justify-content: center; align-items: center; flex-wrap: wrap; position: fixed; top: var(--header-height); width: 100%; z-index: 999; box-sizing: border-box; min-height: 50px; }
-        .management-btn { font-size: 0.85em; padding: 8px 12px; flex-shrink: 0; width: auto; margin: 2px; font-weight: bold;}
+        /* Top Navigation Bar - COMPACT SINGLE LINE */
+        .top-management-bar { 
+            background: rgba(255, 255, 255, 0.98); 
+            backdrop-filter: blur(10px);
+            padding: 6px 8px; 
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06); 
+            display: flex; gap: 6px; justify-content: space-between; align-items: center; 
+            position: fixed; top: var(--header-height); width: 100%; 
+            z-index: 999; box-sizing: border-box; min-height: 45px; 
+            flex-wrap: nowrap; 
+            overflow-x: auto; 
+            -ms-overflow-style: none; scrollbar-width: none;
+        }
+        .top-management-bar::-webkit-scrollbar { display: none; }
+        
+        .management-btn { 
+            font-size: 0.75em; padding: 6px 10px; 
+            border-radius: 8px; font-weight: 600; 
+            box-shadow: var(--btn-shadow); border: none; color: white; cursor: pointer;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+            flex: 1; 
+            text-align: center;
+        }
+        .management-btn:active { transform: scale(0.96); }
 
-        main { flex: 1; padding: 20px; display: flex; flex-direction: column; justify-content: flex-start; align-items: center; width: 100%; box-sizing: border-box; overflow-y: auto; padding-top: calc(var(--header-height) + 70px); padding-bottom: calc(var(--footer-height) + 20px); }
+        /* Main Content */
+        main { 
+            flex: 1; padding: 15px; display: flex; flex-direction: column; 
+            align-items: center; width: 100%; box-sizing: border-box; overflow-y: auto; 
+            padding-top: calc(var(--header-height) + 60px); 
+            padding-bottom: calc(var(--footer-height) + 20px); 
+        }
         
-        footer { background: #333; color: white; position: fixed; bottom: 0; left: 0; width: 100%; z-index: 1000; height: var(--footer-height); box-sizing: border-box; display: flex; align-items: center; justify-content: center; gap: 15px; padding: 0 10px; border-top-left-radius: 15px; border-top-right-radius: 15px; box-shadow: var(--card-shadow); flex-wrap: nowrap; white-space: nowrap; }
-        footer p { margin: 0; font-size: 0.8em; }
-        footer button { background: none; border: none; color: #a9def9; cursor: pointer; text-decoration: underline; font-size: 0.8em; padding: 5px; }
-        
-        #selection-container, #form-container, #result { width: 100%; max-width: 500px; box-sizing: border-box; margin: 0 auto 20px auto; padding: 25px; background: var(--form-background); border-radius: 20px; box-shadow: var(--card-shadow); text-align: center; }
-        .selection-btn, .management-btn { color: white; border: none; border-radius: 8px; cursor: pointer; transition: background 0.3s; }
-        .selection-btn { background-color: var(--primary-color); font-size: 1.2em; padding: 15px; width: 100%; margin-bottom: 15px; }
-        .management-btn { background-color: var(--secondary-color); }
-        form { display: grid; gap: 12px; }
+        #selection-container, #form-container, #result { 
+            width: 100%; max-width: 500px; box-sizing: border-box; margin: 0 auto 15px auto; 
+            padding: 20px; background: var(--form-background); border-radius: 16px; 
+            box-shadow: var(--card-shadow); border: 1px solid rgba(229, 231, 235, 0.5);
+        }
+
+        #selection-container h2 { color: var(--primary-color); text-align: center; margin-top: 0; font-size: 1.2em; font-weight: 700; margin-bottom: 20px; }
+
+        .selection-btn { 
+            background: var(--primary-gradient); color: white; border: none; border-radius: 10px; 
+            cursor: pointer; transition: all 0.2s ease; font-size: 1em; padding: 12px; 
+            width: 100%; margin-bottom: 12px; font-weight: 500;
+            box-shadow: 0 4px 10px rgba(6, 78, 59, 0.15);
+        }
+
+        /* Form Elements - COMPACT */
+        form { display: flex; flex-direction: column; gap: 12px; }
         .input-group { text-align: left; }
         .input-group.field-hidden { display: none; }
         
-        /* --- NEW PERFECT ALIGNMENT CSS --- */
-        .field-header-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 6px;
+        .field-header-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px; }
+        .field-header-row .label-text { flex: 1; font-weight: 600; font-size: 0.85em; color: var(--primary-color); margin: 0; }
+        
+        .field-header-row .live-adad { 
+            flex: 0 0 auto; color: var(--danger-color); font-weight: 700; font-size: 0.9em; 
+            background: #FFE4E6; padding: 2px 8px; border-radius: 6px; 
+            border: 1px solid #FECDD3; text-align: center; min-width: 35px; 
         }
-        .field-header-row .label-text {
-            flex: 1;
-            font-weight: 600;
-            font-size: 0.95em;
-            color: var(--primary-color);
-            margin: 0;
-            text-align: left;
+        
+        .engine-selector-wrapper { flex: 1; display: flex; justify-content: flex-end; }
+        .mini-engine-select { 
+            font-size: 0.7rem; padding: 2px 6px; border-radius: 4px; 
+            border: 1px solid var(--secondary-color); background: #FFFBEB; 
+            color: #B45309; outline: none; font-weight: 600; cursor: pointer; 
         }
-        .field-header-row .live-adad {
-            flex: 0 0 auto;
-            color: #d32f2f;
-            font-weight: bold;
-            font-size: 1.1em;
-            background: #ffebee;
-            padding: 2px 10px;
-            border-radius: 6px;
-            border: 1px solid #ffcdd2;
-            text-align: center;
-            min-width: 40px; /* Ensures even small numbers look balanced */
-        }
-        .field-header-row .engine-selector-wrapper {
-            flex: 1;
-            display: flex;
-            justify-content: flex-end;
-        }
-        .mini-engine-select {
-            font-size: 0.75rem;
-            padding: 3px 5px;
-            border-radius: 6px;
-            border: 1px solid var(--secondary-color);
-            background: #e3f2fd;
-            color: #0d47a1;
-            outline: none;
-            font-weight: bold;
-            cursor: pointer;
-            max-width: 105px; /* Restrict width so it doesn't push the number */
-            text-overflow: ellipsis;
-        }
-        /* ---------------------------------- */
 
         .input-wrapper { position: relative; }
-        input, select, textarea { width: 100%; padding: 12px; box-sizing: border-box; border: 1px solid #ccc; border-radius: 12px; font-size: 16px; background: #f9f9f9; color: var(--text-color); font-family: inherit; }
-        .urdu-display-inline { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); font-size: 1.3em; direction: rtl; color: #1a73e8; background-color: #f0f0f0; padding: 2px 8px; border-radius: 8px; pointer-events: none; font-weight: 500;}
-        .button-group { display: flex; gap: 10px; margin-top: 15px; }
-        .button-group button { width: 100%; flex: 1; margin-top: 0; padding: 12px; font-size: 16px; border: none; border-radius: 8px; cursor: pointer; }
-        button { color: white; padding: 14px; border: none; cursor: pointer; font-size: 18px; border-radius: 12px; width: 100%; margin-top: 10px; transition: background 0.3s, transform 0.2s; box-shadow: 0 2px 5px rgba(0,0,0,0.1); background: var(--primary-color); }
-        button:hover { transform: scale(1.03); }
-        .management-btn:hover { background: #0069d9; }
-        button[type="submit"] { background: var(--primary-color); }
-        .back-btn { background: #6c757d; }
-        .back-btn:hover { background: #5a6268; }
+        input, select, textarea { 
+            width: 100%; padding: 10px 12px; box-sizing: border-box; 
+            border: 1px solid #D1D5DB; border-radius: 8px; font-size: 0.95em; 
+            background: #F9FAFB; color: var(--text-color); font-family: inherit; 
+            transition: border-color 0.3s;
+        }
+        input:focus, select:focus, textarea:focus {
+            outline: none; border-color: var(--primary-light);
+            background: #FFFFFF;
+        }
 
-        #form-title-wrapper { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
-        #form-title-wrapper h2 { margin: 0; font-size: 1.3em; color: var(--primary-color); }
-        #clear-form-icon { font-size: 1.6em; cursor: pointer; color: var(--secondary-color); font-weight: bold; }
-        #form-description { font-size: 0.9em; color: #555; margin-top: 0; margin-bottom: 15px; border-left: 3px solid var(--primary-color); padding-left: 10px; text-align: left; }
+        .urdu-display-inline { 
+            position: absolute; right: 10px; top: 50%; transform: translateY(-50%); 
+            font-size: 1.2em; direction: rtl; color: var(--primary-color); 
+            background-color: #E2E8F0; padding: 2px 8px; border-radius: 6px; 
+            pointer-events: none; font-weight: 600;
+        }
 
-        #sidebar { position: fixed; top: 0; left: 0; width: 280px; height: 100%; background: #fff; z-index: 1002; transform: translateX(-100%); transition: transform 0.3s ease-in-out; padding: 20px; box-shadow: 4px 0 15px rgba(0,0,0,0.2); box-sizing: border-box; overflow-y: auto; }
+        /* Buttons Inside Form */
+        .button-group { display: flex; gap: 10px; margin-top: 5px; }
+        button { 
+            padding: 12px; border: none; cursor: pointer; font-size: 0.95em; 
+            border-radius: 8px; width: 100%; font-weight: 600; 
+            transition: all 0.2s ease; color: white;
+        }
+        button[type="submit"] { background: var(--secondary-color); box-shadow: 0 4px 10px rgba(217, 119, 6, 0.2); }
+        button[type="submit"]:active { transform: scale(0.98); }
+        
+        .back-btn { background: #6B7280; }
+        .add-btn { background: var(--primary-color); }
+        .save-btn { background: var(--secondary-color); }
+
+        #form-title-wrapper { display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px; border-bottom: 1px solid #E5E7EB; padding-bottom: 10px; }
+        #form-title-wrapper h2 { margin: 0; font-size: 1.1em; color: var(--primary-color); font-weight: 700; }
+        #clear-form-icon { font-size: 0.85em; cursor: pointer; color: var(--danger-color); background: #FFE4E6; padding: 4px 8px; border-radius: 6px; font-weight: bold; }
+
+        #form-description { font-size: 0.8em; color: var(--text-light); margin-top: 10px; margin-bottom: 5px; border-left: 3px solid var(--secondary-color); padding-left: 10px; }
+
+        /* Sidebar */
+        #sidebar { 
+            position: fixed; top: 0; left: 0; width: 260px; height: 100%; 
+            background: #FFFFFF; z-index: 1002; transform: translateX(-100%); 
+            transition: transform 0.3s ease; padding: 20px 15px; 
+            box-shadow: 5px 0 20px rgba(0,0,0,0.1); box-sizing: border-box; overflow-y: auto; 
+        }
         #sidebar.open { transform: translateX(0); }
         #sidebar-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1001; display: none; }
         #sidebar-overlay.visible { display: block; }
-        #sidebar h3 { margin-top: 0; color: var(--primary-color); border-bottom: 2px solid var(--primary-color); padding-bottom: 10px; }
+        #sidebar h3 { margin-top: 0; font-size: 1.1em; color: var(--primary-color); border-bottom: 2px solid var(--primary-light); padding-bottom: 8px; }
         
-        .api-box { background: #f8f9fa; border: 1px dashed #adb5bd; border-radius: 8px; padding: 15px; margin-top: 15px; margin-bottom: 15px;}
-        .api-url-text { font-size: 0.75rem; color: #495057; word-break: break-all; margin: 10px 0; background: white; padding: 10px; border-radius: 5px; border: 1px solid #dee2e6; }
-        
-        #result { text-align: left; }
-        .result-section { margin: 15px 0; padding: 15px; background: #fdfdff; border-radius: 12px; border-left: 5px solid var(--primary-color); box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
-        .total-result { background: #e3f2fd; padding: 15px; border-radius: 12px; font-weight: bold; text-align: center; border: 1px solid #2196F3; word-wrap: break-word; color: var(--text-color); font-size: 1.1em; line-height: 1.6; }
-        .final-calculation { margin-top: 20px; padding: 20px; border-radius: 20px; background: #fff3cd; border: 1px solid #ffc107; box-shadow: var(--card-shadow); }
-        .specific-takseem { background: #f1f8e9; border: 1px solid #c5e1a5; padding: 15px; border-radius: 12px; margin-top: 15px; }
-        .specific-result { margin-top: 10px; font-weight: bold; color: var(--primary-color); }
-        .letter-table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 14px; }
-        .letter-table th, .letter-table td { border: 1px solid #ddd; padding: 6px 8px; text-align: center; }
-        .letter-table th { background-color: #e8f5e8; }
-        
-        .modal, .fullscreen-modal { display: none; position: fixed; z-index: 1003; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.6); }
-        .fullscreen-modal-content { background-color: #fefefe; width: 100%; height: 100%; padding: 20px; box-sizing: border-box; overflow-y: auto; }
-        .modal-header { display: flex; justify-content: space-between; align-items: center; padding-bottom: 10px; border-bottom: 1px solid #ccc; margin-bottom: 20px; }
-        .modal-header h2 { margin: 0; color: var(--primary-color); }
-        .close-btn { font-size: 2em; font-weight: bold; cursor: pointer; color: var(--danger-color); }
-        
-        .policy-content { padding: 0 15px; text-align: left; line-height: 1.6; }
-        .policy-content h3 { color: var(--primary-color); }
-        .policy-content ul { padding-left: 20px; }
-        .policy-content a { color: var(--secondary-color); }
+        .api-box { background: #F3F4F6; border: 1px solid #D1D5DB; border-radius: 8px; padding: 12px; margin-top: 15px; }
+        .api-url-text { font-size: 0.75rem; color: var(--text-color); margin-top: 5px; background: white; padding: 8px; border-radius: 6px; border: 1px solid #E5E7EB; }
 
-        .management-item { background: #ffffff; padding: 10px 15px; border-radius: 8px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; border: 1px solid #ddd; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
-        .management-text { font-weight: bold; color: var(--primary-color); flex-grow: 1; margin-right: 10px; word-break: break-all; }
-        .management-actions button { padding: 8px 12px; font-size: 14px; margin-left: 5px; color: white; border: none; border-radius: 4px; cursor: pointer; transition: background 0.3s; flex-shrink: 0; }
-        .edit-btn { background: var(--secondary-color); }
-        .delete-btn { background: var(--danger-color); }
+        /* Result Area */
+        .result-section { margin: 15px 0; padding: 15px; background: #F8FAFC; border-radius: 12px; border-left: 4px solid var(--primary-color); box-shadow: 0 2px 5px rgba(0,0,0,0.02); }
+        .total-result { background: #ECFDF5; padding: 12px; border-radius: 8px; font-weight: 600; text-align: center; border: 1px solid #A7F3D0; color: var(--primary-color); font-size: 1em; }
+        .final-calculation { margin-top: 15px; padding: 20px; border-radius: 12px; background: #FFFBEB; border: 1px solid #FDE68A; box-shadow: var(--card-shadow); }
+        .specific-takseem { background: #FFFFFF; border: 1px solid #E5E7EB; padding: 15px; border-radius: 12px; margin-top: 15px; }
+        .specific-result { margin-top: 10px; font-size: 1em; font-weight: 700; color: var(--primary-color); background: #ECFDF5; padding: 8px; border-radius: 6px; text-align: center;}
         
-        table.mgmt-table { width: 100%; border-collapse: collapse; margin-bottom: 15px;}
-        table.mgmt-table th, table.mgmt-table td { border: 1px solid #ddd; padding: 8px; text-align: left; background: #f9f9f9; }
-        table.mgmt-table th { background: #e8f5e9; color: var(--primary-color); font-weight: bold; }
-        table.mgmt-table input, table.mgmt-table textarea { width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; color: var(--text-color); }
+        .letter-table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 0.85em; background: white; }
+        .letter-table th, .letter-table td { border: 1px solid #E5E7EB; padding: 6px; text-align: center; }
+        .letter-table th { background-color: var(--primary-color); color: white; }
+
+        /* Modals */
+        .modal, .fullscreen-modal { display: none; position: fixed; z-index: 1003; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.5); }
+        .fullscreen-modal-content { background-color: #F9FAFB; width: 100%; min-height: 100%; padding: 20px; box-sizing: border-box; overflow-y: auto; }
+        .modal-header { display: flex; justify-content: space-between; align-items: center; padding-bottom: 10px; border-bottom: 2px solid #E5E7EB; margin-bottom: 15px; }
+        .modal-header h2 { margin: 0; font-size: 1.2em; color: var(--primary-color); }
+        .close-btn { font-size: 1.8em; font-weight: bold; cursor: pointer; color: var(--danger-color); line-height: 1; }
+
+        .management-item { background: #FFFFFF; padding: 12px; border-radius: 8px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; border: 1px solid #E5E7EB; font-size: 0.9em; }
+        .management-text { font-weight: 600; color: var(--text-color); flex-grow: 1; margin-right: 10px; }
+        .management-actions button { padding: 6px 10px; font-size: 0.8em; margin-left: 5px; border-radius: 4px; width: auto; }
+
+        .management-section { background: #FFFFFF; border: 1px solid #E5E7EB; padding: 15px; border-radius: 12px; margin-bottom: 15px; }
+        .section-title { margin-top: 0; font-size: 1em; color: var(--primary-color); border-bottom: 1px solid var(--primary-light); padding-bottom: 8px; margin-bottom: 15px; }
         
-        .add-btn { background: var(--primary-color); }
-        .save-btn { background: var(--secondary-color); }
+        .mgmt-input-group { margin-bottom: 12px; background: #F8FAFC; padding: 12px; border-radius: 10px; border: 1px solid #E2E8F0; box-shadow: 0 1px 2px rgba(0,0,0,0.03); }
+        .mgmt-input-group label { display: block; font-weight: 600; font-size: 0.85em; color: var(--primary-color); margin-bottom: 6px; }
+        .mgmt-input-group input, .mgmt-input-group textarea { width: 100%; padding: 10px; border: 1px solid #CBD5E1; border-radius: 6px; font-size: 0.9em; background: #FFFFFF; box-sizing: border-box; }
         
-        .columns-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 10px; background: #e3f2fd; padding: 15px; border-radius: 8px; border: 1px solid #90caf9; margin-bottom: 15px; }
-        .column-item { display: flex; align-items: center; font-size: 0.9em; font-weight: bold; color: #0d47a1; }
-        .column-item input { width: auto; margin-right: 8px; transform: scale(1.2); }
+        /* Footer */
+        footer { background: #1F2937; color: white; position: fixed; bottom: 0; left: 0; width: 100%; z-index: 1000; height: var(--footer-height); box-sizing: border-box; display: flex; align-items: center; justify-content: center; gap: 15px; border-top-left-radius: 15px; border-top-right-radius: 15px; }
+        footer p { margin: 0; font-size: 0.75em; opacity: 0.8;}
+        footer button { background: none; border: none; color: #60A5FA; cursor: pointer; font-size: 0.75em; padding: 5px; width: auto;}
         
-        .management-section { background: #fdfdff; border: 1px solid #ccc; padding: 15px; border-radius: 10px; margin-bottom: 20px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
-        .section-title { margin-top: 0; color: var(--primary-color); border-bottom: 2px solid var(--primary-color); padding-bottom: 5px; margin-bottom: 15px; }
+        /* Data Backup Banner */
+        .backup-banner { background: #FEF3C7; border: 1px solid #FCD34D; padding: 15px; border-radius: 8px; margin-bottom: 15px; }
+        .backup-banner h4 { margin: 0 0 8px 0; color: #B45309; font-size: 0.95em; }
     </style>
 </head>
 <body>
     <header>
-        <div id="settings-icon">⚙️</div>
+        <div id="settings-icon" title="सेटिंग्स">⚙️</div>
         <h1>सिपाही बाबा रूहानी सेंटर</h1>
         <div id="refresh-icon" title="रिफ्रेश करें">🔄</div>
     </header>
 
     <div class="top-management-bar">
-        <button class="management-btn" id="home-btn" style="background-color: #28a745;">होम</button>
-        <button class="management-btn" id="open-name-management-modal-btn">नाम प्रबंधन</button>
-        <button class="management-btn" id="open-unified-management-modal-btn" style="background-color: #ff9800;">कैटिगरी / पेज / कलम प्रबंधन</button>
+        <button class="management-btn" id="home-btn" style="background-color: #10B981;">होम</button>
+        <button class="management-btn" id="open-name-management-modal-btn" style="background-color: #6366F1;">नाम प्रबंधन</button>
+        <button class="management-btn" id="open-unified-management-modal-btn" style="background-color: var(--secondary-color);">कैटिगरी/पेज प्रबंधन</button>
     </div>
 
     <!-- Sidebar -->
     <div id="sidebar">
         <h3>सिस्टम स्टेटस</h3>
-        <div class="api-box">
-            <span style="font-size: 0.8rem; font-weight: bold; color: #28a745;">● Live Status: Active</span>
-            <div class="api-url-text">Dual Engine Active (Google + Aksharamukha)</div>
+        
+        <!-- NEW FIREBASE SYNC STATUS -->
+        <div class="api-box" style="margin-bottom: 10px; background: #F0FDF4; border-color: #BBF7D0;">
+            <span id="cloud-status" style="font-size: 0.85rem; font-weight: bold; color: #D97706;">⏳ क्लाउड सिंक: कनेक्ट हो रहा है...</span>
         </div>
-        <p style="font-size: 0.9em; color: #555;">नोट: कलम (Fields) की सेटिंग अब "पेज प्रबंधन" के अंदर ही की जाती है।</p>
+
+        <div class="api-box">
+            <span style="font-size: 0.8rem; font-weight: 600; color: #10B981;">● Translation API: Active</span>
+            <div class="api-url-text">Dual Engine (gtx + Aksharamukha)</div>
+        </div>
+        <p style="font-size: 0.8em; color: var(--text-light); line-height: 1.5; margin-top:15px;">
+            <b>नोट:</b> अब आपका डेटा मोबाइल (Local) और इंटरनेट (Firebase) दोनों जगह सुरक्षित सेव हो रहा है।
+        </p>
     </div>
     <div id="sidebar-overlay"></div>
 
@@ -192,10 +259,11 @@
             <h2>कैटिगरी चुनें</h2>
             <div id="istikhara-buttons-wrapper"></div>
         </div>
+        
         <div id="form-container" style="display: none;">
             <div id="form-title-wrapper">
                 <h2 id="form-title">फॉर्म</h2>
-                <span id="clear-form-icon" title="फॉर्म क्लियर करें">✕</span>
+                <span id="clear-form-icon" title="फॉर्म क्लियर करें">साफ़ करें ✕</span>
             </div>
             <p id="form-description"></p>
 
@@ -203,11 +271,10 @@
                 <!-- Page Selector -->
                 <div class="input-group" id="question_group">
                     <div class="field-header-row">
-                        <label for="question" class="label-text" style="color: #d32f2f; font-size: 1.1em;">पेज का चुनाव करें</label>
+                        <label for="question" class="label-text" style="color: var(--danger-color);">पेज का चुनाव करें</label>
                         <span class="live-adad" id="question_adad_display">0</span>
-                        <div class="engine-selector-wrapper"></div> <!-- Empty for alignment -->
                     </div>
-                    <select id="question" style="border: 2px solid #d32f2f; font-weight: bold;"></select>
+                    <select id="question" style="border: 1px solid var(--danger-color); font-weight: 600; color: var(--danger-color);"></select>
                 </div>
 
                 <input type="hidden" id="name_urdu"><input type="hidden" id="motherName_urdu"><input type="hidden" id="fatherName_urdu">
@@ -219,8 +286,8 @@
                         <span class="live-adad" id="name_adad_display">0</span>
                         <div class="engine-selector-wrapper">
                             <select class="mini-engine-select" id="name_engine">
-                                <option value="google">स्मार्ट AI</option>
-                                <option value="aksharamukha">डायरेक्ट लिपि</option>
+                                <option value="google">Google API</option>
+                                <option value="aksharamukha">Aksharamukha</option>
                             </select>
                         </div>
                     </div>
@@ -237,8 +304,8 @@
                         <span class="live-adad" id="mother_adad_display">0</span>
                         <div class="engine-selector-wrapper">
                             <select class="mini-engine-select" id="mother_engine">
-                                <option value="google">स्मार्ट AI</option>
-                                <option value="aksharamukha">डायरेक्ट लिपि</option>
+                                <option value="google">Google API</option>
+                                <option value="aksharamukha">Aksharamukha</option>
                             </select>
                         </div>
                     </div>
@@ -255,8 +322,8 @@
                         <span class="live-adad" id="father_adad_display">0</span>
                         <div class="engine-selector-wrapper">
                             <select class="mini-engine-select" id="father_engine">
-                                <option value="google">स्मार्ट AI</option>
-                                <option value="aksharamukha">डायरेक्ट लिपि</option>
+                                <option value="google">Google API</option>
+                                <option value="aksharamukha">Aksharamukha</option>
                             </select>
                         </div>
                     </div>
@@ -269,9 +336,8 @@
                 <!-- Day Field -->
                 <div class="input-group" id="day_group">
                     <div class="field-header-row">
-                        <label for="day" class="label-text">दिन का फील्ड</label>
+                        <label for="day" class="label-text">दिन</label>
                         <span class="live-adad" id="day_adad_display">0</span>
-                        <div class="engine-selector-wrapper"></div>
                     </div>
                     <select id="day"></select>
                 </div>
@@ -281,7 +347,6 @@
                     <div class="field-header-row">
                         <label for="date" class="label-text">तारीख</label>
                         <span class="live-adad" id="date_adad_display">0</span>
-                        <div class="engine-selector-wrapper"></div>
                     </div>
                     <select id="date"></select>
                 </div>
@@ -291,9 +356,16 @@
                     <div class="field-header-row">
                         <label for="month" class="label-text">महीना</label>
                         <span class="live-adad" id="month_adad_display">0</span>
-                        <div class="engine-selector-wrapper"></div>
                     </div>
-                    <select id="month"><option value="">महीना चुनें...</option><option value="जनवरी">जनवरी</option><option value="फरवरी">फरवरी</option><option value="मार्च">मार्च</option><option value="अप्रैल">अप्रैल</option><option value="मई">मई</option><option value="जून">जून</option><option value="जुलाई">जुलाई</option><option value="अगस्त">अगस्त</option><option value="सितंबर">सितंबर</option><option value="अक्टूबर">अक्टूबर</option><option value="नवंबर">नवंबर</option><option value="दिसंबर">दिसंबर</option></select>
+                    <select id="month">
+                        <option value="">महीना चुनें...</option>
+                        <option value="जनवरी">जनवरी</option><option value="फरवरी">फरवरी</option>
+                        <option value="मार्च">मार्च</option><option value="अप्रैल">अप्रैल</option>
+                        <option value="मई">मई</option><option value="जून">जून</option>
+                        <option value="जुलाई">जुलाई</option><option value="अगस्त">अगस्त</option>
+                        <option value="सितंबर">सितंबर</option><option value="अक्टूबर">अक्टूबर</option>
+                        <option value="नवंबर">नवंबर</option><option value="दिसंबर">दिसंबर</option>
+                    </select>
                 </div>
                 
                 <!-- Year Field -->
@@ -301,48 +373,52 @@
                     <div class="field-header-row">
                         <label for="year_input" class="label-text">साल</label>
                         <span class="live-adad" id="year_adad_display">0</span>
-                        <div class="engine-selector-wrapper"></div>
                     </div>
-                    <div class="input-wrapper"><input type="number" id="year_input" placeholder="साल डालें या चुनें"><span id="open_year_modal_btn" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); font-size: 1.5em; cursor: pointer; user-select: none;">📅</span></div>
+                    <input type="number" id="year_input" placeholder="साल डालें (जैसे: 2024)">
                 </div>
                 
                 <!-- Saad Field -->
                 <div class="input-group" id="saad_group">
                     <div class="field-header-row">
-                        <label for="saad" class="label-text">सआद का फील्ड</label>
+                        <label for="saad" class="label-text">सआद</label>
                         <span class="live-adad" id="saad_adad_display">0</span>
-                        <div class="engine-selector-wrapper"></div>
                     </div>
                     <select id="saad"></select>
                 </div>
                 
-                <div class="button-group"><button type="submit">कैलकुलेट करें</button><button type="button" id="back-to-selection-btn" class="back-btn">वापस जाएं</button></div>
+                <div class="button-group">
+                    <button type="submit">कैलकुलेट करें</button>
+                    <button type="button" id="back-to-selection-btn" class="back-btn">वापस</button>
+                </div>
             </form>
         </div>
         <div id="result" style="display: none;"></div>
     </main>
-    
-    <div id="yearModal" class="modal"><div class="modal-content"><h4>साल चुनें</h4><div id="yearGrid" class="year-grid"></div></div></div>
     
     <!-- Name Management Modal -->
     <div id="nameManagementModal" class="fullscreen-modal">
         <div class="fullscreen-modal-content">
             <div class="modal-header"><h2>नाम प्रबंधन</h2><span class="close-btn" data-modal-id="nameManagementModal">&times;</span></div>
             <div id="name-management-content">
-                <form id="add-name-form" style="margin-bottom: 20px; background: #f9f9f9; padding: 15px; border-radius: 8px;">
-                    <h3 style="margin-top:0; color:var(--primary-color);">नया विशेष नाम जोड़ें</h3>
-                    <div class="input-group">
-                        <label for="new-name-input" style="display:block;">हिंदी/अंग्रेजी नाम (कॉमा से अलग करें)</label>
-                        <input type="text" id="new-name-input" required placeholder="जैसे: उम्मे कुलसुम, Umme Kulsum">
+                <form id="add-name-form" style="margin-bottom: 20px; background: #FFFFFF; padding: 15px; border-radius: 12px; border: 1px solid #E5E7EB;">
+                    <h3 style="margin-top:0; font-size:1em; color:var(--primary-color);">नया विशेष नाम जोड़ें</h3>
+                    <div class="input-group" style="margin-bottom:10px;">
+                        <label style="display:block; font-size:0.85em; font-weight: 600; margin-bottom:4px;">हिंदी/अंग्रेजी नाम (कॉमा से अलग करें)</label>
+                        <input type="text" id="new-name-input" required placeholder="जैसे: उम्मे कुलसुम">
                     </div>
                     <div class="input-group">
-                        <label for="new-urdu-input" style="display:block;">सही उर्दू वर्तनी (Spelling)</label>
+                        <label style="display:block; font-size:0.85em; font-weight: 600; margin-bottom:4px;">सही उर्दू वर्तनी (Spelling)</label>
                         <input type="text" id="new-urdu-input" required placeholder="जैसे: ام کلثوم" style="direction: rtl;">
                     </div>
                     <input type="hidden" id="editing-name-key">
-                    <div class="button-group"><button type="submit" id="save-new-name" class="save-btn">सेव करें</button><button type="button" id="cancel-name-edit" class="back-btn" style="display:none;">कैंसल</button></div>
+                    <div class="button-group">
+                        <button type="submit" id="save-new-name" class="save-btn">सेव करें</button>
+                        <button type="button" id="cancel-name-edit" class="back-btn" style="display:none;">कैंसल</button>
+                    </div>
                 </form>
-                <hr><h3 style="color:var(--primary-color);">सेव किये गए नामों की सूची</h3><div id="names-list"></div>
+                <hr style="border: 1px solid #E5E7EB; margin: 15px 0;">
+                <h3 style="font-size:1em; color:var(--primary-color);">सेव किये गए नाम</h3>
+                <div id="names-list"></div>
             </div>
         </div>
     </div>
@@ -350,786 +426,385 @@
     <!-- UNIFIED MANAGEMENT MODAL -->
     <div id="unifiedManagementModal" class="fullscreen-modal">
         <div class="fullscreen-modal-content">
-            <div class="modal-header"><h2>कैटिगरी / पेज / कलम प्रबंधन</h2><span class="close-btn" data-modal-id="unifiedManagementModal">&times;</span></div>
+            <div class="modal-header"><h2>कैटिगरी/पेज प्रबंधन</h2><span class="close-btn" data-modal-id="unifiedManagementModal">&times;</span></div>
             
+            <div class="backup-banner">
+                <h4>💾 डेटा सुरक्षित है (Firebase Enabled)</h4>
+                <p style="font-size:0.8em; color:#92400E; margin-bottom: 10px;">
+                    आपका डेटा क्लाउड पर सेव हो रहा है। फिर भी अगर आप चाहें, तो मैनुअल बैकअप फाइल भी रख सकते हैं।
+                </p>
+                <div style="display: flex; gap: 8px;">
+                    <button id="export-data-btn" class="add-btn" style="background-color: #10B981; font-size:0.8em; padding:8px;">📥 Export Local</button>
+                    <input type="file" id="import-data-file" accept=".json" style="display:none;">
+                    <button id="import-data-btn" class="add-btn" style="background-color: #3B82F6; font-size:0.8em; padding:8px;">📤 Import Local</button>
+                </div>
+            </div>
+
             <!-- PDF Download Buttons -->
-            <div style="display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap;">
-                <button id="download-all-pdf" class="add-btn" style="background-color: #dc3545; flex: 1; min-width: 250px;">पूरा चार्ट (All) PDF में डाउनलोड करें</button>
-                <button id="download-category-pdf" class="add-btn" style="background-color: #17a2b8; flex: 1; min-width: 250px;">चुनी गई कैटिगरी PDF में डाउनलोड करें</button>
+            <div style="display: flex; gap: 8px; margin-bottom: 15px;">
+                <button id="download-all-pdf" class="add-btn" style="background-color: var(--danger-color); font-size:0.8em; padding:8px;">पूरा PDF</button>
+                <button id="download-category-pdf" class="add-btn" style="background-color: #8B5CF6; font-size:0.8em; padding:8px;">कैटिगरी PDF</button>
             </div>
 
             <!-- Section 1: Category Management -->
             <div class="management-section">
-                <h3 class="section-title">1. कैटिगरी बनाएं या चुनें</h3>
-                <div style="display: flex; gap: 10px; margin-bottom: 10px; align-items: flex-end; flex-wrap: wrap;">
-                    <div style="flex: 2; min-width: 200px;">
-                        <label style="font-size: 0.9em; font-weight: bold; color: var(--primary-color); display: block; margin-bottom: 5px;">मौजूदा कैटिगरी चुनें:</label>
-                        <select id="mgmt-category-select" style="padding: 10px; border-radius: 8px; border: 1px solid #ccc; width: 100%;"></select>
+                <h3 class="section-title">1. कैटिगरी चुनें या बनाएं</h3>
+                <div style="display: flex; gap: 8px; margin-bottom: 10px; align-items: flex-end; flex-wrap: wrap;">
+                    <div style="flex: 1; min-width: 150px;">
+                        <select id="mgmt-category-select" style="padding: 8px; border-radius: 8px; border: 1px solid #D1D5DB; width: 100%;"></select>
                     </div>
-                    <button id="edit-category-btn" class="management-btn" style="padding: 10px; border-radius: 8px;">एडिट</button>
-                    <button id="delete-category-btn" class="management-btn delete-btn" style="padding: 10px; border-radius: 8px;">डिलीट</button>
-                    <button id="show-add-category-btn" class="add-btn" style="padding: 10px; border-radius: 8px; flex-grow: 1;">+ नई कैटिगरी</button>
+                    <button id="edit-category-btn" class="management-btn" style="background: #3B82F6; border-radius:8px;">एडिट</button>
+                    <button id="delete-category-btn" class="management-btn" style="background: var(--danger-color); border-radius:8px;">डिलीट</button>
                 </div>
+                <button id="show-add-category-btn" class="add-btn" style="padding: 8px; border-radius: 8px; width:100%; margin-bottom:10px;">+ नई कैटिगरी</button>
 
-                <form id="add-category-form" style="display: none; background: #e8f5e9; padding: 15px; border-radius: 8px; margin-top: 15px;">
-                    <h4 id="cat-form-title" style="margin-top:0; color:var(--primary-color);">नई कैटिगरी जोड़ें</h4>
+                <form id="add-category-form" style="display: none; background: #ECFDF5; padding: 15px; border-radius: 12px; margin-top: 10px; border: 1px solid #A7F3D0;">
+                    <h4 id="cat-form-title" style="margin-top:0; font-size:0.95em; color:var(--primary-color);">नई कैटिगरी जोड़ें</h4>
                     <div style="margin-bottom: 10px;">
-                        <label style="display:block; font-weight:bold; margin-bottom:5px;">कैटिगरी का नाम</label>
-                        <input type="text" id="new-category-title" placeholder="जैसे: इस्तिखारा 1 (निकाह के लिए)" required>
+                        <input type="text" id="new-category-title" placeholder="कैटिगरी का नाम" required>
                     </div>
                     <div style="margin-bottom: 10px;">
-                        <label style="display:block; font-weight:bold; margin-bottom:5px;">विवरण (Description)</label>
-                        <textarea id="new-category-description" placeholder="इस कैटिगरी के बारे में कुछ लिखें..."></textarea>
+                        <textarea id="new-category-description" placeholder="विवरण..."></textarea>
                     </div>
                     <input type="hidden" id="editing-category-key">
-                    <div class="button-group" style="margin-top: 10px;">
-                        <button type="submit" class="save-btn">सेव करें</button>
-                        <button type="button" id="cancel-category-edit" class="back-btn">कैंसल</button>
+                    <div class="button-group">
+                        <button type="submit" class="save-btn" style="padding:8px; font-size:0.9em;">सेव करें</button>
+                        <button type="button" id="cancel-category-edit" class="back-btn" style="padding:8px; font-size:0.9em;">कैंसल</button>
                     </div>
                 </form>
             </div>
 
             <!-- Section 2: Page and Columns Management -->
             <div class="management-section" id="page-management-section">
-                <h3 class="section-title">2. चुने गए कैटिगरी के अंदर "पेज" और "कलम" बनाएं</h3>
-                <button id="add-page-btn" class="add-btn" style="margin-bottom: 15px;">+ नया पेज बनाएं</button>
+                <h3 class="section-title">2. पेज / कलम प्रबंधन</h3>
+                <button id="add-page-btn" class="add-btn" style="margin-bottom: 15px; width: 100%; padding: 10px; border-radius: 8px;">+ नया पेज बनाएं</button>
                 
-                <form id="add-page-form" style="display:none; margin-bottom: 20px;">
-                    <h4 style="margin-top:0; color:var(--primary-color);">पेज और उसकी सेटिंग सेट करें</h4>
+                <form id="add-page-form" style="display:none; margin-bottom: 20px; background: #F8FAFC; padding: 15px; border-radius: 12px; border: 1px solid #E5E7EB;">
+                    <h4 style="margin-top:0; font-size:0.95em; color:var(--primary-color);">पेज सेटिंग</h4>
                     
-                    <label style="color: #0d47a1; display:block;"><b>इस पेज में कौन-कौन से कलम (Fields) दिखाने हैं? टिक करें:</b></label>
-                    <div class="columns-grid">
-                        <label class="column-item"><input type="checkbox" id="col-name" checked> नाम</label>
-                        <label class="column-item"><input type="checkbox" id="col-motherName" checked> मां का नाम</label>
-                        <label class="column-item"><input type="checkbox" id="col-fatherName" checked> पिता का नाम</label>
-                        <label class="column-item"><input type="checkbox" id="col-day" checked> दिन</label>
-                        <label class="column-item"><input type="checkbox" id="col-date" checked> तारीख</label>
-                        <label class="column-item"><input type="checkbox" id="col-month" checked> महीना</label>
-                        <label class="column-item"><input type="checkbox" id="col-year" checked> साल</label>
-                        <label class="column-item"><input type="checkbox" id="col-saad" checked> सआद</label>
+                    <label style="color: #2563EB; font-size:0.85em; display:block; margin-bottom: 5px;"><b>कलम (Fields) चुनें:</b></label>
+                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; background: #EFF6FF; padding: 10px; border-radius: 8px; border: 1px solid #BFDBFE; margin-bottom: 15px;">
+                        <label style="font-size:0.85em;"><input type="checkbox" id="col-name" checked> नाम</label>
+                        <label style="font-size:0.85em;"><input type="checkbox" id="col-motherName" checked> मां</label>
+                        <label style="font-size:0.85em;"><input type="checkbox" id="col-fatherName" checked> पिता</label>
+                        <label style="font-size:0.85em;"><input type="checkbox" id="col-day" checked> दिन</label>
+                        <label style="font-size:0.85em;"><input type="checkbox" id="col-date" checked> तारीख</label>
+                        <label style="font-size:0.85em;"><input type="checkbox" id="col-month" checked> महीना</label>
+                        <label style="font-size:0.85em;"><input type="checkbox" id="col-year" checked> साल</label>
+                        <label style="font-size:0.85em;"><input type="checkbox" id="col-saad" checked> सआद</label>
                     </div>
 
-                    <table class="mgmt-table">
-                        <thead><tr><th>पेज का नाम</th><th>सवाल का अदद (अंक)</th><th>तक्शीम (➗)</th><th>नियम (✖️)</th><th>जवाब</th></tr></thead>
-                        <tbody><tr>
-                            <td><input type="text" id="new-page-text" required placeholder="पेज का नाम (जैसे: क्या शादी होगी?)"></td>
-                            <td><input type="number" id="new-page-adad" placeholder="जैसे: 789" min="0"></td>
-                            <td><input type="number" id="new-page-modulus" required placeholder="जैसे: 10" min="2"></td>
-                            <td><input type="number" id="new-page-rule" placeholder="जैसे: 2"></td>
-                            <td><textarea id="new-page-results" required placeholder="उदाहरण:&#10;13579: चोर मर्द है&#10;21: ق = क़ाफ"></textarea></td>
-                        </tr></tbody>
-                    </table>
+                    <div class="mgmt-input-group">
+                        <label for="new-page-text">पेज का नाम</label>
+                        <input type="text" id="new-page-text" required placeholder="जैसे: चोर घर का है या बाहर का">
+                    </div>
+                    <div class="mgmt-input-group">
+                        <label for="new-page-adad">सवाल का अदद (अंक)</label>
+                        <input type="number" id="new-page-adad" placeholder="जैसे: 710" min="0">
+                    </div>
+                    <div class="mgmt-input-group">
+                        <label for="new-page-modulus">तक्शीम (➗)</label>
+                        <input type="number" id="new-page-modulus" required placeholder="जैसे: 3" min="2">
+                    </div>
+                    <div class="mgmt-input-group">
+                        <label for="new-page-rule">नियम (✖️)</label>
+                        <input type="number" id="new-page-rule" placeholder="जैसे: 2 (अगर जरूरत हो)">
+                    </div>
+                    <div class="mgmt-input-group">
+                        <label for="new-page-results">जवाब (परिणाम)</label>
+                        <textarea id="new-page-results" required placeholder="0: घर का&#10;1: मोहल्ले का&#10;2: बाहर का" rows="4"></textarea>
+                    </div>
+
                     <div class="button-group">
-                        <button type="submit" class="save-btn">पेज सेव करें</button>
-                        <button type="button" id="cancel-page-edit" class="back-btn">कैंसल</button>
+                        <button type="submit" class="save-btn" style="padding:10px;">सेव करें</button>
+                        <button type="button" id="cancel-page-edit" class="back-btn" style="padding:10px;">कैंसल</button>
                     </div>
                     <input type="hidden" id="editing-page-key">
                 </form>
                 
-                <h4 style="color:var(--primary-color);">इस कैटिगरी के पेज लिस्ट:</h4>
+                <h4 style="color:var(--primary-color); font-size:0.95em;">पेज लिस्ट:</h4>
                 <div id="pages-list"></div>
             </div>
         </div>
     </div>
 
-    <!-- Modals -->
     <div id="privacyPolicyModal" class="fullscreen-modal">
         <div class="fullscreen-modal-content">
             <div class="modal-header"><h2>Privacy Policy</h2><span class="close-btn" data-modal-id="privacyPolicyModal">&times;</span></div>
-            <div class="policy-content">
-                <p><strong>Last updated: October 01, 2025</strong></p>
-                <p>"Sipahi Baba Ruhani Center" respects your privacy. This policy explains how we handle your information.</p>
-                <h3>1. Data Collection and Usage</h3>
-                <p>This application operates entirely locally within your web browser.</p>
-                <ul>
-                    <li><strong>No Personal Data Collection:</strong> We do not collect, store, or transmit any personal information you enter (such as your name, parents' names, date of birth, etc.) to any server.</li>
-                    <li><strong>Local Storage:</strong> To enhance your experience, the app saves your custom names, questions, and field settings in your browser's local storage. This data is stored only on your device and is not accessible to us or any third party.</li>
-                    <li><strong>Calculations:</strong> All calculations and analyses are performed on your device itself. No information is sent to a server for processing.</li>
-                </ul>
-                <h3>2. Third-Party Services</h3>
-                <p>We use a secure public API (Aksharamukha & Google) to transliterate names from Hindi/English to Urdu. Only the text you enter into the name fields is sent to this service for transliteration purposes.</p>
-                <h3>3. Cookies</h3>
-                <p>This website does not use cookies.</p>
-            </div>
-        </div>
-    </div>
-
-    <div id="termsConditionsModal" class="fullscreen-modal">
-        <div class="fullscreen-modal-content">
-            <div class="modal-header"><h2>Terms and Conditions</h2><span class="close-btn" data-modal-id="termsConditionsModal">&times;</span></div>
-            <div class="policy-content">
-                <p><strong>Last updated: October 01, 2025</strong></p>
-                <p>By using the "Sipahi Baba Ruhani Center" web application, you agree to the following terms and conditions:</p>
-                <h3>1. Use of Services</h3>
-                <p>This application and its calculations are provided for informational, spiritual, and entertainment purposes only.</p>
-                <h3>2. Disclaimer</h3>
-                <ul>
-                    <li><strong>No Professional Advice:</strong> The information and results provided by this app are not a substitute for any kind of professional, legal, financial, or medical advice.</li>
-                    <li><strong>Personal Responsibility:</strong> You are solely responsible for the interpretation and use of the information obtained from this application. We will not be liable for any decisions made or actions taken by you in reliance on such information.</li>
-                    <li><strong>No Guarantee of Accuracy:</strong> We do not guarantee the accuracy, reliability, or completeness of the calculations or results provided.</li>
-                </ul>
+            <div style="line-height: 1.5; font-size:0.9em; color: var(--text-color);">
+                <p><strong>सिपाही बाबा रूहानी सेंटर</strong> आपकी प्राइवेसी का सम्मान करता है। डेटा आपके डिवाइस और आपके प्राइवेट फायरबेस में सुरक्षित रहता है।</p>
             </div>
         </div>
     </div>
 
     <footer>
-        <p>&copy; 2025 सिपाही बाबा रूहानी सेंटर</p>
+        <p>&copy; 2024 सिपाही बाबा रूहानी सेंटर</p>
         <button id="open-privacy-policy">Privacy Policy</button>
-        <button id="open-terms-conditions">Terms & Conditions</button>
     </footer>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const GOOGLE_API = "https://script.google.com/macros/s/AKfycbxnTQbus7_hdGcQ1KaRvF-ZOwOyYaP0Kv5xBbnv60mGOrnamedRJeBXs_FZ969P41j-/exec";
-            const AKSHAR_API = "https://aksharamukha-plugin.appspot.com/api/public?source=Devanagari&target=Urdu&text=";
-            
-            let allQuestions = {};
-            const defaultColumns = { name: true, motherName: true, fatherName: true, day: true, date: true, month: true, year: true, saad: true };
-            
-            const defaultQuestions = {
-                istikhara1: { title: "इस्तिखारा 1 (निकाह के लिए)", description: "यह कैटिगरी शादी और रिश्ते से जुड़े पेज के लिए है।", questions: { "15013": { text: "क्या शादी का प्रस्ताव स्वीकार करना चाहिए", adad: 15013, modulus: 6, rule: '', columns: defaultColumns, results: {0: 'प्रस्ताव स्वीकार करना शुभ होगा', 1: 'प्रस्ताव पर और विचार करना चाहिए', 2: 'प्रस्ताव में कुछ कमी हो सकती है', 3: 'प्रस्ताव अस्वीकार करना बेहतर है', 4: 'प्रस्ताव में देरी हो सकती है', 5: 'प्रस्ताव पर परिवार की राय लेनी चाहिए'} }, "482": { text: "शादी होगी या नहीं", adad: 482, modulus: 2, rule: '', columns: defaultColumns, results: {0: 'शादी जल्दी होगी', 1: 'शादी में देरी होगी या नहीं होगी'} }}},
-                istikhara2: { title: "इस्तिखारा 2 (रोजगार के लिए)", description: "", questions: {} },
-                istikhara3: { title: "इस्तिखारा 3 (यात्रा के लिए)", description: "", questions: {} },
-                istikhara4: { title: "इस्तिखारा 4 (मसला क्या है)", description: "यह कैटिगरी किसी परेशानी की जड़ जानने के लिए है।", questions: { "789": { text: "इसके साथ क्या मामला है", adad: 789, modulus: 4, rule: '', columns: defaultColumns, results: {0: 'प्रेत का साया', 1: 'जिस्मानी मामला', 2: 'कार्रवाई हुई है', 3: 'कोई बीमारी नहीं'} } }},
-                istikhara5: { title: "इस्तिखारा 5 (चोर का नाम क्या है)", description: "28 हर्फ के आधार पर चोर के नाम का पहला अक्षर मालूम करने के लिए।", questions: { "723": { text: "चोर का नाम क्या है", adad: 723, modulus: 28, rule: '', columns: defaultColumns, results: {0: 'ی = ये', 1: 'ا = अलिफ', 2: 'ب = बे', 3: 'ت = ते', 4: 'ث = से', 5: 'ج = जीम / चे', 6: 'ح = हा', 7: 'خ = ख़ा', 8: 'د = दाल', 9: 'ذ = ज़ाल', 10: 'ر = रे', 11: 'ز = ज़े', 12: 'س = सीन', 13: 'ش = शीन', 14: 'ص = स्वाद', 15: 'ض = ज़्वाद', 16: 'ط = तोए', 17: 'ظ = ज़ोए', 18: 'ع = ऐन', 19: 'غ = ग़ैन', 20: 'ف = फ़े', 21: 'ق = क़ाफ', 22: 'ک = काफ', 23: 'ل = लाम', 24: 'م = मीम', 25: 'ن = नून', 26: 'و = वाव', 27: 'ہ = हे'} } }}
-            };
+    <!-- FIREBASE MODULE SCRIPT -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getDatabase, ref, set, get, child } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
 
-            const days = {"": "दिन चुनें", "रविवार": "रविवार", "सोमवार": "सोमवार", "मंगलवार": "मंगलवार", "बुधवार": "बुधवार", "गुरुवार": "गुरुवार", "शुक्रवार": "शुक्रवार", "शनिवार": "शनिवार"};
-            const dayNumbers = {'':0, 'रविवार': 608, 'सोमवार': 212, 'मंगलवार': 140, 'बुधवार': 11, 'गुरुवार': 714, 'शुक्रवार': 158, 'शनिवार': 490};
-            const monthNumbers = {'':0, 'जनवरी': 269, 'फरवरी': 496, 'मार्च': 244, 'अप्रैल': 243, 'मई': 50, 'जून': 59, 'जुलाई': 50, 'अगस्त': 464, 'सितंबर': 702, 'अक्टूबर': 629, 'नवंबर': 298, 'दिसंबर': 306};
-            
-            const urduAbjad = { 'ا': 1, 'آ': 1, 'أ': 1, 'إ': 1, 'ء': 1, 'ب': 2, 'پ': 2, 'ج': 3, 'چ': 3, 'د': 4, 'ڈ': 4, 'ہ': 5, 'ه': 5, 'ھ': 5, 'و': 6, 'ز': 7, 'ژ': 7, 'ح': 8, 'ط': 9, 'ی': 10, 'ى': 10, 'ے': 10, 'ک': 20, 'ك': 20, 'گ': 20, 'ل': 30, 'م': 40, 'ن': 50, 'ں': 50, 'س': 60, 'ع': 70, 'ف': 80, 'ص': 90, 'ق': 100, 'ر': 200, 'ڑ': 200, 'ش': 300, 'ت': 400, 'ٹ': 400, 'ث': 500, 'خ': 600, 'ذ': 700, 'ض': 800, 'ظ': 900, 'غ': 1000 };
+        // Your Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyAO5P0s5-uCKXKkW9dEQZ-sa_jIq2gjwWU",
+            authDomain: "sipahibaba-beed8.firebaseapp.com",
+            projectId: "sipahibaba-beed8",
+            storageBucket: "sipahibaba-beed8.firebasestorage.app",
+            messagingSenderId: "415044697001",
+            appId: "1:415044697001:web:85887ce15f3647c984a2b8"
+        };
 
-            const defaultSpecialCases = { 'Jyoti': 'جيوتي', 'राम': 'رام', 'मोहन':'موہن', 'सीता': 'سیتا', 'Fatima':'فاطمہ', 'Mohammed': 'محمد', 'Hasan':'حسن', 'Ali': 'علی', 'मोहम्मद': 'محمد', 'हसन': 'حسن', 'फातिमा': 'فاطمہ', 'समसुद्दीन': 'شمس الدین', 'Shamsuddin': 'شمس الدین', 'Saiyda': 'سیدہ', 'सैयदा': 'سیدہ', 'Bano': 'بانو', 'बानो': 'بانو', 'सिराज': 'سراج', 'Siraj': 'سراج', 'अकबर': 'اکبر', 'Akbar': 'اکبر', 'रेहाना': 'ریहाना', 'Rehana': 'ریहाना', 'Umme kulsum': 'ام کلثوم', 'उम्मे कुलसुम': 'ام کلثوم', 'Ummekulsum': 'ام کلثوم' };
-            
-            let customTranslations = {};
-            let hindiSpecialCases = {};
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
 
-            const grahaCycle = ['शम्स', 'क़मर', 'मिर्रीख़', 'अतारिद', 'मुश्तरी', 'ज़ोहरा', 'ज़ुहल'];
-            const grahaAdad = {'शम्स': 400, 'क़मर': 340, 'मिर्रीख़': 850, 'अतारिद': 284, 'मुश्तरी': 950, 'ज़ोहरा': 217, 'ज़ुहल': 45};
-            const dayStartingGraha = {'रविवार': 0, 'सोमवार': 1, 'मंगलवार': 2, 'बुधवार': 3, 'गुरुवार': 4, 'शुक्रवार': 5, 'शनिवार': 6};
-            
-            function formatTime12Hour(hour24) { const period = hour24 >= 5 && hour24 < 12 ? 'सुबह' : hour24 >= 12 && hour24 < 16 ? 'दोपहर' : hour24 >= 16 && hour24 < 20 ? 'शाम' : 'रात'; let hour12 = hour24 % 12; if (hour12 === 0) hour12 = 12; return `${period} ${hour12}:00`; }
-            const saadData = {};
-            Object.keys(dayStartingGraha).forEach(day => { const startIndex = dayStartingGraha[day]; saadData[day] = Array.from({ length: 24 }).map((_, index) => { const h1_24 = (index + 6) % 24; const h2_24 = (h1_24 + 1); const time = `${formatTime12Hour(h1_24)} - ${h2_24 % 12 === 0 ? 12 : h2_24 % 12}:00`; const grahaIndex = (startIndex + index) % 7; return { time: time, planet: grahaCycle[grahaIndex], adad: grahaAdad[grahaCycle[grahaIndex]] }; }); });
+        const GOOGLE_API = "https://translate.googleapis.com/translate_a/single?client=gtx&sl=hi&tl=ur&dt=t&q="; 
+        const AKSHAR_API = "https://aksharamukha-plugin.appspot.com/api/public?source=Devanagari&target=Urdu&text=";
+        
+        let allQuestions = {};
+        const defaultColumns = { name: true, motherName: true, fatherName: true, day: true, date: true, month: true, year: true, saad: true };
+        
+        const defaultQuestions = {
+            istikhara1: { title: "इस्तिखारा 1 (निकाह के लिए)", description: "यह कैटिगरी शादी और रिश्ते से जुड़े पेज के लिए है।", questions: { "15013": { text: "क्या शादी का प्रस्ताव स्वीकार करना चाहिए", adad: 15013, modulus: 6, rule: '', columns: defaultColumns, results: {0: 'प्रस्ताव स्वीकार करना शुभ होगा', 1: 'प्रस्ताव पर और विचार करना चाहिए', 2: 'प्रस्ताव में कुछ कमी हो सकती है', 3: 'प्रस्ताव अस्वीकार करना बेहतर है', 4: 'प्रस्ताव में देरी हो सकती है', 5: 'प्रस्ताव पर परिवार की राय लेनी चाहिए'} }, "482": { text: "शादी होगी या नहीं", adad: 482, modulus: 2, rule: '', columns: defaultColumns, results: {0: 'शादी जल्दी होगी', 1: 'शादी में देरी होगी या नहीं होगी'} }}},
+            istikhara4: { title: "इस्तिखारा 4 (मसला क्या है)", description: "यह कैटिगरी किसी परेशानी की जड़ जानने के लिए है।", questions: { "789": { text: "इसके साथ क्या मामला है", adad: 789, modulus: 4, rule: '', columns: defaultColumns, results: {0: 'प्रेत का साया', 1: 'जिस्मानी मामला', 2: 'कार्रवाई हुई है', 3: 'कोई बीमारी नहीं'} } }},
+        };
 
-            const selectionContainer = document.getElementById('selection-container'), formContainer = document.getElementById('form-container'), resultDiv = document.getElementById('result'), formTitle = document.getElementById('form-title'), entryForm = document.getElementById('entryForm'), questionSelect = document.getElementById('question'), settingsIcon = document.getElementById('settings-icon'), sidebar = document.getElementById('sidebar'), sidebarOverlay = document.getElementById('sidebar-overlay'), backToSelectionBtn = document.getElementById('back-to-selection-btn'), nameInput = document.getElementById('name_input'), motherNameInput = document.getElementById('motherName_input'), fatherNameInput = document.getElementById('fatherName_input'), nameUrduDisplay = document.getElementById('name_urdu_display'), motherNameUrduDisplay = document.getElementById('motherName_urdu_display'), fatherNameUrduDisplay = document.getElementById('fatherName_urdu_display'), nameUrduHidden = document.getElementById('name_urdu'), motherNameUrduHidden = document.getElementById('motherName_urdu'), fatherNameUrduHidden = document.getElementById('fatherName_urdu'), formDescription = document.getElementById('form-description');
-            let currentCategoryKey = null;
+        const days = {"": "दिन चुनें", "रविवार": "रविवार", "सोमवार": "सोमवार", "मंगलवार": "मंगलवार", "बुधवार": "बुधवार", "गुरुवार": "गुरुवार", "शुक्रवार": "शुक्रवार", "शनिवार": "शनिवार"};
+        const dayNumbers = {'':0, 'रविवार': 608, 'सोमवार': 212, 'मंगलवार': 140, 'बुधवार': 11, 'गुरुवार': 714, 'शुक्रवार': 158, 'शनिवार': 490};
+        const monthNumbers = {'':0, 'जनवरी': 269, 'फरवरी': 496, 'मार्च': 244, 'अप्रैल': 243, 'मई': 50, 'जून': 59, 'जुलाई': 50, 'अगस्त': 464, 'सितंबर': 702, 'अक्टूबर': 629, 'नवंबर': 298, 'दिसंबर': 306};
+        
+        const urduAbjad = { 'ا': 1, 'آ': 1, 'أ': 1, 'إ': 1, 'ء': 1, 'ب': 2, 'پ': 2, 'ج': 3, 'چ': 3, 'د': 4, 'ڈ': 4, 'ہ': 5, 'ه': 5, 'ھ': 5, 'و': 6, 'ز': 7, 'ژ': 7, 'ح': 8, 'ط': 9, 'ی': 10, 'ى': 10, 'ے': 10, 'ک': 20, 'ك': 20, 'گ': 20, 'ل': 30, 'م': 40, 'ن': 50, 'ں': 50, 'س': 60, 'ع': 70, 'ف': 80, 'ص': 90, 'ق': 100, 'ر': 200, 'ڑ': 200, 'ش': 300, 'ت': 400, 'ٹ': 400, 'ث': 500, 'خ': 600, 'ذ': 700, 'ض': 800, 'ظ': 900, 'غ': 1000 };
+        const defaultSpecialCases = { 'Jyoti': 'جيوتي', 'राम': 'رام', 'मोहन':'موہن', 'सीता': 'سیتا', 'Fatima':'فاطمہ', 'Mohammed': 'محمد', 'Hasan':'حسن', 'Ali': 'علی', 'मोहम्मद': 'محمد', 'हसन': 'حسن', 'फातिमा': 'فاطمہ', 'Umme kulsum': 'ام کلثوم' };
+        
+        let customTranslations = {}; let hindiSpecialCases = {};
+        const grahaCycle = ['शम्स', 'क़मर', 'मिर्रीख़', 'अतारिद', 'मुश्तरी', 'ज़ोहरा', 'ज़ुहल'];
+        const grahaAdad = {'शम्स': 400, 'क़मर': 340, 'मिर्रीख़': 850, 'अतारिद': 284, 'मुश्तरी': 950, 'ज़ोहरा': 217, 'ज़ुहल': 45};
+        const dayStartingGraha = {'रविवार': 0, 'सोमवार': 1, 'मंगलवार': 2, 'बुधवार': 3, 'गुरुवार': 4, 'शुक्रवार': 5, 'शनिवार': 6};
+        
+        function formatTime12Hour(hour24) { const period = hour24 >= 5 && hour24 < 12 ? 'सुबह' : hour24 >= 12 && hour24 < 16 ? 'दोपहर' : hour24 >= 16 && hour24 < 20 ? 'शाम' : 'रात'; let hour12 = hour24 % 12; if (hour12 === 0) hour12 = 12; return `${period} ${hour12}:00`; }
+        const saadData = {};
+        Object.keys(dayStartingGraha).forEach(day => { const startIndex = dayStartingGraha[day]; saadData[day] = Array.from({ length: 24 }).map((_, index) => { const h1_24 = (index + 6) % 24; const h2_24 = (h1_24 + 1); const time = `${formatTime12Hour(h1_24)} - ${h2_24 % 12 === 0 ? 12 : h2_24 % 12}:00`; const grahaIndex = (startIndex + index) % 7; return { time: time, planet: grahaCycle[grahaIndex], adad: grahaAdad[grahaCycle[grahaIndex]] }; }); });
 
-            // --- Home Button Event Listener ---
-            document.getElementById('home-btn').addEventListener('click', () => {
-                document.getElementById('nameManagementModal').style.display = 'none';
-                document.getElementById('unifiedManagementModal').style.display = 'none';
-                document.getElementById('privacyPolicyModal').style.display = 'none';
-                document.getElementById('termsConditionsModal').style.display = 'none';
-                
-                formContainer.style.display = 'none'; 
-                resultDiv.style.display = 'none';
-                selectionContainer.style.display = 'block'; 
-                currentCategoryKey = null; 
-                resetFullForm();
-            });
+        const selectionContainer = document.getElementById('selection-container'), formContainer = document.getElementById('form-container'), resultDiv = document.getElementById('result'), formTitle = document.getElementById('form-title'), entryForm = document.getElementById('entryForm'), questionSelect = document.getElementById('question'), settingsIcon = document.getElementById('settings-icon'), sidebar = document.getElementById('sidebar'), sidebarOverlay = document.getElementById('sidebar-overlay'), backToSelectionBtn = document.getElementById('back-to-selection-btn'), nameInput = document.getElementById('name_input'), motherNameInput = document.getElementById('motherName_input'), fatherNameInput = document.getElementById('fatherName_input'), nameUrduDisplay = document.getElementById('name_urdu_display'), motherNameUrduDisplay = document.getElementById('motherName_urdu_display'), fatherNameUrduDisplay = document.getElementById('fatherName_urdu_display'), nameUrduHidden = document.getElementById('name_urdu'), motherNameUrduHidden = document.getElementById('motherName_urdu'), fatherNameUrduHidden = document.getElementById('fatherName_urdu'), formDescription = document.getElementById('form-description');
+        let currentCategoryKey = null;
 
-            // --- Refresh Icon Logic ---
-            document.getElementById('refresh-icon').addEventListener('click', () => {
-                window.location.reload();
-            });
+        document.getElementById('home-btn').addEventListener('click', () => { document.querySelectorAll('.fullscreen-modal').forEach(m => m.style.display = 'none'); formContainer.style.display = 'none'; resultDiv.style.display = 'none'; selectionContainer.style.display = 'block'; currentCategoryKey = null; resetFullForm(); });
+        document.getElementById('refresh-icon').addEventListener('click', () => { window.location.reload(); });
 
-            function loadCustomNames() { const storedNames = localStorage.getItem('customTranslations'); customTranslations = storedNames ? JSON.parse(storedNames) : {}; }
-            function saveCustomNames() { localStorage.setItem('customTranslations', JSON.stringify(customTranslations)); }
-            function mergeSpecialCases() { hindiSpecialCases = { ...defaultSpecialCases, ...customTranslations }; }
-            function renderNamesList() { const listContainer = document.getElementById('names-list'); listContainer.innerHTML = ''; const allKeys = { ...customTranslations }; if(Object.keys(allKeys).length === 0){ listContainer.innerHTML = '<p>अभी कोई विशेष नाम नहीं जोड़ा गया है।</p>'; return; } const sortedKeys = Object.keys(allKeys).sort(); sortedKeys.forEach(key => { const item = document.createElement('div'); item.className = 'management-item'; item.innerHTML = ` <span class="management-text">${key} &rarr; ${allKeys[key]}</span> <div class="management-actions"> <button class="edit-btn" data-key="${key}">संपादित</button> <button class="delete-btn" data-key="${key}">हटाएं</button> </div>`; listContainer.appendChild(item); }); }
+        // --- HYBRID DATA SAVING (LOCAL + FIREBASE) ---
+        function loadCustomNames() { 
+            const storedNames = localStorage.getItem('customTranslations'); 
+            customTranslations = storedNames ? JSON.parse(storedNames) : {}; 
+        }
+        function saveCustomNames() { 
+            localStorage.setItem('customTranslations', JSON.stringify(customTranslations)); 
+            pushToFirebase(); // Backup to Cloud
+        }
+        function mergeSpecialCases() { hindiSpecialCases = { ...defaultSpecialCases, ...customTranslations }; }
+        
+        function loadData() { 
+            const stored = localStorage.getItem('allQuestionsData'); 
+            allQuestions = stored ? JSON.parse(stored) : JSON.parse(JSON.stringify(defaultQuestions)); 
+        }
+        function saveData() { 
+            localStorage.setItem('allQuestionsData', JSON.stringify(allQuestions)); 
+            pushToFirebase(); // Backup to Cloud
+        }
 
-            const nameManagementModal = document.getElementById('nameManagementModal');
-            const addNameForm = document.getElementById('add-name-form');
-            const newNameInput = document.getElementById('new-name-input');
-            const newUrduInput = document.getElementById('new-urdu-input');
-            const editingNameKey = document.getElementById('editing-name-key');
-            const cancelEditBtn = document.getElementById('cancel-name-edit');
-            document.getElementById('open-name-management-modal-btn').addEventListener('click', () => { renderNamesList(); nameManagementModal.style.display = 'block'; });
-            function resetNameForm(){ addNameForm.reset(); editingNameKey.value = ''; cancelEditBtn.style.display = 'none'; }
-            addNameForm.addEventListener('submit', (e) => { e.preventDefault(); const nameKeysRaw = newNameInput.value.trim(); const urduValue = newUrduInput.value.trim(); if(!nameKeysRaw || !urduValue) { alert('दोनों फील्ड भरना अनिवार्य है।'); return; } const oldKeysRaw = editingNameKey.value; if(oldKeysRaw){ oldKeysRaw.split(',').forEach(oldKey => { const trimmedOldKey = oldKey.trim(); if(trimmedOldKey) delete customTranslations[trimmedOldKey]; }); } nameKeysRaw.split(',').forEach(nameKey => { const trimmedKey = nameKey.trim(); if(trimmedKey) customTranslations[trimmedKey] = urduValue; }); saveCustomNames(); mergeSpecialCases(); renderNamesList(); resetNameForm(); });
-            cancelEditBtn.addEventListener('click', resetNameForm);
-            document.getElementById('names-list').addEventListener('click', (e) => { const key = e.target.dataset.key; if(!key) return; if (e.target.classList.contains('edit-btn')) { const urduValue = customTranslations[key]; const allKeysForValue = Object.keys(customTranslations).filter(k => customTranslations[k] === urduValue); newNameInput.value = allKeysForValue.join(', '); newUrduInput.value = urduValue; editingNameKey.value = allKeysForValue.join(','); cancelEditBtn.style.display = 'inline-block'; newNameInput.focus(); } if (e.target.classList.contains('delete-btn')) { if (confirm(`क्या आप वाकई "${key}" को सूची से हटाना चाहते हैं?`)) { delete customTranslations[key]; saveCustomNames(); mergeSpecialCases(); renderNamesList(); } } });
-
-            function loadData() { const stored = localStorage.getItem('allQuestionsData'); allQuestions = stored ? JSON.parse(stored) : JSON.parse(JSON.stringify(defaultQuestions)); }
-            function saveData() { localStorage.setItem('allQuestionsData', JSON.stringify(allQuestions)); }
-
-            function renderSelectionButtons() { 
-                const wrapper = document.getElementById('istikhara-buttons-wrapper'); 
-                wrapper.innerHTML = ''; 
-                Object.keys(allQuestions).forEach(key => { 
-                    const btn = document.createElement('button'); 
-                    btn.className = 'selection-btn'; 
-                    btn.textContent = allQuestions[key].title; 
-                    btn.dataset.category = key; 
-                    btn.addEventListener('click', handleCategorySelection); 
-                    wrapper.appendChild(btn); 
-                }); 
-            }
-            
-            function handleCategorySelection(e) { 
-                currentCategoryKey = e.target.getAttribute('data-category'); 
-                const catData = allQuestions[currentCategoryKey]; 
-                formTitle.textContent = catData.title; 
-                if (catData.description) { formDescription.textContent = catData.description; formDescription.style.display = 'block'; } else { formDescription.style.display = 'none'; } 
-                
-                populatePagesDropdown(catData.questions); 
-                
-                if(questionSelect.options.length > 1) {
-                    questionSelect.selectedIndex = 1;
-                    applyColumnSettings(questionSelect.value);
-                } else {
-                    applyColumnSettings(null);
-                }
-                
-                updateLiveAdads(); 
-                selectionContainer.style.display = 'none'; 
-                formContainer.style.display = 'block'; 
-                resultDiv.style.display = 'none'; 
-            }
-
-            function populatePagesDropdown(pages) { 
-                questionSelect.innerHTML = '<option value="">-- पेज चुनें --</option>'; 
-                for (const key in pages) { 
-                    const p = pages[key]; 
-                    questionSelect.add(new Option(`${p.text} /${p.adad}`, key)); 
-                } 
-            }
-
-            function applyColumnSettings(pageKey) {
-                if(!pageKey || !allQuestions[currentCategoryKey] || !allQuestions[currentCategoryKey].questions[pageKey]) {
-                    document.querySelectorAll('.input-group:not(#question_group)').forEach(el => el.classList.add('field-hidden'));
-                    return;
-                }
-                
-                let cols = allQuestions[currentCategoryKey].questions[pageKey].columns || defaultColumns;
-                
-                document.getElementById('name_input_group').classList.toggle('field-hidden', !cols.name);
-                document.getElementById('motherName_input_group').classList.toggle('field-hidden', !cols.motherName);
-                document.getElementById('fatherName_input_group').classList.toggle('field-hidden', !cols.fatherName);
-                document.getElementById('day_group').classList.toggle('field-hidden', !cols.day);
-                document.getElementById('date_group').classList.toggle('field-hidden', !cols.date);
-                document.getElementById('month_group').classList.toggle('field-hidden', !cols.month);
-                document.getElementById('year_group').classList.toggle('field-hidden', !cols.year);
-                document.getElementById('saad_group').classList.toggle('field-hidden', !cols.saad);
-                
-                updateLiveAdads();
-            }
-
-            questionSelect.addEventListener('change', (e) => { applyColumnSettings(e.target.value); });
-
-            const unifiedModal = document.getElementById('unifiedManagementModal');
-            const catSelect = document.getElementById('mgmt-category-select');
-            const showAddCatBtn = document.getElementById('show-add-category-btn');
-            const addCatForm = document.getElementById('add-category-form');
-            const addPageBtn = document.getElementById('add-page-btn');
-            const addPageForm = document.getElementById('add-page-form');
-            const pagesList = document.getElementById('pages-list');
-
-            document.getElementById('open-unified-management-modal-btn').addEventListener('click', () => { 
-                populateCategoryMgmtDropdown();
-                addCatForm.style.display = 'none';
-                addPageForm.style.display = 'none';
-                unifiedModal.style.display = 'block'; 
-            });
-
-            function populateCategoryMgmtDropdown() {
-                catSelect.innerHTML = '<option value="">-- कैटिगरी चुनें --</option>';
-                Object.keys(allQuestions).forEach(key => { 
-                    catSelect.add(new Option(allQuestions[key].title, key)); 
+        function pushToFirebase() {
+            try {
+                set(ref(db, 'sipahibaba_data'), {
+                    allQuestionsData: allQuestions,
+                    customTranslations: customTranslations
                 });
-                if(catSelect.options.length > 1) {
-                    catSelect.selectedIndex = 1;
-                    renderMgmtPageList(catSelect.value);
+            } catch(e) {
+                console.log("Firebase push failed (Offline). Saved locally.");
+            }
+        }
+
+        async function syncFromFirebase() {
+            const statusEl = document.getElementById('cloud-status');
+            try {
+                const dbRef = ref(db);
+                const snapshot = await get(child(dbRef, `sipahibaba_data`));
+                if (snapshot.exists()) {
+                    const data = snapshot.val();
+                    if(data.allQuestionsData) {
+                        allQuestions = data.allQuestionsData;
+                        localStorage.setItem('allQuestionsData', JSON.stringify(allQuestions));
+                    }
+                    if(data.customTranslations) {
+                        customTranslations = data.customTranslations;
+                        localStorage.setItem('customTranslations', JSON.stringify(customTranslations));
+                        mergeSpecialCases();
+                    }
+                    statusEl.innerText = "☁️ क्लाउड सिंक: चालू (Connected)";
+                    statusEl.style.color = "#10B981";
+                    renderAll(); // Re-render UI with latest cloud data
                 } else {
-                    pagesList.innerHTML = '<p>कोई कैटिगरी नहीं है।</p>';
+                    // First time: Cloud is empty, push local data to it
+                    pushToFirebase();
+                    statusEl.innerText = "☁️ क्लाउड सिंक: चालू (Connected)";
+                    statusEl.style.color = "#10B981";
                 }
+            } catch (error) {
+                console.log("Offline mode active. Using local data.");
+                statusEl.innerText = "⚠️ क्लाउड सिंक: बंद (Local Mode)";
+                statusEl.style.color = "#D97706";
             }
+        }
 
-            catSelect.addEventListener('change', (e) => {
-                renderMgmtPageList(e.target.value);
-                addPageForm.style.display = 'none';
-            });
+        // Keep local export/import working as a manual backup option
+        document.getElementById('export-data-btn').addEventListener('click', () => { const dataToExport = { allQuestionsData: localStorage.getItem('allQuestionsData') || JSON.stringify(defaultQuestions), customTranslations: localStorage.getItem('customTranslations') || "{}" }; const blob = new Blob([JSON.stringify(dataToExport)], { type: 'application/json' }); const url = URL.createObjectURL(blob); const a = document.createElement('a'); a.href = url; a.download = `Sipahi_Baba_Backup_${new Date().toISOString().slice(0,10)}.json`; document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(url); });
+        document.getElementById('import-data-btn').addEventListener('click', () => { document.getElementById('import-data-file').click(); });
+        document.getElementById('import-data-file').addEventListener('change', (e) => { const file = e.target.files[0]; if(!file) return; const reader = new FileReader(); reader.onload = (ev) => { try { const parsedData = JSON.parse(ev.target.result); if(parsedData.allQuestionsData) { localStorage.setItem('allQuestionsData', parsedData.allQuestionsData); allQuestions = JSON.parse(parsedData.allQuestionsData); } if(parsedData.customTranslations) { localStorage.setItem('customTranslations', parsedData.customTranslations); customTranslations = JSON.parse(parsedData.customTranslations); } pushToFirebase(); alert('✅ रिस्टोर सफल!'); window.location.reload(); } catch(err) { alert('❌ फाइल अमान्य है।'); } }; reader.readAsText(file); });
 
-            showAddCatBtn.addEventListener('click', () => {
-                addCatForm.reset();
-                document.getElementById('editing-category-key').value = '';
-                document.getElementById('cat-form-title').textContent = 'नई कैटिगरी जोड़ें';
-                addCatForm.style.display = 'block';
-            });
+        function renderNamesList() { 
+            const listContainer = document.getElementById('names-list'); listContainer.innerHTML = ''; 
+            if(Object.keys(customTranslations).length === 0){ listContainer.innerHTML = '<p style="font-size:0.85em;">कोई नाम नहीं है।</p>'; return; } 
+            Object.keys(customTranslations).sort().forEach(key => { 
+                const item = document.createElement('div'); item.className = 'management-item'; 
+                item.innerHTML = `<span class="management-text">${key} &rarr; ${customTranslations[key]}</span> <div class="management-actions"><button class="edit-btn" data-key="${key}" style="background:#3B82F6;color:white;">एडिट</button> <button class="delete-btn" data-key="${key}" style="background:var(--danger-color);color:white;">हटाएं</button></div>`; 
+                listContainer.appendChild(item); 
+            }); 
+        }
 
-            document.getElementById('edit-category-btn').addEventListener('click', () => {
-                const catId = catSelect.value;
-                if(!catId) { alert("एडिट करने के लिए कैटिगरी चुनें!"); return; }
-                const catData = allQuestions[catId];
-                document.getElementById('new-category-title').value = catData.title;
-                document.getElementById('new-category-description').value = catData.description || '';
-                document.getElementById('editing-category-key').value = catId;
-                document.getElementById('cat-form-title').textContent = 'कैटिगरी एडिट करें';
-                addCatForm.style.display = 'block';
-            });
+        const nameManagementModal = document.getElementById('nameManagementModal');
+        const addNameForm = document.getElementById('add-name-form');
+        document.getElementById('open-name-management-modal-btn').addEventListener('click', () => { renderNamesList(); nameManagementModal.style.display = 'block'; });
+        function resetNameForm(){ addNameForm.reset(); document.getElementById('editing-name-key').value = ''; document.getElementById('cancel-name-edit').style.display = 'none'; }
+        
+        addNameForm.addEventListener('submit', (e) => { e.preventDefault(); const nameKeysRaw = document.getElementById('new-name-input').value.trim(); const urduValue = document.getElementById('new-urdu-input').value.trim(); if(!nameKeysRaw || !urduValue) return; const oldKeysRaw = document.getElementById('editing-name-key').value; if(oldKeysRaw){ oldKeysRaw.split(',').forEach(oldKey => { if(oldKey.trim()) delete customTranslations[oldKey.trim()]; }); } nameKeysRaw.split(',').forEach(nameKey => { if(nameKey.trim()) customTranslations[nameKey.trim()] = urduValue; }); saveCustomNames(); mergeSpecialCases(); renderNamesList(); resetNameForm(); });
+        document.getElementById('cancel-name-edit').addEventListener('click', resetNameForm);
+        
+        document.getElementById('names-list').addEventListener('click', (e) => { const key = e.target.dataset.key; if(!key) return; if (e.target.classList.contains('edit-btn')) { const urduValue = customTranslations[key]; const allKeysForValue = Object.keys(customTranslations).filter(k => customTranslations[k] === urduValue); document.getElementById('new-name-input').value = allKeysForValue.join(', '); document.getElementById('new-urdu-input').value = urduValue; document.getElementById('editing-name-key').value = allKeysForValue.join(','); document.getElementById('cancel-name-edit').style.display = 'inline-block'; } if (e.target.classList.contains('delete-btn')) { if (confirm(`"${key}" को हटाना चाहते हैं?`)) { delete customTranslations[key]; saveCustomNames(); mergeSpecialCases(); renderNamesList(); } } });
 
-            document.getElementById('delete-category-btn').addEventListener('click', () => {
-                const catId = catSelect.value;
-                if(!catId) { alert("डिलीट करने के लिए कैटिगरी चुनें!"); return; }
-                if(confirm(`क्या आप वाकई "${allQuestions[catId].title}" कैटिगरी को हमेशा के लिए डिलीट करना चाहते हैं?`)) {
-                    delete allQuestions[catId];
-                    saveData();
-                    renderAll();
-                    populateCategoryMgmtDropdown();
-                    alert("कैटिगरी सफलतापूर्वक डिलीट हो गई।");
-                }
-            });
+        function renderSelectionButtons() { const wrapper = document.getElementById('istikhara-buttons-wrapper'); wrapper.innerHTML = ''; Object.keys(allQuestions).forEach(key => { const btn = document.createElement('button'); btn.className = 'selection-btn'; btn.textContent = allQuestions[key].title; btn.dataset.category = key; btn.addEventListener('click', handleCategorySelection); wrapper.appendChild(btn); }); }
+        
+        function handleCategorySelection(e) { currentCategoryKey = e.target.getAttribute('data-category'); const catData = allQuestions[currentCategoryKey]; formTitle.textContent = catData.title; if (catData.description) { formDescription.textContent = catData.description; formDescription.style.display = 'block'; } else { formDescription.style.display = 'none'; } populatePagesDropdown(catData.questions); if(questionSelect.options.length > 1) { questionSelect.selectedIndex = 1; applyColumnSettings(questionSelect.value); } else { applyColumnSettings(null); } updateLiveAdads(); selectionContainer.style.display = 'none'; formContainer.style.display = 'block'; resultDiv.style.display = 'none'; }
 
-            document.getElementById('cancel-category-edit').addEventListener('click', () => { addCatForm.style.display = 'none'; });
+        function populatePagesDropdown(pages) { questionSelect.innerHTML = '<option value="">-- पेज चुनें --</option>'; for (const key in pages) questionSelect.add(new Option(`${pages[key].text} /${pages[key].adad}`, key)); }
 
-            addCatForm.addEventListener('submit', e => {
-                e.preventDefault();
-                const title = document.getElementById('new-category-title').value.trim();
-                const description = document.getElementById('new-category-description').value.trim();
-                const editingKey = document.getElementById('editing-category-key').value;
-                if (!title) return;
-                
-                if (editingKey) {
-                    allQuestions[editingKey].title = title;
-                    allQuestions[editingKey].description = description;
-                } else {
-                    const newKey = `cat_${Date.now()}`;
-                    allQuestions[newKey] = { title, description, questions: {} };
-                }
-                saveData();
-                renderAll();
-                populateCategoryMgmtDropdown();
-                addCatForm.style.display = 'none';
-                alert('कैटिगरी सेव हो गई!');
-            });
+        function applyColumnSettings(pageKey) {
+            if(!pageKey || !allQuestions[currentCategoryKey] || !allQuestions[currentCategoryKey].questions[pageKey]) { document.querySelectorAll('.input-group:not(#question_group)').forEach(el => el.classList.add('field-hidden')); return; }
+            let cols = allQuestions[currentCategoryKey].questions[pageKey].columns || defaultColumns;
+            document.getElementById('name_input_group').classList.toggle('field-hidden', !cols.name); document.getElementById('motherName_input_group').classList.toggle('field-hidden', !cols.motherName); document.getElementById('fatherName_input_group').classList.toggle('field-hidden', !cols.fatherName); document.getElementById('day_group').classList.toggle('field-hidden', !cols.day); document.getElementById('date_group').classList.toggle('field-hidden', !cols.date); document.getElementById('month_group').classList.toggle('field-hidden', !cols.month); document.getElementById('year_group').classList.toggle('field-hidden', !cols.year); document.getElementById('saad_group').classList.toggle('field-hidden', !cols.saad); updateLiveAdads();
+        }
 
-            addPageBtn.addEventListener('click', () => { 
-                if(!catSelect.value) { alert("पहले कैटिगरी चुनें!"); return; }
-                addPageForm.reset(); 
-                document.getElementById('editing-page-key').value = ''; 
-                addPageForm.style.display = 'block'; 
-            });
-            document.getElementById('cancel-page-edit').addEventListener('click', () => { addPageForm.style.display = 'none'; });
+        questionSelect.addEventListener('change', (e) => { applyColumnSettings(e.target.value); });
 
-            addPageForm.addEventListener('submit', (e) => { 
-                e.preventDefault(); 
-                const catId = catSelect.value; 
-                if(!catId) return;
+        const unifiedModal = document.getElementById('unifiedManagementModal');
+        const catSelect = document.getElementById('mgmt-category-select');
+        
+        document.getElementById('open-unified-management-modal-btn').addEventListener('click', () => { populateCategoryMgmtDropdown(); document.getElementById('add-category-form').style.display = 'none'; document.getElementById('add-page-form').style.display = 'none'; unifiedModal.style.display = 'block'; });
 
-                const text = document.getElementById('new-page-text').value.trim(); 
-                const modulus = parseInt(document.getElementById('new-page-modulus').value); 
-                const adad = parseInt(document.getElementById('new-page-adad').value) || 0; 
-                const resultsText = document.getElementById('new-page-results').value; 
-                const rule = document.getElementById('new-page-rule').value.trim();
-                const editingKey = document.getElementById('editing-page-key').value; 
-                const results = parseSimpleResults(resultsText); 
-                
-                if (Object.keys(results).length === 0) { alert('जवाब सही फॉर्मेट में नहीं है! कृपया "0: उत्तर" या "1,2,3: उत्तर" फॉर्मेट का उपयोग करें।'); return; } 
+        function populateCategoryMgmtDropdown() { catSelect.innerHTML = '<option value="">-- कैटिगरी चुनें --</option>'; Object.keys(allQuestions).forEach(key => catSelect.add(new Option(allQuestions[key].title, key))); if(catSelect.options.length > 1) { catSelect.selectedIndex = 1; renderMgmtPageList(catSelect.value); } else { document.getElementById('pages-list').innerHTML = '<p style="font-size:0.85em;">कोई कैटिगरी नहीं है।</p>'; } }
 
-                const columns = {
-                    name: document.getElementById('col-name').checked,
-                    motherName: document.getElementById('col-motherName').checked,
-                    fatherName: document.getElementById('col-fatherName').checked,
-                    day: document.getElementById('col-day').checked,
-                    date: document.getElementById('col-date').checked,
-                    month: document.getElementById('col-month').checked,
-                    year: document.getElementById('col-year').checked,
-                    saad: document.getElementById('col-saad').checked
-                };
-                
-                if (editingKey) delete allQuestions[catId].questions[editingKey]; 
-                const newKey = adad > 0 && !editingKey ? adad.toString() : (editingKey || Date.now().toString()); 
-                allQuestions[catId].questions[newKey] = { text, adad, modulus, results, rule, columns }; 
-                
-                saveData(); 
-                renderMgmtPageList(catId); 
-                addPageForm.style.display = 'none'; 
-                addPageForm.reset(); 
-                alert('पेज सफलतापूर्वक सेव हो गया!'); 
-            });
+        catSelect.addEventListener('change', (e) => { renderMgmtPageList(e.target.value); document.getElementById('add-page-form').style.display = 'none'; });
 
-            function renderMgmtPageList(catId) { 
-                pagesList.innerHTML = ''; 
-                if (!catId || !allQuestions[catId] || !allQuestions[catId].questions) return; 
-                
-                Object.keys(allQuestions[catId].questions).forEach(key => { 
-                    const p = allQuestions[catId].questions[key]; 
-                    const item = document.createElement('div'); 
-                    item.className = 'management-item'; 
-                    item.innerHTML = `<span class="management-text">${p.text}</span><div class="management-actions"><button class="edit-btn" data-cat="${catId}" data-key="${key}">संपादित</button><button class="delete-btn" data-cat="${catId}" data-key="${key}">हटाएं</button></div>`; 
-                    pagesList.appendChild(item); 
-                }); 
-            }
+        document.getElementById('show-add-category-btn').addEventListener('click', () => { document.getElementById('add-category-form').reset(); document.getElementById('editing-category-key').value = ''; document.getElementById('cat-form-title').textContent = 'नई कैटिगरी जोड़ें'; document.getElementById('add-category-form').style.display = 'block'; });
 
-            pagesList.addEventListener('click', e => { 
-                const { cat, key } = e.target.dataset; 
-                if(!cat || !key) return;
+        document.getElementById('edit-category-btn').addEventListener('click', () => { const catId = catSelect.value; if(!catId) { alert("एडिट करने के लिए कैटिगरी चुनें!"); return; } const catData = allQuestions[catId]; document.getElementById('new-category-title').value = catData.title; document.getElementById('new-category-description').value = catData.description || ''; document.getElementById('editing-category-key').value = catId; document.getElementById('cat-form-title').textContent = 'कैटिगरी एडिट करें'; document.getElementById('add-category-form').style.display = 'block'; });
 
-                if (e.target.classList.contains('edit-btn')) { 
-                    const p = allQuestions[cat].questions[key]; 
-                    document.getElementById('new-page-text').value = p.text; 
-                    document.getElementById('new-page-modulus').value = p.modulus; 
-                    document.getElementById('new-page-adad').value = p.adad; 
-                    document.getElementById('new-page-results').value = formatJsonToSimpleText(p.results); 
-                    document.getElementById('new-page-rule').value = p.rule || ''; 
-                    
-                    const cols = p.columns || defaultColumns;
-                    document.getElementById('col-name').checked = cols.name;
-                    document.getElementById('col-motherName').checked = cols.motherName;
-                    document.getElementById('col-fatherName').checked = cols.fatherName;
-                    document.getElementById('col-day').checked = cols.day;
-                    document.getElementById('col-date').checked = cols.date;
-                    document.getElementById('col-month').checked = cols.month;
-                    document.getElementById('col-year').checked = cols.year;
-                    document.getElementById('col-saad').checked = cols.saad;
+        document.getElementById('delete-category-btn').addEventListener('click', () => { const catId = catSelect.value; if(!catId) return; if(confirm(`क्या आप वाकई "${allQuestions[catId].title}" डिलीट करना चाहते हैं?`)) { delete allQuestions[catId]; saveData(); renderAll(); populateCategoryMgmtDropdown(); } });
 
-                    document.getElementById('editing-page-key').value = key; 
-                    addPageForm.style.display = 'block'; 
-                    addPageForm.scrollIntoView({behavior: "smooth"});
-                } 
-                if (e.target.classList.contains('delete-btn')) { 
-                    if (confirm(`क्या आप वाकई यह पेज हटाना चाहते हैं?`)) { 
-                        delete allQuestions[cat].questions[key]; 
-                        saveData(); 
-                        renderMgmtPageList(cat); 
-                    } 
-                } 
-            });
+        document.getElementById('cancel-category-edit').addEventListener('click', () => { document.getElementById('add-category-form').style.display = 'none'; });
 
-            function parseSimpleResults(text) { 
-                const results = {}; 
-                text.split('\n').forEach(line => { 
-                    const match = line.trim().match(/^([\d,\s]+)\s*[:=]?\s*(.*)$/); 
-                    if (match) { 
-                        let [, keysStr, value] = match; 
-                        if (value) { 
-                            keysStr = keysStr.replace(/\s/g, ''); 
-                            let keys = []; 
-                            
-                            if (keysStr.includes(',')) { 
-                                keys = keysStr.split(','); 
-                            } else if (keysStr.length <= 2) {
-                                keys = [keysStr];
-                            } else {
-                                keys = keysStr.split(''); 
-                            }
-                            
-                            keys.forEach(key => { 
-                                const trimmedKey = key.trim(); 
-                                if (trimmedKey) results[trimmedKey] = value; 
-                            }); 
-                        } 
-                    } 
-                }); 
-                return results; 
-            }
+        document.getElementById('add-category-form').addEventListener('submit', e => { e.preventDefault(); const title = document.getElementById('new-category-title').value.trim(); const desc = document.getElementById('new-category-description').value.trim(); const editKey = document.getElementById('editing-category-key').value; if (!title) return; if (editKey) { allQuestions[editKey].title = title; allQuestions[editKey].description = desc; } else { allQuestions[`cat_${Date.now()}`] = { title, description: desc, questions: {} }; } saveData(); renderAll(); populateCategoryMgmtDropdown(); document.getElementById('add-category-form').style.display = 'none'; });
 
-            function formatJsonToSimpleText(json) { const valueToKeys = {}; for (const key in json) { const value = json[key]; if (!valueToKeys[value]) valueToKeys[value] = []; valueToKeys[value].push(key); } return Object.entries(valueToKeys).map(([value, keys]) => `${keys.sort((a, b) => a - b).join(',')}: ${value}`).join('\n'); }
+        document.getElementById('add-page-btn').addEventListener('click', () => { if(!catSelect.value) return; document.getElementById('add-page-form').reset(); document.getElementById('editing-page-key').value = ''; document.getElementById('add-page-form').style.display = 'block'; });
+        document.getElementById('cancel-page-edit').addEventListener('click', () => { document.getElementById('add-page-form').style.display = 'none'; });
 
-            document.querySelectorAll('.close-btn').forEach(btn => { btn.addEventListener('click', () => { document.getElementById(btn.dataset.modalId).style.display = 'none'; }); });
+        document.getElementById('add-page-form').addEventListener('submit', (e) => { e.preventDefault(); const catId = catSelect.value; if(!catId) return; const text = document.getElementById('new-page-text').value.trim(); const modulus = parseInt(document.getElementById('new-page-modulus').value); const adad = parseInt(document.getElementById('new-page-adad').value) || 0; const resultsText = document.getElementById('new-page-results').value; const rule = document.getElementById('new-page-rule').value.trim(); const editingKey = document.getElementById('editing-page-key').value; const results = parseSimpleResults(resultsText); if (Object.keys(results).length === 0) { alert('जवाब सही फॉर्मेट में नहीं है! (उदा: 0: उत्तर)'); return; } const columns = { name: document.getElementById('col-name').checked, motherName: document.getElementById('col-motherName').checked, fatherName: document.getElementById('col-fatherName').checked, day: document.getElementById('col-day').checked, date: document.getElementById('col-date').checked, month: document.getElementById('col-month').checked, year: document.getElementById('col-year').checked, saad: document.getElementById('col-saad').checked }; if (editingKey) delete allQuestions[catId].questions[editingKey]; const newKey = adad > 0 && !editingKey ? adad.toString() : (editingKey || Date.now().toString()); allQuestions[catId].questions[newKey] = { text, adad, modulus, results, rule, columns }; saveData(); renderMgmtPageList(catId); document.getElementById('add-page-form').style.display = 'none'; document.getElementById('add-page-form').reset(); });
 
-            // --- PDF Download Generator Function ---
-            function generatePDFHTML(categoryKey = null) {
-                let dataToRender = categoryKey ? { [categoryKey]: allQuestions[categoryKey] } : allQuestions;
-                
-                let html = `
-                <div id="pdf-content" style="padding: 20px; font-family: Arial, sans-serif;">
-                    <h2 style="text-align:center; color: #1b5e20;">सिपाही बाबा रूहानी सेंटर - पेज व कलम चार्ट</h2>`;
-                
-                for(let catKey in dataToRender) {
-                    let cat = dataToRender[catKey];
-                    html += `
-                    <div style="margin-bottom: 25px; border-bottom: 2px dashed #ccc; padding-bottom: 15px;">
-                        <h3 style="color: #1b5e20; margin-bottom: 5px;">कैटिगरी: ${cat.title}</h3>
-                        <p style="font-size: 13px; color: #555; margin-top: 0; margin-bottom: 15px;"><b>विवरण:</b> ${cat.description || 'कोई विवरण नहीं'}</p>
-                        <table border="1" style="width:100%; border-collapse: collapse; text-align: left; font-size: 11px;">
-                            <thead style="background-color: #e8f5e9; color: #1b5e20;">
-                                <tr>
-                                    <th style="padding: 6px; width: 20%;">पेज (सवाल)</th>
-                                    <th style="padding: 6px; width: 10%;">सवाल का अदद (अंक)</th>
-                                    <th style="padding: 6px; width: 8%;">तक्शीम (➗)</th>
-                                    <th style="padding: 6px; width: 8%;">नियम (✖️)</th>
-                                    <th style="padding: 6px; width: 23%;">जरूरी कलम (Fields)</th>
-                                    <th style="padding: 6px; width: 31%;">जवाब</th>
-                                </tr>
-                            </thead>
-                            <tbody>`;
-                    
-                    for(let pKey in cat.questions) {
-                        let p = cat.questions[pKey];
-                        let resultsStr = formatJsonToSimpleText(p.results).replace(/\n/g, '<br>');
-                        
-                        let cols = p.columns || defaultColumns;
-                        let activeCols = [];
-                        if(cols.name) activeCols.push("नाम");
-                        if(cols.motherName) activeCols.push("मां");
-                        if(cols.fatherName) activeCols.push("पिता");
-                        if(cols.day) activeCols.push("दिन");
-                        if(cols.date) activeCols.push("तारीख");
-                        if(cols.month) activeCols.push("महीना");
-                        if(cols.year) activeCols.push("साल");
-                        if(cols.saad) activeCols.push("सआद");
-                        
-                        html += `
-                                <tr>
-                                    <td style="padding: 6px;">${p.text}</td>
-                                    <td style="padding: 6px; font-weight: bold;">${p.adad}</td>
-                                    <td style="padding: 6px;">${p.modulus}</td>
-                                    <td style="padding: 6px;">${p.rule || '-'}</td>
-                                    <td style="padding: 6px; color:#0d47a1;">${activeCols.join(', ')}</td>
-                                    <td style="padding: 6px;">${resultsStr}</td>
-                                </tr>`;
-                    }
-                    html += `</tbody></table></div>`;
-                }
-                html += `</div>`;
-                return html;
-            }
+        function renderMgmtPageList(catId) { const list = document.getElementById('pages-list'); list.innerHTML = ''; if (!catId || !allQuestions[catId] || !allQuestions[catId].questions) return; Object.keys(allQuestions[catId].questions).forEach(key => { const p = allQuestions[catId].questions[key]; const item = document.createElement('div'); item.className = 'management-item'; item.innerHTML = `<span class="management-text">${p.text}</span><div class="management-actions"><button class="edit-btn" data-cat="${catId}" data-key="${key}" style="background:#3B82F6;color:white;">एडिट</button><button class="delete-btn" data-cat="${catId}" data-key="${key}" style="background:var(--danger-color);color:white;">हटाएं</button></div>`; list.appendChild(item); }); }
 
-            document.getElementById('download-all-pdf').addEventListener('click', () => {
-                let tempDiv = document.createElement('div');
-                tempDiv.innerHTML = generatePDFHTML(null); 
-                document.body.appendChild(tempDiv);
+        document.getElementById('pages-list').addEventListener('click', e => { const { cat, key } = e.target.dataset; if(!cat || !key) return; if (e.target.classList.contains('edit-btn')) { const p = allQuestions[cat].questions[key]; document.getElementById('new-page-text').value = p.text; document.getElementById('new-page-modulus').value = p.modulus; document.getElementById('new-page-adad').value = p.adad; document.getElementById('new-page-results').value = formatJsonToSimpleText(p.results); document.getElementById('new-page-rule').value = p.rule || ''; const cols = p.columns || defaultColumns; document.getElementById('col-name').checked = cols.name; document.getElementById('col-motherName').checked = cols.motherName; document.getElementById('col-fatherName').checked = cols.fatherName; document.getElementById('col-day').checked = cols.day; document.getElementById('col-date').checked = cols.date; document.getElementById('col-month').checked = cols.month; document.getElementById('col-year').checked = cols.year; document.getElementById('col-saad').checked = cols.saad; document.getElementById('editing-page-key').value = key; document.getElementById('add-page-form').style.display = 'block'; document.getElementById('add-page-form').scrollIntoView({behavior: "smooth"}); } if (e.target.classList.contains('delete-btn')) { if (confirm(`हटाना चाहते हैं?`)) { delete allQuestions[cat].questions[key]; saveData(); renderMgmtPageList(cat); } } });
 
-                let opt = { margin: 0.3, filename: 'Sipahi_Baba_All_Categories.pdf', image: { type: 'jpeg', quality: 0.98 }, html2canvas: { scale: 2 }, jsPDF: { unit: 'in', format: 'letter', orientation: 'landscape' } };
-                html2pdf().set(opt).from(tempDiv).save().then(() => { document.body.removeChild(tempDiv); });
-            });
+        function parseSimpleResults(text) { const results = {}; text.split('\n').forEach(line => { const match = line.trim().match(/^([\d,\s]+)\s*[:=]?\s*(.*)$/); if (match) { let [, keysStr, value] = match; if (value) { keysStr = keysStr.replace(/\s/g, ''); let keys = keysStr.includes(',') ? keysStr.split(',') : (keysStr.length <= 2 ? [keysStr] : keysStr.split('')); keys.forEach(k => { if(k.trim()) results[k.trim()] = value; }); } } }); return results; }
+        function formatJsonToSimpleText(json) { const valToKeys = {}; for (const k in json) { if (!valToKeys[json[k]]) valToKeys[json[k]] = []; valToKeys[json[k]].push(k); } return Object.entries(valToKeys).map(([v, ks]) => `${ks.sort((a,b)=>a-b).join(',')}: ${v}`).join('\n'); }
 
-            document.getElementById('download-category-pdf').addEventListener('click', () => {
-                const catId = catSelect.value;
-                if(!catId) { alert("कृपया पहले ड्रॉपडाउन से कोई कैटिगरी चुनें!"); return; }
+        document.querySelectorAll('.close-btn').forEach(btn => { btn.addEventListener('click', () => { document.getElementById(btn.dataset.modalId).style.display = 'none'; }); });
 
-                let tempDiv = document.createElement('div');
-                tempDiv.innerHTML = generatePDFHTML(catId); 
-                document.body.appendChild(tempDiv);
+        function generatePDFHTML(categoryKey = null) { let dataToRender = categoryKey ? { [categoryKey]: allQuestions[categoryKey] } : allQuestions; let html = `<div id="pdf-content" style="padding: 20px; font-family: Arial, sans-serif;"><h2 style="text-align:center; color: #064E3B;">सिपाही बाबा रूहानी सेंटर - चार्ट</h2>`; for(let catKey in dataToRender) { let cat = dataToRender[catKey]; html += `<div style="margin-bottom: 25px; border-bottom: 2px dashed #ccc; padding-bottom: 15px;"><h3 style="color: #064E3B;">${cat.title}</h3><table border="1" style="width:100%; border-collapse: collapse; text-align: left; font-size: 11px;"><thead style="background-color: #ECFDF5; color: #064E3B;"><tr><th style="padding: 6px;">पेज (सवाल)</th><th style="padding: 6px;">अदद</th><th style="padding: 6px;">तक्शीम</th><th style="padding: 6px;">नियम</th><th style="padding: 6px;">कलम (Fields)</th><th style="padding: 6px;">जवाब</th></tr></thead><tbody>`; for(let pKey in cat.questions) { let p = cat.questions[pKey]; let activeCols = []; let cols = p.columns || defaultColumns; if(cols.name) activeCols.push("नाम"); if(cols.motherName) activeCols.push("मां"); if(cols.fatherName) activeCols.push("पिता"); if(cols.day) activeCols.push("दिन"); if(cols.date) activeCols.push("तारीख"); if(cols.month) activeCols.push("महीना"); if(cols.year) activeCols.push("साल"); if(cols.saad) activeCols.push("सआद"); html += `<tr><td style="padding: 6px;">${p.text}</td><td style="padding: 6px; font-weight: bold;">${p.adad}</td><td style="padding: 6px;">${p.modulus}</td><td style="padding: 6px;">${p.rule || '-'}</td><td style="padding: 6px;">${activeCols.join(', ')}</td><td style="padding: 6px;">${formatJsonToSimpleText(p.results).replace(/\n/g, '<br>')}</td></tr>`; } html += `</tbody></table></div>`; } html += `</div>`; return html; }
+        document.getElementById('download-all-pdf').addEventListener('click', () => { let div = document.createElement('div'); div.innerHTML = generatePDFHTML(null); document.body.appendChild(div); html2pdf().set({ margin: 0.3, filename: 'All_Categories.pdf', image: { type: 'jpeg', quality: 0.98 }, html2canvas: { scale: 2 }, jsPDF: { unit: 'in', format: 'letter', orientation: 'landscape' } }).from(div).save().then(() => document.body.removeChild(div)); });
+        document.getElementById('download-category-pdf').addEventListener('click', () => { const catId = catSelect.value; if(!catId) { alert("कैटिगरी चुनें!"); return; } let div = document.createElement('div'); div.innerHTML = generatePDFHTML(catId); document.body.appendChild(div); html2pdf().set({ margin: 0.3, filename: `${allQuestions[catId].title}.pdf`, image: { type: 'jpeg', quality: 0.98 }, html2canvas: { scale: 2 }, jsPDF: { unit: 'in', format: 'letter', orientation: 'landscape' } }).from(div).save().then(() => document.body.removeChild(div)); });
 
-                let opt = { margin: 0.3, filename: `Sipahi_Baba_${allQuestions[catId].title}.pdf`, image: { type: 'jpeg', quality: 0.98 }, html2canvas: { scale: 2 }, jsPDF: { unit: 'in', format: 'letter', orientation: 'landscape' } };
-                html2pdf().set(opt).from(tempDiv).save().then(() => { document.body.removeChild(tempDiv); });
-            });
+        function renderAll() { renderSelectionButtons(); }
+        function resetFullForm() { entryForm.reset(); document.querySelectorAll('.urdu-display-inline').forEach(el => el.textContent = ''); nameUrduHidden.value = ''; motherNameUrduHidden.value = ''; fatherNameUrduHidden.value = ''; resultDiv.innerHTML = ''; resultDiv.style.display = 'none'; updateLiveAdads(); }
+        settingsIcon.addEventListener('click', () => { sidebar.classList.add('open'); sidebarOverlay.classList.add('visible'); });
+        sidebarOverlay.addEventListener('click', () => { sidebar.classList.remove('open'); sidebarOverlay.classList.remove('visible'); });
+        backToSelectionBtn.addEventListener('click', () => { formContainer.style.display = 'none'; selectionContainer.style.display = 'block'; currentCategoryKey = null; resetFullForm(); });
+        document.getElementById('clear-form-icon').addEventListener('click', resetFullForm);
 
-            function renderAll() { renderSelectionButtons(); }
-            function resetFullForm() { entryForm.reset(); document.querySelectorAll('.urdu-display-inline').forEach(el => el.textContent = ''); nameUrduHidden.value = ''; motherNameUrduHidden.value = ''; fatherNameUrduHidden.value = ''; resultDiv.innerHTML = ''; resultDiv.style.display = 'none'; updateLiveAdads(); }
+        function populateDays() { document.getElementById('day').innerHTML = ''; for (const key in days) document.getElementById('day').add(new Option(days[key], key)); }
+        function populateDates() { document.getElementById('date').innerHTML = '<option value="">तारीख चुनें...</option>'; for (let i = 1; i <= 31; i++) document.getElementById('date').add(new Option(i, i)); }
+        document.getElementById('day').addEventListener('change', (e) => { const selectedDay = e.target.value; const saadSelect = document.getElementById('saad'); saadSelect.innerHTML = `<option value="">सआद चुनें...</option>`; if (selectedDay && saadData[selectedDay]) { saadData[selectedDay].forEach(saad => saadSelect.add(new Option(`${saad.time} - ${saad.planet} (${saad.adad})`, saad.adad))); } updateLiveAdads(); });
+        
+        function calculateSingleAdad(urduText) { if (!urduText) return 0; let t = 0; for (let char of urduText) t += urduAbjad[char] || 0; return t; }
+        function updateLiveAdads() { const cols = allQuestions[currentCategoryKey]?.questions[questionSelect.value]?.columns || defaultColumns; document.getElementById('name_adad_display').innerText = cols.name ? calculateSingleAdad(nameUrduHidden.value) : 0; document.getElementById('mother_adad_display').innerText = cols.motherName ? calculateSingleAdad(motherNameUrduHidden.value) : 0; document.getElementById('father_adad_display').innerText = cols.fatherName ? calculateSingleAdad(fatherNameUrduHidden.value) : 0; document.getElementById('day_adad_display').innerText = cols.day ? (dayNumbers[document.getElementById('day').value] || 0) : 0; document.getElementById('date_adad_display').innerText = cols.date ? (parseInt(document.getElementById('date').value) || 0) : 0; document.getElementById('month_adad_display').innerText = cols.month ? (monthNumbers[document.getElementById('month').value] || 0) : 0; document.getElementById('year_adad_display').innerText = cols.year ? (parseInt(document.getElementById('year_input').value) || 0) : 0; document.getElementById('saad_adad_display').innerText = cols.saad ? (parseInt(document.getElementById('saad').value) || 0) : 0; document.getElementById('question_adad_display').innerText = (allQuestions[currentCategoryKey]?.questions[questionSelect.value]?.adad) || 0; }
+        document.getElementById('date').addEventListener('change', updateLiveAdads); document.getElementById('month').addEventListener('change', updateLiveAdads); document.getElementById('year_input').addEventListener('input', updateLiveAdads); document.getElementById('saad').addEventListener('change', updateLiveAdads);
 
-            settingsIcon.addEventListener('click', () => { sidebar.classList.add('open'); sidebarOverlay.classList.add('visible'); });
-            sidebarOverlay.addEventListener('click', () => { sidebar.classList.remove('open'); sidebarOverlay.classList.remove('visible'); });
-            backToSelectionBtn.addEventListener('click', () => { formContainer.style.display = 'none'; selectionContainer.style.display = 'block'; currentCategoryKey = null; resetFullForm(); });
-            document.getElementById('clear-form-icon').addEventListener('click', resetFullForm);
+        function setupUrduTranslation(input, display, hidden, engineSelectId) { 
+            const debouncedTranslate = debounce(async (value) => { 
+                const fullText = value.trim(); if (!fullText) { display.textContent = ''; hidden.value = ''; updateLiveAdads(); return; }
+                display.textContent = '⏳'; const engine = document.getElementById(engineSelectId).value;
+                const urduText = await translateToUrdu(fullText, engine, 1); 
+                if(urduText !== '❌ Error') { display.textContent = urduText; hidden.value = urduText; updateLiveAdads(); } else { display.textContent = '❌'; }
+            }, 600); 
+            input.addEventListener('input', (e) => debouncedTranslate(e.target.value)); 
+            document.getElementById(engineSelectId).addEventListener('change', () => { if(input.value) debouncedTranslate(input.value); });
+        }
+        
+        async function translateToUrdu(fullText, engine, retries = 0) { 
+            const lower = fullText.toLowerCase(); const matchingKey = Object.keys(hindiSpecialCases).find(k => k.toLowerCase() === lower); if (matchingKey) return hindiSpecialCases[matchingKey]; 
+            try { 
+                if (engine === 'google') { const res = await fetch(`${GOOGLE_API}${encodeURIComponent(fullText)}`); if (!res.ok) throw new Error('API Error'); const data = await res.json(); return data[0][0][0].replace(/[\u064B-\u065F\u0670]/g, ''); } 
+                else { const res = await fetch(AKSHAR_API + encodeURIComponent(fullText)); if (!res.ok) throw new Error('API Error'); let data = await res.text(); return data.replace(/[\u064B-\u065F\u0670]/g, ''); }
+            } catch (e) { if (retries > 0) { await new Promise(r => setTimeout(r, 500)); return await translateToUrdu(fullText, engine, retries - 1); } return '❌ Error'; } 
+        }
+        function debounce(func, delay) { let timeoutId; return (...args) => { clearTimeout(timeoutId); timeoutId = setTimeout(() => func.apply(this, args), delay); }; }
 
-            function populateDays() { document.getElementById('day').innerHTML = ''; for (const key in days) document.getElementById('day').add(new Option(days[key], key)); }
-            function populateDates() { document.getElementById('date').innerHTML = '<option value="">तारीख चुनें...</option>'; for (let i = 1; i <= 31; i++) document.getElementById('date').add(new Option(i, i)); }
-            
-            document.getElementById('day').addEventListener('change', (e) => { 
-                const selectedDay = e.target.value; 
-                const saadSelect = document.getElementById('saad'); 
-                saadSelect.innerHTML = `<option value="">सआद चुनें...</option>`; 
-                if (selectedDay && saadData[selectedDay]) { 
-                    saadData[selectedDay].forEach(saad => { saadSelect.add(new Option(`${saad.time} - ${saad.planet} (${saad.adad})`, saad.adad)); }); 
-                    const now = new Date(), dayNames = ["रविवार", "सोमवार", "मंगलवार", "बुधवार", "गुरुवार", "शुक्रवार", "शनिवार"]; 
-                    if (selectedDay === dayNames[now.getDay()]) { 
-                        let slotIndex = now.getHours() - 6; 
-                        if (slotIndex < 0) slotIndex += 24; 
-                        if (slotIndex >= 0 && slotIndex < 24) saadSelect.selectedIndex = slotIndex + 1; 
-                    } 
-                }
-                updateLiveAdads();
-            });
-            
-            function calculateSingleAdad(urduText) {
-                if (!urduText) return 0; let total = 0;
-                for (let char of urduText) { total += urduAbjad[char] || 0; }
-                return total;
-            }
-
-            function updateLiveAdads() {
-                const cols = allQuestions[currentCategoryKey]?.questions[questionSelect.value]?.columns || defaultColumns;
-
-                document.getElementById('name_adad_display').innerText = cols.name ? calculateSingleAdad(nameUrduHidden.value) : 0;
-                document.getElementById('mother_adad_display').innerText = cols.motherName ? calculateSingleAdad(motherNameUrduHidden.value) : 0;
-                document.getElementById('father_adad_display').innerText = cols.fatherName ? calculateSingleAdad(fatherNameUrduHidden.value) : 0;
-                document.getElementById('day_adad_display').innerText = cols.day ? (dayNumbers[document.getElementById('day').value] || 0) : 0;
-                document.getElementById('date_adad_display').innerText = cols.date ? (parseInt(document.getElementById('date').value) || 0) : 0;
-                document.getElementById('month_adad_display').innerText = cols.month ? (monthNumbers[document.getElementById('month').value] || 0) : 0;
-                document.getElementById('year_adad_display').innerText = cols.year ? (parseInt(document.getElementById('year_input').value) || 0) : 0;
-                document.getElementById('saad_adad_display').innerText = cols.saad ? (parseInt(document.getElementById('saad').value) || 0) : 0;
-                
-                const qKey = questionSelect.value;
-                const pData = allQuestions[currentCategoryKey]?.questions[qKey];
-                document.getElementById('question_adad_display').innerText = pData ? pData.adad : 0;
-            }
-
-            document.getElementById('date').addEventListener('change', updateLiveAdads);
-            document.getElementById('month').addEventListener('change', updateLiveAdads);
-            document.getElementById('year_input').addEventListener('input', updateLiveAdads);
-            document.getElementById('saad').addEventListener('change', updateLiveAdads);
-
-            // --- Updated Setup Translation with Loading & Retry Logic ---
-            function setupUrduTranslation(input, display, hidden, engineSelectId) { 
-                const debouncedTranslate = debounce(async (value) => { 
-                    const fullText = value.trim(); 
-                    if (!fullText) {
-                        display.textContent = '';
-                        hidden.value = '';
-                        updateLiveAdads();
-                        return;
-                    }
-                    
-                    display.textContent = '⏳...'; // Loading indicator
-                    
-                    const engine = document.getElementById(engineSelectId).value;
-                    const urduText = await translateToUrdu(fullText, engine, 1); // 1 retry allowed
-                    
-                    if(urduText !== '❌ Error') {
-                        display.textContent = urduText; 
-                        hidden.value = urduText; 
-                        updateLiveAdads(); 
-                    } else {
-                        display.textContent = '❌'; // Error indicator
-                    }
-                }, 600); // Increased debounce time for stability
-                
-                input.addEventListener('input', (e) => debouncedTranslate(e.target.value)); 
-                
-                document.getElementById(engineSelectId).addEventListener('change', () => {
-                    if(input.value) debouncedTranslate(input.value);
-                });
-            }
-            
-            async function translateToUrdu(fullText, engine, retries = 0) { 
-                const fullTextLower = fullText.toLowerCase(); 
-                const matchingKey = Object.keys(hindiSpecialCases).find(key => key.toLowerCase() === fullTextLower); 
-                if (matchingKey) { return hindiSpecialCases[matchingKey]; } 
-                
-                try { 
-                    if (engine === 'google') {
-                        const response = await fetch(`${GOOGLE_API}?text=${encodeURIComponent(fullText)}`);
-                        if (!response.ok) throw new Error('API Error');
-                        const data = await response.json();
-                        if (data.translatedText) { return data.translatedText.replace(/رضوان/g, 'رزوان').replace(/[\u064B-\u065F\u0670]/g, ''); }
-                    } else {
-                        const response = await fetch(AKSHAR_API + encodeURIComponent(fullText));
-                        if (!response.ok) throw new Error('API Error');
-                        let data = await response.text();
-                        if (data) { return data.replace(/[\u064B-\u065F\u0670]/g, ''); }
-                    }
-                } catch (e) { 
-                    console.error("Translation API error:", e); 
-                    if (retries > 0) {
-                        console.log("Retrying translation...");
-                        await new Promise(res => setTimeout(res, 500));
-                        return await translateToUrdu(fullText, engine, retries - 1);
-                    }
-                    return '❌ Error'; 
-                } 
-                return ''; 
-            }
-            
-            function debounce(func, delay) { let timeoutId; return (...args) => { clearTimeout(timeoutId); timeoutId = setTimeout(() => func.apply(this, args), delay); }; }
-
-            entryForm.addEventListener('submit', async (e) => { 
-                e.preventDefault(); 
-                
-                const qKey = questionSelect.value;
-                if(!qKey) { alert("कृपया फॉर्म भरने से पहले पेज चुनें!"); return; }
-
-                const cols = allQuestions[currentCategoryKey].questions[qKey].columns || defaultColumns;
-
-                function calculateAdadWithBreakdown(urduText, isActive) { 
-                    if (!isActive || !urduText) return { total: 0, breakdown: [] }; 
-                    let totalSum = 0; let allBreakdowns = []; 
-                    urduText.trim().split(/\s+/).forEach(word => { 
-                        if (!word) return; 
-                        let wordSum = 0; let letterBreakdown = []; 
-                        for (let char of word) { 
-                            const value = urduAbjad[char] || 0; 
-                            if (value > 0) { wordSum += value; letterBreakdown.push({ urdu: char, value: value }); } 
-                        } 
-                        if (letterBreakdown.length > 0) { allBreakdowns.push({ urduWord: word, letters: letterBreakdown, wordTotal: wordSum }); totalSum += wordSum; } 
-                    }); 
-                    return { total: totalSum, breakdown: allBreakdowns }; 
-                } 
-                
-                const nameAdad = calculateAdadWithBreakdown(nameUrduHidden.value, cols.name); 
-                const motherAdad = calculateAdadWithBreakdown(motherNameUrduHidden.value, cols.motherName); 
-                const fatherAdad = calculateAdadWithBreakdown(fatherNameUrduHidden.value, cols.fatherName); 
-                
-                const pData = allQuestions[currentCategoryKey]?.questions[qKey] || null; 
-                const pValue = pData ? pData.adad : 0; 
-                
-                const dayKey = document.getElementById('day').value, dayNum = cols.day ? (dayNumbers[dayKey] || 0) : 0; 
-                const dateKey = document.getElementById('date').value, dateNum = cols.date ? (parseInt(dateKey) || 0) : 0; 
-                const monthKey = document.getElementById('month').value, monthNum = cols.month ? (monthNumbers[monthKey] || 0) : 0; 
-                const yearKey = document.getElementById('year_input').value, yearNum = cols.year ? (parseInt(yearKey) || 0) : 0; 
-                
-                const saadSelectEl = document.getElementById('saad'), saadValue = cols.saad ? (parseInt(saadSelectEl.value) || 0) : 0; 
-                const selectedSaadIndex = saadSelectEl.selectedIndex - 1; 
-                const saadPlanet = (dayKey && selectedSaadIndex >= 0) ? saadData[dayKey][selectedSaadIndex].planet : null; 
-                
-                const totalSum = nameAdad.total + motherAdad.total + fatherAdad.total + dayNum + dateNum + monthNum + yearNum + saadValue + pValue; 
-                
-                displayResults({ name: { text: nameInput.value, ...nameAdad }, mother: { text: motherNameInput.value, ...motherAdad }, father: { text: fatherNameInput.value, ...fatherAdad }, day: { text: dayKey, value: dayNum }, date: { text: dateKey, value: dateNum }, month: { text: monthKey, value: monthNum }, year: { text: yearKey, value: yearNum }, saad: { text: saadPlanet, value: saadValue }, page: { text: pData?.text, value: pValue }, total: totalSum, pageData: pData }); 
-            });
-
-            function displayResults(data) { 
-                function getSpecificTakseemResult(totalSum, pData) { 
-                    if (!pData || !pData.modulus) return ''; 
-                    
-                    const multiplier = (pData.rule && !isNaN(parseInt(pData.rule))) ? parseInt(pData.rule) : 1;
-                    const finalSumForTakseem = totalSum * multiplier;
-                    const remainder = finalSumForTakseem % pData.modulus; 
-                    const resultText = pData.results[remainder] || 'कोई परिणाम नहीं'; 
-                    
-                    let multiplierHTML = '';
-                    if(multiplier > 1) {
-                        multiplierHTML = `<p style="color: #d32f2f; font-size: 0.95em;"><b>नियम (✖️):</b> ${totalSum} ✖️ ${multiplier} = <b>${finalSumForTakseem}</b></p>`;
-                    }
-
-                    return `<div class="specific-takseem">
-                                <p><b>पेज:</b> ${pData.text}</p>
-                                ${multiplierHTML}
-                                <div class="specific-result">${pData.modulus} से बाकी अदद ${remainder} &rarr; जवाब <b>${resultText}</b></div>
-                            </div>`; 
-                } 
-                
-                let calculationParts = []; 
-                if (data.name.total > 0) calculationParts.push(`${data.name.text}(${data.name.total})`); 
-                if (data.mother.total > 0) calculationParts.push(`${data.mother.text}(${data.mother.total})`); 
-                if (data.father.total > 0) calculationParts.push(`${data.father.text}(${data.father.total})`); 
-                if (data.day.value > 0) calculationParts.push(`${data.day.text}(${data.day.value})`); 
-                if (data.date.value > 0) calculationParts.push(`तारीख(${data.date.value})`); 
-                if (data.month.value > 0) calculationParts.push(`${data.month.text}(${data.month.value})`); 
-                if (data.year.value > 0) calculationParts.push(`साल(${data.year.value})`); 
-                if (data.saad.value > 0) calculationParts.push(`सआद ${data.saad.text || ''}(${data.saad.value})`); 
-                if (data.page.value > 0) calculationParts.push(`पेज अदद(${data.page.value})`); 
-                
-                const calculationString = calculationParts.length > 0 ? calculationParts.join(' + ') : 'कुल अदद'; 
-                
-                function generateResultHTML(title, data) { if (!data || (data.text.trim() === '' && data.total === 0)) return ''; let html = `<div class="result-section"><h3>${title}</h3><div class="total-result"><strong>${data.text} &rarr; आदाद = ${data.total}</strong></div>`; if (data.breakdown && data.breakdown.length > 0) { data.breakdown.forEach(b => { html += `<div class="word-breakdown"><h4>शब्द: ${b.urduWord}</h4><table class="letter-table"><thead><tr><th>हरफ</th><th>अदद</th></tr></thead><tbody>`; b.letters.forEach(letter => { html += `<tr><td>${letter.urdu}</td><td>${letter.value}</td></tr>`; }); html += `<tr><td><strong>जम</strong></td><td><strong>${b.wordTotal}</strong></td></tr></tbody></table></div>`; }); } return html + `</div>`; } 
-                
-                let summaryHtml = `<div class="final-calculation"><h3>कुल टैकसीम</h3><div class="total-result">${calculationString} = <strong>${data.total}</strong></div>${getSpecificTakseemResult(data.total, data.pageData)}<div class="button-group" style="margin-top:20px;"><button id="show-details-btn" class="back-btn" style="background-color:var(--secondary-color)">विस्तार देखें</button><button id="back-to-form-btn2" class="back-btn">फॉर्म पर वापस</button></div></div>`; 
-                let detailedHtml = `<h2 style="text-align: center; color: var(--primary-color);">विस्तृत टैकसीम</h2>${generateResultHTML('नाम का फील्ड', data.name)}${generateResultHTML('मां का नाम', data.mother)}${generateResultHTML('पिता का नाम', data.father)}<button id="go-back-btn" class="back-btn">वापस</button>`; 
-                
-                formContainer.style.display = 'none'; 
-                resultDiv.innerHTML = `<div id="summary-container">${summaryHtml}</div><div id="detailed-container" style="display: none;">${detailedHtml}</div>`; 
-                resultDiv.style.display = 'block'; 
-                
-                document.getElementById('show-details-btn').addEventListener('click', () => { document.getElementById('summary-container').style.display = 'none'; document.getElementById('detailed-container').style.display = 'block'; }); 
-                document.getElementById('go-back-btn').addEventListener('click', () => { document.getElementById('detailed-container').style.display = 'none'; document.getElementById('summary-container').style.display = 'block'; }); 
-                document.getElementById('back-to-form-btn2').addEventListener('click', () => { resultDiv.innerHTML = ''; resultDiv.style.display = 'none'; formContainer.style.display = 'block'; }); 
-            }
-            
-            document.getElementById('open-privacy-policy').addEventListener('click', () => { document.getElementById('privacyPolicyModal').style.display = 'block'; });
-            document.getElementById('open-terms-conditions').addEventListener('click', () => { document.getElementById('termsConditionsModal').style.display = 'block'; });
-            
-            if ('serviceWorker' in navigator) { window.addEventListener('load', () => { navigator.serviceWorker.register('/sw.js').then(r => console.log('SW ok')).catch(e => console.log('SW fail')); }); }
-
-            loadCustomNames(); mergeSpecialCases(); loadData(); renderAll(); populateDays(); populateDates();
-            
-            setupUrduTranslation(nameInput, nameUrduDisplay, nameUrduHidden, 'name_engine');
-            setupUrduTranslation(motherNameInput, motherNameUrduDisplay, motherNameUrduHidden, 'mother_engine');
-            setupUrduTranslation(fatherNameInput, fatherNameUrduDisplay, fatherNameUrduHidden, 'father_engine');
+        entryForm.addEventListener('submit', async (e) => { 
+            e.preventDefault(); const qKey = questionSelect.value; if(!qKey) { alert("पेज चुनें!"); return; } const cols = allQuestions[currentCategoryKey].questions[qKey].columns || defaultColumns;
+            function calculateAdadWithBreakdown(urduText, isActive) { if (!isActive || !urduText) return { total: 0, breakdown: [] }; let totalSum = 0; let allBreakdowns = []; urduText.trim().split(/\s+/).forEach(word => { if (!word) return; let wordSum = 0; let letterBreakdown = []; for (let char of word) { const v = urduAbjad[char] || 0; if (v > 0) { wordSum += v; letterBreakdown.push({ urdu: char, value: v }); } } if (letterBreakdown.length > 0) { allBreakdowns.push({ urduWord: word, letters: letterBreakdown, wordTotal: wordSum }); totalSum += wordSum; } }); return { total: totalSum, breakdown: allBreakdowns }; } 
+            const nameAdad = calculateAdadWithBreakdown(nameUrduHidden.value, cols.name); const motherAdad = calculateAdadWithBreakdown(motherNameUrduHidden.value, cols.motherName); const fatherAdad = calculateAdadWithBreakdown(fatherNameUrduHidden.value, cols.fatherName); 
+            const pData = allQuestions[currentCategoryKey]?.questions[qKey] || null; const pValue = pData ? pData.adad : 0; 
+            const dayKey = document.getElementById('day').value, dayNum = cols.day ? (dayNumbers[dayKey] || 0) : 0; const dateKey = document.getElementById('date').value, dateNum = cols.date ? (parseInt(dateKey) || 0) : 0; const monthKey = document.getElementById('month').value, monthNum = cols.month ? (monthNumbers[monthKey] || 0) : 0; const yearKey = document.getElementById('year_input').value, yearNum = cols.year ? (parseInt(yearKey) || 0) : 0; 
+            const saadSelectEl = document.getElementById('saad'), saadValue = cols.saad ? (parseInt(saadSelectEl.value) || 0) : 0; const selectedSaadIndex = saadSelectEl.selectedIndex - 1; const saadPlanet = (dayKey && selectedSaadIndex >= 0) ? saadData[dayKey][selectedSaadIndex].planet : null; 
+            const totalSum = nameAdad.total + motherAdad.total + fatherAdad.total + dayNum + dateNum + monthNum + yearNum + saadValue + pValue; 
+            displayResults({ name: { text: nameInput.value, ...nameAdad }, mother: { text: motherNameInput.value, ...motherAdad }, father: { text: fatherNameInput.value, ...fatherAdad }, day: { text: dayKey, value: dayNum }, date: { text: dateKey, value: dateNum }, month: { text: monthKey, value: monthNum }, year: { text: yearKey, value: yearNum }, saad: { text: saadPlanet, value: saadValue }, page: { text: pData?.text, value: pValue }, total: totalSum, pageData: pData }); 
         });
+
+        function displayResults(data) { 
+            function getSpecificTakseemResult(totalSum, pData) { if (!pData || !pData.modulus) return ''; const multiplier = (pData.rule && !isNaN(parseInt(pData.rule))) ? parseInt(pData.rule) : 1; const finalSumForTakseem = totalSum * multiplier; const remainder = finalSumForTakseem % pData.modulus; const resultText = pData.results[remainder] || 'कोई परिणाम नहीं'; let multiplierHTML = multiplier > 1 ? `<p style="color: var(--danger-color); font-size: 0.9em;"><b>नियम (✖️):</b> ${totalSum} ✖️ ${multiplier} = <b>${finalSumForTakseem}</b></p>` : ''; return `<div class="specific-takseem"><p><b>पेज:</b> ${pData.text}</p>${multiplierHTML}<div class="specific-result">${pData.modulus} से बाकी अदद ${remainder} &rarr; जवाब <b>${resultText}</b></div></div>`; } 
+            let calculationParts = []; if (data.name.total > 0) calculationParts.push(`${data.name.text}(${data.name.total})`); if (data.mother.total > 0) calculationParts.push(`${data.mother.text}(${data.mother.total})`); if (data.father.total > 0) calculationParts.push(`${data.father.text}(${data.father.total})`); if (data.day.value > 0) calculationParts.push(`${data.day.text}(${data.day.value})`); if (data.date.value > 0) calculationParts.push(`तारीख(${data.date.value})`); if (data.month.value > 0) calculationParts.push(`${data.month.text}(${data.month.value})`); if (data.year.value > 0) calculationParts.push(`साल(${data.year.value})`); if (data.saad.value > 0) calculationParts.push(`सआद ${data.saad.text || ''}(${data.saad.value})`); if (data.page.value > 0) calculationParts.push(`पेज अदद(${data.page.value})`); const calculationString = calculationParts.length > 0 ? calculationParts.join(' + ') : 'कुल अदद'; 
+            function generateResultHTML(title, data) { if (!data || (data.text.trim() === '' && data.total === 0)) return ''; let html = `<div class="result-section"><h3 style="color:var(--primary-color); font-size:1em;">${title}</h3><div class="total-result"><strong>${data.text} &rarr; आदाद = ${data.total}</strong></div>`; if (data.breakdown && data.breakdown.length > 0) { data.breakdown.forEach(b => { html += `<div class="word-breakdown"><h4 style="margin-top:10px; font-size:0.9em;">शब्द: ${b.urduWord}</h4><table class="letter-table"><thead><tr><th>हरफ</th><th>अदद</th></tr></thead><tbody>`; b.letters.forEach(letter => { html += `<tr><td>${letter.urdu}</td><td>${letter.value}</td></tr>`; }); html += `<tr><td><strong>कुल</strong></td><td><strong>${b.wordTotal}</strong></td></tr></tbody></table></div>`; }); } return html + `</div>`; } 
+            let summaryHtml = `<div class="final-calculation"><h3 style="color:var(--secondary-color); margin-top:0; font-size:1.1em;">कुल टैकसीम</h3><div class="total-result">${calculationString} = <strong>${data.total}</strong></div>${getSpecificTakseemResult(data.total, data.pageData)}<div class="button-group" style="margin-top:15px;"><button id="show-details-btn" class="back-btn" style="background-color:var(--primary-light)">विस्तार देखें</button><button id="back-to-form-btn2" class="back-btn">फॉर्म पर वापस</button></div></div>`; let detailedHtml = `<h2 style="text-align: center; color: var(--primary-color); font-size:1.2em;">विस्तृत टैकसीम</h2>${generateResultHTML('नाम का फील्ड', data.name)}${generateResultHTML('मां का नाम', data.mother)}${generateResultHTML('पिता का नाम', data.father)}<button id="go-back-btn" class="back-btn" style="margin-top:15px;">वापस</button>`; 
+            formContainer.style.display = 'none'; resultDiv.innerHTML = `<div id="summary-container">${summaryHtml}</div><div id="detailed-container" style="display: none;">${detailedHtml}</div>`; resultDiv.style.display = 'block'; 
+            document.getElementById('show-details-btn').addEventListener('click', () => { document.getElementById('summary-container').style.display = 'none'; document.getElementById('detailed-container').style.display = 'block'; }); document.getElementById('go-back-btn').addEventListener('click', () => { document.getElementById('detailed-container').style.display = 'none'; document.getElementById('summary-container').style.display = 'block'; }); document.getElementById('back-to-form-btn2').addEventListener('click', () => { resultDiv.innerHTML = ''; resultDiv.style.display = 'none'; formContainer.style.display = 'block'; }); 
+        }
+        document.getElementById('open-privacy-policy').addEventListener('click', () => { document.getElementById('privacyPolicyModal').style.display = 'block'; });
+        
+        if ('serviceWorker' in navigator) { window.addEventListener('load', () => { navigator.serviceWorker.register('/sw.js').catch(e => console.log('SW fail')); }); }
+        
+        // Start Process
+        loadCustomNames(); 
+        mergeSpecialCases(); 
+        loadData(); // Fast local load
+        renderAll(); 
+        populateDays(); 
+        populateDates();
+        setupUrduTranslation(nameInput, nameUrduDisplay, nameUrduHidden, 'name_engine'); 
+        setupUrduTranslation(motherNameInput, motherNameUrduDisplay, motherNameUrduHidden, 'mother_engine'); 
+        setupUrduTranslation(fatherNameInput, fatherNameUrduDisplay, fatherNameUrduHidden, 'father_engine');
+
+        // Sync with Firebase in background
+        setTimeout(syncFromFirebase, 1000); 
+
     </script>
 </body>
 </html>
