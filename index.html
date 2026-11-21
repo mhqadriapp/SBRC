@@ -113,7 +113,7 @@
         .input-group { text-align: left; }
         .input-group.field-hidden { display: none; }
         
-        .field-header-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px; }
+        .field-header-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px; gap: 6px; }
         .field-header-row .label-text { flex: 1; font-weight: 600; font-size: 0.85em; color: var(--primary-color); margin: 0; }
         
         .field-header-row .live-adad { 
@@ -127,6 +127,7 @@
             font-size: 0.7rem; padding: 2px 6px; border-radius: 4px; 
             border: 1px solid var(--secondary-color); background: #FFFBEB; 
             color: #B45309; outline: none; font-weight: 600; cursor: pointer; 
+            max-width: 155px;
         }
 
         .input-wrapper { position: relative; }
@@ -146,6 +147,10 @@
             font-size: 1.2em; direction: rtl; color: var(--primary-color); 
             background-color: #E2E8F0; padding: 2px 8px; border-radius: 6px; 
             pointer-events: none; font-weight: 600;
+            max-width: 45%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
         }
 
         /* Buttons Inside Form */
@@ -240,15 +245,15 @@
         <h3>सिस्टम स्टेटस</h3>
         
         <div class="api-box" style="margin-bottom: 10px; background: #F0FDF4; border-color: #BBF7D0;">
-            <span id="cloud-status" style="font-size: 0.85rem; font-weight: bold; color: #D97706;">⏳ क्लाउड सिंक: कनेक्ट हो रहा है...</span>
+            <span id="cloud-status" style="font-size: 0.85rem; font-weight: bold; color: #D97706;">⏳ क्लाउड सिंक: जांच हो रही है...</span>
         </div>
 
         <div class="api-box">
-            <span style="font-size: 0.8rem; font-weight: 600; color: #10B981;">● Translation API: Active</span>
-            <div class="api-url-text">Auto-Transcription (Exact Word Sound)</div>
+            <span id="translator-status" style="font-size: 0.8rem; font-weight: 600; color: #10B981;">● Translator: Online + Offline Active</span>
+            <div class="api-url-text">Smart Offline Phonetic Engine + Online Hybrid</div>
         </div>
         <p style="font-size: 0.8em; color: var(--text-light); line-height: 1.5; margin-top:15px;">
-            <b>नोट:</b> अब आपका डेटा मोबाइल (Local) और इंटरनेट (Firebase) दोनों जगह सुरक्षित सेव हो रहा है।
+            <b>नोट:</b> अब आपका डेटा और उर्दू ट्रांसलेटर बिना इंटरनेट (Offline) और इंटरनेट (Online) दोनों में काम करता है। डेटा मोबाइल (Local) और क्लाउड (Firebase) दोनों में सुरक्षित सेव होता है।
         </p>
     </div>
     <div id="sidebar-overlay"></div>
@@ -285,13 +290,14 @@
                         <span class="live-adad" id="name_adad_display">0</span>
                         <div class="engine-selector-wrapper">
                             <select class="mini-engine-select" id="name_engine">
-                                <option value="auto">Exact Transcription</option>
+                                <option value="auto">Auto (Online+Offline)</option>
+                                <option value="offline">Offline (Exact)</option>
                                 <option value="google">Google Translate</option>
                             </select>
                         </div>
                     </div>
                     <div class="input-wrapper">
-                        <input type="text" id="name_input" placeholder="उदाहरण: Jyoti / राम / Mohan">
+                        <input type="text" id="name_input" placeholder="उदाहरण: Jyoti / राम / Mohan" autocomplete="off">
                         <span class="urdu-display-inline" id="name_urdu_display"></span>
                     </div>
                 </div>
@@ -303,13 +309,14 @@
                         <span class="live-adad" id="mother_adad_display">0</span>
                         <div class="engine-selector-wrapper">
                             <select class="mini-engine-select" id="mother_engine">
-                                <option value="auto">Exact Transcription</option>
+                                <option value="auto">Auto (Online+Offline)</option>
+                                <option value="offline">Offline (Exact)</option>
                                 <option value="google">Google Translate</option>
                             </select>
                         </div>
                     </div>
                     <div class="input-wrapper">
-                        <input type="text" id="motherName_input" placeholder="उदाहरण: सीता / Fatima">
+                        <input type="text" id="motherName_input" placeholder="उदाहरण: सीता / Fatima" autocomplete="off">
                         <span class="urdu-display-inline" id="motherName_urdu_display"></span>
                     </div>
                 </div>
@@ -321,13 +328,14 @@
                         <span class="live-adad" id="father_adad_display">0</span>
                         <div class="engine-selector-wrapper">
                             <select class="mini-engine-select" id="father_engine">
-                                <option value="auto">Exact Transcription</option>
+                                <option value="auto">Auto (Online+Offline)</option>
+                                <option value="offline">Offline (Exact)</option>
                                 <option value="google">Google Translate</option>
                             </select>
                         </div>
                     </div>
                     <div class="input-wrapper">
-                        <input type="text" id="fatherName_input" placeholder="उदाहरण: श्याम / Ali">
+                        <input type="text" id="fatherName_input" placeholder="उदाहरण: श्याम / Ali" autocomplete="off">
                         <span class="urdu-display-inline" id="fatherName_urdu_display"></span>
                     </div>
                 </div>
@@ -428,9 +436,9 @@
             <div class="modal-header"><h2>कैटिगरी/पेज प्रबंधन</h2><span class="close-btn" data-modal-id="unifiedManagementModal">&times;</span></div>
             
             <div class="backup-banner">
-                <h4>💾 डेटा सुरक्षित है (Firebase Enabled)</h4>
+                <h4>💾 डेटा सुरक्षित है (Local + Firebase)</h4>
                 <p style="font-size:0.8em; color:#92400E; margin-bottom: 10px;">
-                    आपका डेटा क्लाउड पर सेव हो रहा है। फिर भी अगर आप चाहें, तो मैनुअल बैकअप फाइल भी रख सकते हैं।
+                    आपका डेटा मोबाइल और क्लाउड दोनों पर सेव हो रहा है। आप चाहें तो मैनुअल बैकअप फाइल भी डाउनलोड कर सकते हैं।
                 </p>
                 <div style="display: flex; gap: 8px;">
                     <button id="export-data-btn" class="add-btn" style="background-color: #10B981; font-size:0.8em; padding:8px;">📥 Export Local</button>
@@ -541,12 +549,9 @@
         <button id="open-privacy-policy">Privacy Policy</button>
     </footer>
 
-    <!-- FIREBASE MODULE SCRIPT -->
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getDatabase, ref, set, get, child } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
-
-        // Your Firebase configuration
+    <!-- MAIN SCRIPT (Works both Online & Offline without crashing) -->
+    <script>
+        // Firebase Config
         const firebaseConfig = {
             apiKey: "AIzaSyAO5P0s5-uCKXKkW9dEQZ-sa_jIq2gjwWU",
             authDomain: "sipahibaba-beed8.firebaseapp.com",
@@ -556,16 +561,15 @@
             appId: "1:415044697001:web:85887ce15f3647c984a2b8"
         };
 
-        // Initialize Firebase
-        const app = initializeApp(firebaseConfig);
-        const db = getDatabase(app);
+        let firebaseDb = null;
+        let firebaseMod = null;
 
-        const GOOGLE_API = "https://translate.googleapis.com/translate_a/single?client=gtx&sl=hi&tl=ur&dt=t&q="; 
-        const AKSHAR_API = "https://aksharamukha-plugin.appspot.com/api/public?source=Devanagari&target=Urdu&text=";
-        
+        const GOOGLE_API = "https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=ur&dt=t&q=";
+        const INPUT_TOOLS_API = "https://inputtools.google.com/request?itc=ur-t-i0-und&num=1&text=";
+
         let allQuestions = {};
         const defaultColumns = { name: true, motherName: true, fatherName: true, day: true, date: true, month: true, year: true, saad: true };
-        
+
         const defaultQuestions = {
             istikhara1: { title: "इस्तिखारा 1 (निकाह के लिए)", description: "यह कैटिगरी शादी और रिश्ते से जुड़े पेज के लिए है।", questions: { "15013": { text: "क्या शादी का प्रस्ताव स्वीकार करना चाहिए", adad: 15013, modulus: 6, rule: '', columns: defaultColumns, results: {0: 'प्रस्ताव स्वीकार करना शुभ होगा', 1: 'प्रस्ताव पर और विचार करना चाहिए', 2: 'प्रस्ताव में कुछ कमी हो सकती है', 3: 'प्रस्ताव अस्वीकार करना बेहतर है', 4: 'प्रस्ताव में देरी हो सकती है', 5: 'प्रस्ताव पर परिवार की राय लेनी चाहिए'} }, "482": { text: "शादी होगी या नहीं", adad: 482, modulus: 2, rule: '', columns: defaultColumns, results: {0: 'शादी जल्दी होगी', 1: 'शादी में देरी होगी या नहीं होगी'} }}},
             istikhara4: { title: "इस्तिखारा 4 (मसला क्या है)", description: "यह कैटिगरी किसी परेशानी की जड़ जानने के लिए है।", questions: { "789": { text: "इसके साथ क्या मामला है", adad: 789, modulus: 4, rule: '', columns: defaultColumns, results: {0: 'प्रेत का साया', 1: 'जिस्मानी मामला', 2: 'कार्रवाई हुई है', 3: 'कोई बीमारी नहीं'} } }},
@@ -574,15 +578,232 @@
         const days = {"": "दिन चुनें", "रविवार": "रविवार", "सोमवार": "सोमवार", "मंगलवार": "मंगलवार", "बुधवार": "बुधवार", "गुरुवार": "गुरुवार", "शुक्रवार": "शुक्रवार", "शनिवार": "शनिवार"};
         const dayNumbers = {'':0, 'रविवार': 608, 'सोमवार': 212, 'मंगलवार': 140, 'बुधवार': 11, 'गुरुवार': 714, 'शुक्रवार': 158, 'शनिवार': 490};
         const monthNumbers = {'':0, 'जनवरी': 269, 'फरवरी': 496, 'मार्च': 244, 'अप्रैल': 243, 'मई': 50, 'जून': 59, 'जुलाई': 50, 'अगस्त': 464, 'सितंबर': 702, 'अक्टूबर': 629, 'नवंबर': 298, 'दिसंबर': 306};
-        
-        const urduAbjad = { 'ا': 1, 'آ': 1, 'أ': 1, 'إ': 1, 'ء': 1, 'ب': 2, 'پ': 2, 'ج': 3, 'چ': 3, 'د': 4, 'ڈ': 4, 'ہ': 5, 'ه': 5, 'ھ': 5, 'و': 6, 'ز': 7, 'ژ': 7, 'ح': 8, 'ط': 9, 'ی': 10, 'ى': 10, 'ے': 10, 'ک': 20, 'ك': 20, 'گ': 20, 'ل': 30, 'م': 40, 'ن': 50, 'ں': 50, 'س': 60, 'ع': 70, 'ف': 80, 'ص': 90, 'ق': 100, 'ر': 200, 'ڑ': 200, 'ش': 300, 'ت': 400, 'ٹ': 400, 'ث': 500, 'خ': 600, 'ذ': 700, 'ض': 800, 'ظ': 900, 'غ': 1000 };
-        const defaultSpecialCases = { 'Jyoti': 'جيوتي', 'राम': 'رام', 'मोहन':'موہن', 'सीता': 'سیتا', 'Fatima':'فاطمہ', 'Mohammed': 'محمد', 'Hasan':'حسن', 'Ali': 'علی', 'मोहम्मद': 'محمد', 'हसन': 'حسن', 'फातिमा': 'فاطمہ', 'Umme kulsum': 'ام کلثوم' };
-        
+
+        const urduAbjad = { 'ا': 1, 'آ': 1, 'أ': 1, 'إ': 1, 'ء': 1, 'ب': 2, 'پ': 2, 'ج': 3, 'چ': 3, 'د': 4, 'ڈ': 4, 'ہ': 5, 'ه': 5, 'ھ': 5, 'ۂ': 5, 'و': 6, 'ز': 7, 'ژ': 7, 'ح': 8, 'ط': 9, 'ی': 10, 'ى': 10, 'ے': 10, 'ک': 20, 'ك': 20, 'گ': 20, 'ل': 30, 'م': 40, 'ن': 50, 'ں': 50, 'س': 60, 'ع': 70, 'ف': 80, 'ص': 90, 'ق': 100, 'ر': 200, 'ڑ': 200, 'ش': 300, 'ت': 400, 'ٹ': 400, 'ث': 500, 'خ': 600, 'ذ': 700, 'ض': 800, 'ظ': 900, 'غ': 1000 };
+
+        // Built-in Offline Dictionary (Hindi & English common names for 100% accuracy)
+        const defaultSpecialCases = {
+            // Original cases
+            'Jyoti': 'جیوتی', 'ज्योति': 'جیوتی',
+            'राम': 'رام', 'Ram': 'رام',
+            'मोहन': 'موہن', 'Mohan': 'موہن',
+            'सीता': 'سیتا', 'Sita': 'سیتا',
+            'Fatima': 'فاطمہ', 'फातिमा': 'فاطمہ',
+            'Mohammed': 'محمد', 'Mohammad': 'محمد', 'Muhammad': 'محمد', 'मोहम्मद': 'محمد',
+            'Hasan': 'حسن', 'Hassan': 'حسن', 'हसन': 'حسن',
+            'Ali': 'علی', 'अली': 'علی',
+            'Umme kulsum': 'ام کلثوم', 'उम्मे कुलसुम': 'ام کلثوم', 'उम्मे': 'امے', 'कुलसुम': 'کلثوم',
+            // Common Muslim names (Hindi & English)
+            'Hussain': 'حسین', 'हुसैन': 'حسین',
+            'Ahmed': 'احمد', 'Ahmad': 'احمد', 'अहमद': 'احمد',
+            'Ayesha': 'عائشہ', 'Aisha': 'عائشہ', 'आयशा': 'عائشہ',
+            'Amina': 'آمنہ', 'अमीना': 'آمنہ',
+            'Zainab': 'زینب', 'ज़ैनब': 'زینب', 'जैनब': 'زینب',
+            'Khadija': 'خدیجہ', 'खदीजा': 'خدیجہ',
+            'Umar': 'عمر', 'Omar': 'عمر', 'उमर': 'عمر',
+            'Usman': 'عثمان', 'उस्मान': 'عثمان',
+            'Bilal': 'بلال', 'बिलाल': 'بلال',
+            'Tariq': 'طارق', 'तारिक': 'طارق',
+            'Khalid': 'خالد', 'खालिद': 'خالد',
+            'Irfan': 'عرفان', 'इरफान': 'عرفان', 'इरफ़ान': 'عرفان',
+            'Imran': 'عمران', 'इमरान': 'عمران',
+            'Salman': 'سلمان', 'सलमान': 'سلمان',
+            'Aamir': 'عامر', 'Amir': 'عامر', 'आमिर': 'عامر',
+            'Shahrukh': 'شاہرخ', 'शाहरुख': 'شاہرخ',
+            'Farhan': 'فرحان', 'फरहान': 'فرحان',
+            'Faisal': 'فیصل', 'फैसल': 'فیصل',
+            'Wasim': 'وسیم', 'वसीम': 'وسیم',
+            'Nadeem': 'ندیم', 'नदीम': 'ندیم',
+            'Javed': 'جاوید', 'जावेद': 'جاوید',
+            'Parvez': 'پرویز', 'परवेज': 'پرویز',
+            'Suhail': 'سہیل', 'सुहैल': 'سہیل',
+            'Shoaib': 'شعیب', 'शोएब': 'شعیب',
+            'Rizwan': 'رضوان', 'रिजवान': 'رضوان',
+            'Adnan': 'عدنان', 'अदनान': 'عدنان',
+            'Arshad': 'ارشد', 'अरशद': 'ارشد',
+            'Asif': 'آصف', 'आसिफ': 'آصف',
+            'Atif': 'عاطف', 'आतिफ': 'عاطف',
+            'Danish': 'دانش', 'दानिश': 'دانش',
+            'Ehsan': 'احسان', 'एहसान': 'احسان',
+            'Feroz': 'فیروز', 'फिरोज': 'فیروز',
+            'Hamid': 'حامد', 'हामिद': 'حامد',
+            'Haroon': 'ہارون', 'हारून': 'ہارون',
+            'Ibrahim': 'ابراہیم', 'इब्राहिम': 'ابراہیم',
+            'Iqbal': 'اقبال', 'इकबाल': 'اقبال',
+            'Ismail': 'اسماعیل', 'इस्माइल': 'اسماعیل',
+            'Jamal': 'جمال', 'जमाल': 'جمال',
+            'Junaid': 'جنید', 'जुनैद': 'جنید',
+            'Kabir': 'کبیر', 'कबीर': 'کبیر',
+            'Kamran': 'کامران', 'कामران': 'کامران',
+            'Karim': 'کریم', 'करीम': 'کریم',
+            'Kashif': 'کاشف', 'काशिफ': 'کاشف',
+            'Kausar': 'کوثر', 'कौसर': 'کوثر',
+            'Latif': 'لطیف', 'लतीफ': 'لطیف',
+            'Mahmood': 'محمود', 'महमूद': 'محمود',
+            'Majid': 'ماجد', 'माजिद': 'ماجد',
+            'Mansoor': 'منصور', 'मंसूर': 'منصور',
+            'Masood': 'مسعود', 'मसूद': 'مسعود',
+            'Mehboob': 'محبوب', 'महबूब': 'محبوب',
+            'Mustafa': 'مصطفی', 'मुस्तफा': 'مصطفی',
+            'Naeem': 'نعیم', 'नईम': 'نعیم',
+            'Nasir': 'ناصر', 'नासिर': 'ناصر',
+            'Noor': 'نور', 'नूर': 'نور',
+            'Qasim': 'قاسم', 'कासिम': 'قاسم',
+            'Rafiq': 'رفیق', 'रफीक': 'رفیق',
+            'Rahim': 'رحیم', 'रहीम': 'رحیم',
+            'Rahman': 'رحمان', 'रहमान': 'رحمان',
+            'Rashid': 'راشد', 'राशिद': 'راشد',
+            'Raza': 'رضا', 'रज़ा': 'رضا', 'रजा': 'رضا',
+            'Rehan': 'ریحان', 'रेहान': 'ریحان',
+            'Sadiq': 'صادق', 'सादिक': 'صادق',
+            'Saeed': 'سعید', 'सईद': 'سعید',
+            'Sajid': 'ساجد', 'साजिद': 'ساجد',
+            'Saleem': 'سلیم', 'सलीम': 'سلیم',
+            'Sameer': 'سمیر', 'समीर': 'سمیر',
+            'Sana': 'ثنا', 'सना': 'ثنا',
+            'Shabbir': 'شبیر', 'शब्बीर': 'شبیر',
+            'Shahid': 'شاہد', 'शाहिद': 'شاہد',
+            'Shakeel': 'شکیل', 'शकील': 'شکیل',
+            'Shamim': 'شمیم', 'शमीम': 'شمیم',
+            'Sharif': 'شریف', 'शरीफ': 'شریف',
+            'Siraj': 'سراج', 'सिराज': 'سراج',
+            'Suleman': 'سلیمان', 'सुलेमान': 'سلیمان',
+            'Tahir': 'طاہر', 'ताहिर': 'طاہر',
+            'Tanveer': 'تنویر', 'तनवीर': 'تنویر',
+            'Taufiq': 'توفیق', 'तौफीक': 'توفیق',
+            'Wajid': 'واجد', 'वाजिद': 'واجد',
+            'Yasin': 'یاسین', 'यासीन': 'یاسین',
+            'Yusuf': 'یوسف', 'यूसुफ': 'یوسف',
+            'Zahid': 'زاہد', 'जाहिद': 'زاہد',
+            'Zaid': 'زید', 'ज़ैद': 'زید', 'जैद': 'زید',
+            'Zakir': 'ذاکر', 'जाकिर': 'ذاکر',
+            'Zeeshan': 'ذیشان', 'जीशान': 'ذیشان',
+            'Zoya': 'زویا', 'ज़ोया': 'زویا',
+            'Abdul': 'عبدال', 'अब्दुल': 'عبدال',
+            'Abdullah': 'عبداللہ', 'अब्दुल्लाह': 'عبداللہ',
+            'Khan': 'خان', 'खान': 'خان',
+            'Begum': 'بیگم', 'बेगम': 'بیگم',
+            'Khatoon': 'خاتون', 'खातून': 'خاتون',
+            'Bano': 'بانو', 'बानो': 'بانو',
+            'Parveen': 'پروین', 'परवीन': 'پروین',
+            'Yasmin': 'یاسمین', 'यास्मीन': 'یاسمین',
+            'Ruksana': 'رخسانہ', 'Rukhsana': 'رخسانہ', 'रुखसाना': 'رخسانہ',
+            'Shabnam': 'شبنم', 'शबनम': 'شبنم',
+            'Farhana': 'فرحانہ', 'फरहाना': 'فرحانہ',
+            'Nazma': 'نظمہ', 'नज़मा': 'نظمہ',
+            'Sultana': 'سلطانہ', 'सुल्ताना': 'سلطانہ',
+            'Razia': 'رضیہ', 'रज़िया': 'رضیہ',
+            // Common Hindu / Indian names (Hindi & English)
+            'Shyam': 'شیام', 'श्याम': 'شیام',
+            'Geeta': 'گیتا', 'Gita': 'گیتا', 'गीता': 'گیتا',
+            'Meera': 'میرا', 'मीरा': 'میرا',
+            'Radha': 'رادھا', 'राधा': 'رادھا',
+            'Pooja': 'پوجا', 'Puja': 'پوجا', 'पूजा': 'پوجا',
+            'Priya': 'پریا', 'प्रिया': 'پریا',
+            'Anjali': 'انجلی', 'अंजलि': 'انجلی',
+            'Neha': 'نیہا', 'नेहा': 'نیہا',
+            'Kavita': 'کویتا', 'कविता': 'کویتا',
+            'Sunita': 'سنیتا', 'सुनीता': 'سنیتا',
+            'Anita': 'انیتا', 'अनीता': 'انیتا',
+            'Savita': 'سویتا', 'सविता': 'سویتا',
+            'Sarita': 'سریتا', 'सरिता': 'سریتا',
+            'Babita': 'ببیتا', 'बबीता': 'ببیتا',
+            'Mamta': 'ممتا', 'ममता': 'ممتا',
+            'Rekha': 'ریکھا', 'रेखा': 'ریکھا',
+            'Seema': 'سیما', 'सीमा': 'سیما',
+            'Reena': 'رینا', 'रीना': 'رینا',
+            'Meena': 'مینا', 'मीना': 'مینا',
+            'Tina': 'ٹینا', 'टीना': 'ٹینا',
+            'Ritu': 'رتو', 'ऋतु': 'رتو',
+            'Suman': 'سمن', 'सुमन': 'سمن',
+            'Poonam': 'پونم', 'पूनम': 'پونم',
+            'Kiran': 'کرن', 'किरण': 'کرن',
+            'Komal': 'کومل', 'कोमल': 'کومل',
+            'Sonia': 'سونیا', 'सोनिया': 'سونیا',
+            'Rani': 'رانی', 'रानी': 'رانی',
+            'Raja': 'راجا', 'राजा': 'راجا',
+            'Prem': 'پریم', 'प्रेम': 'پریم',
+            'Suraj': 'سورج', 'सूरज': 'سورج',
+            'Prakash': 'پرکاش', 'प्रकाश': 'پرکاش',
+            'Krishna': 'کرشن', 'कृष्ण': 'کرشن',
+            'Arjun': 'ارجن', 'अर्जुन': 'ارجن',
+            'Ganesh': 'گنیش', 'गणेश': 'گنیش',
+            'Shiva': 'شیو', 'Shiv': 'شو', 'शिव': 'شو',
+            'Shankar': 'شنکر', 'शंकर': 'شنکر',
+            'Lakshmi': 'لکشمی', 'Laxmi': 'لکشمی', 'लक्ष्मी': 'لکشمی',
+            'Parvati': 'پاروتی', 'पार्वती': 'پاروتی',
+            'Saraswati': 'سرسوتی', 'सरस्वती': 'سرسوتی',
+            'Durga': 'درگا', 'दुर्गा': 'درگا',
+            'Rahul': 'راہل', 'राहुल': 'راہل',
+            'Rohit': 'روہت', 'रोहित': 'روہت',
+            'Mohit': 'موہت', 'मोहित': 'موہت',
+            'Amit': 'امت', 'अमित': 'امت',
+            'Sumit': 'سمت', 'सुमित': 'سمت',
+            'Vikas': 'وکاس', 'विकास': 'وکاس',
+            'Akash': 'آکاش', 'आकाश': 'آکاش',
+            'Vishal': 'وشال', 'विशाल': 'وشال',
+            'Rajesh': 'راجیش', 'राजेश': 'راجیش',
+            'Suresh': 'سریش', 'सुरेश': 'سریش',
+            'Mahesh': 'مہیش', 'महेश': 'مہیش',
+            'Ramesh': 'رمیش', 'रमेश': 'رمیش',
+            'Dinesh': 'دنیش', 'दिनेश': 'دنیش',
+            'Mukesh': 'مکیش', 'मुकेश': 'مکیش',
+            'Rakesh': 'راکیش', 'राकेश': 'راکیش',
+            'Naresh': 'نریش', 'नरेश': 'نریش',
+            'Umesh': 'امیش', 'उमेश': 'امیش',
+            'Kamlesh': 'کملیش', 'कमलेश': 'کملیش',
+            'Vinod': 'ونود', 'विनोद': 'ونود',
+            'Ashok': 'اشوک', 'अशोक': 'اشوک',
+            'Manoj': 'منوج', 'मनोज': 'منوج',
+            'Pankaj': 'پنکج', 'पंकज': 'پنکج',
+            'Sanjay': 'سنجے', 'संजय': 'سنجے',
+            'Ajay': 'اجے', 'अजय': 'اجے',
+            'Vijay': 'وجے', 'विजय': 'وجے',
+            'Sandeep': 'سندیپ', 'संदीप': 'سندیپ',
+            'Pradeep': 'پردیپ', 'प्रदीप': 'پردیپ',
+            'Deepak': 'دیپک', 'दीपक': 'دیپک',
+            'Vivek': 'وویک', 'विवेक': 'وویک',
+            'Anil': 'انل', 'अनिल': 'انل',
+            'Sunil': 'سنیل', 'सुनील': 'سنیل',
+            'Kapil': 'کپل', 'कपिल': 'کپل',
+            'Nitin': 'نتن', 'नितिन': 'نتن',
+            'Sachin': 'سچن', 'सचिन': 'سچن',
+            'Gaurav': 'گورو', 'गौरव': 'گورو',
+            'Saurabh': 'سوربھ', 'सौरभ': 'سوربھ',
+            'Ravi': 'روی', 'रवि': 'روی',
+            'Vikram': 'وکرم', 'विक्रम': 'وکرم',
+            'Aditya': 'آدتیہ', 'आदित्य': 'آدتیہ',
+            'Aryan': 'آریان', 'आर्यन': 'آریان',
+            'Rohan': 'روہن', 'रोहन': 'روہن',
+            'Sohan': 'سوہن', 'सोहन': 'سوہن',
+            'Gopal': 'گوپال', 'गोपाल': 'گوپال',
+            'Karan': 'کرن', 'करण': 'کرن',
+            'Nikhil': 'نکھل', 'निखिल': 'نکھل',
+            'Tarun': 'ترن', 'तरुण': 'ترن',
+            'Varun': 'ورن', 'वरुण': 'ورن',
+            'Arun': 'ارن', 'अरुण': 'ارن',
+            'Harish': 'ہریش', 'हरीश': 'ہریش',
+            'Satish': 'ستیش', 'सतीश': 'ستیش',
+            'Manish': 'منیش', 'मनीष': 'منیش',
+            'Girish': 'گریش', 'गिरीश': 'گریش',
+            'Yogesh': 'یوگیش', 'योगेश': 'یوگیش',
+            'Lokesh': 'لوکیش', 'लोकेश': 'لوکیش',
+            'Kumar': 'کمار', 'कुमार': 'کمار',
+            'Devi': 'دیوی', 'देवी': 'دیوی',
+            'Sharma': 'شرما', 'शर्मा': 'شرما',
+            'Verma': 'ورما', 'वर्मा': 'ورما',
+            'Singh': 'سنگھ', 'सिंह': 'سنگھ',
+            'Patel': 'پٹیل', 'पटेल': 'پٹیل',
+            'Yadav': 'یادو', 'यादव': 'یادو',
+            'Gupta': 'گپتا', 'गुप्ता': 'گپتا',
+            'Mishra': 'مشرا', 'मिश्रा': 'مشرا'
+        };
+
         let customTranslations = {}; let hindiSpecialCases = {};
         const grahaCycle = ['शम्स', 'क़मर', 'मिर्रीख़', 'अतारिद', 'मुश्तरी', 'ज़ोहरा', 'ज़ुहल'];
         const grahaAdad = {'शम्स': 400, 'क़मर': 340, 'मिर्रीख़': 850, 'अतारिद': 284, 'मुश्तरी': 950, 'ज़ोहरा': 217, 'ज़ुहल': 45};
         const dayStartingGraha = {'रविवार': 0, 'सोमवार': 1, 'मंगलवार': 2, 'बुधवार': 3, 'गुरुवार': 4, 'शुक्रवार': 5, 'शनिवार': 6};
-        
+
         function formatTime12Hour(hour24) { const period = hour24 >= 5 && hour24 < 12 ? 'सुबह' : hour24 >= 12 && hour24 < 16 ? 'दोपहर' : hour24 >= 16 && hour24 < 20 ? 'शाम' : 'रात'; let hour12 = hour24 % 12; if (hour12 === 0) hour12 = 12; return `${period} ${hour12}:00`; }
         const saadData = {};
         Object.keys(dayStartingGraha).forEach(day => { const startIndex = dayStartingGraha[day]; saadData[day] = Array.from({ length: 24 }).map((_, index) => { const h1_24 = (index + 6) % 24; const h2_24 = (h1_24 + 1); const time = `${formatTime12Hour(h1_24)} - ${h2_24 % 12 === 0 ? 12 : h2_24 % 12}:00`; const grahaIndex = (startIndex + index) % 7; return { time: time, planet: grahaCycle[grahaIndex], adad: grahaAdad[grahaCycle[grahaIndex]] }; }); });
@@ -600,7 +821,7 @@
         }
         function saveCustomNames() { 
             localStorage.setItem('customTranslations', JSON.stringify(customTranslations)); 
-            pushToFirebase(); // Backup to Cloud
+            pushToFirebase();
         }
         function mergeSpecialCases() { hindiSpecialCases = { ...defaultSpecialCases, ...customTranslations }; }
         
@@ -610,25 +831,31 @@
         }
         function saveData() { 
             localStorage.setItem('allQuestionsData', JSON.stringify(allQuestions)); 
-            pushToFirebase(); // Backup to Cloud
+            pushToFirebase();
         }
 
         function pushToFirebase() {
+            if (!firebaseDb || !firebaseMod || !navigator.onLine) return;
             try {
-                set(ref(db, 'sipahibaba_data'), {
+                firebaseMod.set(firebaseMod.ref(firebaseDb, 'sipahibaba_data'), {
                     allQuestionsData: allQuestions,
                     customTranslations: customTranslations
                 });
             } catch(e) {
-                console.log("Firebase push failed (Offline). Saved locally.");
+                console.log("Firebase push skipped (Offline). Saved locally.");
             }
         }
 
         async function syncFromFirebase() {
             const statusEl = document.getElementById('cloud-status');
+            if (!firebaseDb || !firebaseMod || !navigator.onLine) {
+                statusEl.innerText = "⚠️ क्लाउड सिंक: ऑफलाइन (Local Mode)";
+                statusEl.style.color = "#D97706";
+                return;
+            }
             try {
-                const dbRef = ref(db);
-                const snapshot = await get(child(dbRef, `sipahibaba_data`));
+                const dbRef = firebaseMod.ref(firebaseDb);
+                const snapshot = await firebaseMod.get(firebaseMod.child(dbRef, `sipahibaba_data`));
                 if (snapshot.exists()) {
                     const data = snapshot.val();
                     if(data.allQuestionsData) {
@@ -642,9 +869,8 @@
                     }
                     statusEl.innerText = "☁️ क्लाउड सिंक: चालू (Connected)";
                     statusEl.style.color = "#10B981";
-                    renderAll(); // Re-render UI with latest cloud data
+                    renderAll();
                 } else {
-                    // First time: Cloud is empty, push local data to it
                     pushToFirebase();
                     statusEl.innerText = "☁️ क्लाउड सिंक: चालू (Connected)";
                     statusEl.style.color = "#10B981";
@@ -656,7 +882,58 @@
             }
         }
 
-        // Keep local export/import working as a manual backup option
+        async function initFirebase() {
+            const statusEl = document.getElementById('cloud-status');
+            updateTranslatorStatusBadge();
+            if (!navigator.onLine) {
+                statusEl.innerText = "⚠️ क्लाउड सिंक: ऑफलाइन (Local Mode)";
+                statusEl.style.color = "#D97706";
+                return;
+            }
+            try {
+                if (!firebaseDb) {
+                    const [{ initializeApp }, dbMod] = await Promise.all([
+                        import("https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js"),
+                        import("https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js")
+                    ]);
+                    const app = initializeApp(firebaseConfig);
+                    firebaseDb = dbMod.getDatabase(app);
+                    firebaseMod = dbMod;
+                }
+                await syncFromFirebase();
+            } catch (err) {
+                console.log("Firebase unavailable (Offline mode active):", err);
+                statusEl.innerText = "⚠️ क्लाउड सिंक: ऑफलाइन (Local Mode)";
+                statusEl.style.color = "#D97706";
+            }
+        }
+
+        function updateTranslatorStatusBadge() {
+            const tStatus = document.getElementById('translator-status');
+            if (!tStatus) return;
+            if (navigator.onLine) {
+                tStatus.innerText = "● Translator: Online + Offline Active";
+                tStatus.style.color = "#10B981";
+            } else {
+                tStatus.innerText = "● Translator: Offline Engine Active";
+                tStatus.style.color = "#D97706";
+            }
+        }
+
+        window.addEventListener('online', () => {
+            updateTranslatorStatusBadge();
+            initFirebase();
+        });
+        window.addEventListener('offline', () => {
+            updateTranslatorStatusBadge();
+            const statusEl = document.getElementById('cloud-status');
+            if (statusEl) {
+                statusEl.innerText = "⚠️ क्लाउड सिंक: ऑफलाइन (Local Mode)";
+                statusEl.style.color = "#D97706";
+            }
+        });
+
+        // Manual export/import
         document.getElementById('export-data-btn').addEventListener('click', () => { const dataToExport = { allQuestionsData: localStorage.getItem('allQuestionsData') || JSON.stringify(defaultQuestions), customTranslations: localStorage.getItem('customTranslations') || "{}" }; const blob = new Blob([JSON.stringify(dataToExport)], { type: 'application/json' }); const url = URL.createObjectURL(blob); const a = document.createElement('a'); a.href = url; a.download = `Sipahi_Baba_Backup_${new Date().toISOString().slice(0,10)}.json`; document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(url); });
         document.getElementById('import-data-btn').addEventListener('click', () => { document.getElementById('import-data-file').click(); });
         document.getElementById('import-data-file').addEventListener('change', (e) => { const file = e.target.files[0]; if(!file) return; const reader = new FileReader(); reader.onload = (ev) => { try { const parsedData = JSON.parse(ev.target.result); if(parsedData.allQuestionsData) { localStorage.setItem('allQuestionsData', parsedData.allQuestionsData); allQuestions = JSON.parse(parsedData.allQuestionsData); } if(parsedData.customTranslations) { localStorage.setItem('customTranslations', parsedData.customTranslations); customTranslations = JSON.parse(parsedData.customTranslations); } pushToFirebase(); alert('✅ रिस्टोर सफल!'); window.location.reload(); } catch(err) { alert('❌ फाइल अमान्य है।'); } }; reader.readAsText(file); });
@@ -687,7 +964,7 @@
 
         function populatePagesDropdown(pages) { 
             questionSelect.innerHTML = '<option value="">-- पेज चुनें --</option>'; 
-            if (!pages) return; // Safety check if empty
+            if (!pages) return;
             for (const key in pages) questionSelect.add(new Option(`${pages[key].text} /${pages[key].adad}`, key)); 
         }
 
@@ -726,7 +1003,7 @@
             if (editKey) { 
                 allQuestions[editKey].title = title; 
                 allQuestions[editKey].description = desc; 
-                if (!allQuestions[editKey].questions) allQuestions[editKey].questions = {}; // Safety check
+                if (!allQuestions[editKey].questions) allQuestions[editKey].questions = {};
             } else { 
                 allQuestions[`cat_${Date.now()}`] = { title, description: desc, questions: {} }; 
             } 
@@ -755,7 +1032,6 @@
             
             const columns = { name: document.getElementById('col-name').checked, motherName: document.getElementById('col-motherName').checked, fatherName: document.getElementById('col-fatherName').checked, day: document.getElementById('col-day').checked, date: document.getElementById('col-date').checked, month: document.getElementById('col-month').checked, year: document.getElementById('col-year').checked, saad: document.getElementById('col-saad').checked }; 
             
-            // FIX: Ensure questions object exists before saving a page to avoid Firebase deletion bugs
             if (!allQuestions[catId].questions) {
                 allQuestions[catId].questions = {};
             }
@@ -809,8 +1085,8 @@
             html += `</div>`; 
             return html; 
         }
-        document.getElementById('download-all-pdf').addEventListener('click', () => { let div = document.createElement('div'); div.innerHTML = generatePDFHTML(null); document.body.appendChild(div); html2pdf().set({ margin: 0.3, filename: 'All_Categories.pdf', image: { type: 'jpeg', quality: 0.98 }, html2canvas: { scale: 2 }, jsPDF: { unit: 'in', format: 'letter', orientation: 'landscape' } }).from(div).save().then(() => document.body.removeChild(div)); });
-        document.getElementById('download-category-pdf').addEventListener('click', () => { const catId = catSelect.value; if(!catId) { alert("कैटिगरी चुनें!"); return; } let div = document.createElement('div'); div.innerHTML = generatePDFHTML(catId); document.body.appendChild(div); html2pdf().set({ margin: 0.3, filename: `${allQuestions[catId].title}.pdf`, image: { type: 'jpeg', quality: 0.98 }, html2canvas: { scale: 2 }, jsPDF: { unit: 'in', format: 'letter', orientation: 'landscape' } }).from(div).save().then(() => document.body.removeChild(div)); });
+        document.getElementById('download-all-pdf').addEventListener('click', () => { if (typeof html2pdf === 'undefined') { alert('PDF डाउनलोड करने के लिए इंटरनेट कनेक्शन आवश्यक है।'); return; } let div = document.createElement('div'); div.innerHTML = generatePDFHTML(null); document.body.appendChild(div); html2pdf().set({ margin: 0.3, filename: 'All_Categories.pdf', image: { type: 'jpeg', quality: 0.98 }, html2canvas: { scale: 2 }, jsPDF: { unit: 'in', format: 'letter', orientation: 'landscape' } }).from(div).save().then(() => document.body.removeChild(div)); });
+        document.getElementById('download-category-pdf').addEventListener('click', () => { if (typeof html2pdf === 'undefined') { alert('PDF डाउनलोड करने के लिए इंटरनेट कनेक्शन आवश्यक है।'); return; } const catId = catSelect.value; if(!catId) { alert("कैटिगरी चुनें!"); return; } let div = document.createElement('div'); div.innerHTML = generatePDFHTML(catId); document.body.appendChild(div); html2pdf().set({ margin: 0.3, filename: `${allQuestions[catId].title}.pdf`, image: { type: 'jpeg', quality: 0.98 }, html2canvas: { scale: 2 }, jsPDF: { unit: 'in', format: 'letter', orientation: 'landscape' } }).from(div).save().then(() => document.body.removeChild(div)); });
 
         function renderAll() { renderSelectionButtons(); }
         function resetFullForm() { entryForm.reset(); document.querySelectorAll('.urdu-display-inline').forEach(el => el.textContent = ''); nameUrduHidden.value = ''; motherNameUrduHidden.value = ''; fatherNameUrduHidden.value = ''; resultDiv.innerHTML = ''; resultDiv.style.display = 'none'; updateLiveAdads(); }
@@ -827,65 +1103,398 @@
         function updateLiveAdads() { const cols = allQuestions[currentCategoryKey]?.questions?.[questionSelect.value]?.columns || defaultColumns; document.getElementById('name_adad_display').innerText = cols.name ? calculateSingleAdad(nameUrduHidden.value) : 0; document.getElementById('mother_adad_display').innerText = cols.motherName ? calculateSingleAdad(motherNameUrduHidden.value) : 0; document.getElementById('father_adad_display').innerText = cols.fatherName ? calculateSingleAdad(fatherNameUrduHidden.value) : 0; document.getElementById('day_adad_display').innerText = cols.day ? (dayNumbers[document.getElementById('day').value] || 0) : 0; document.getElementById('date_adad_display').innerText = cols.date ? (parseInt(document.getElementById('date').value) || 0) : 0; document.getElementById('month_adad_display').innerText = cols.month ? (monthNumbers[document.getElementById('month').value] || 0) : 0; document.getElementById('year_adad_display').innerText = cols.year ? (parseInt(document.getElementById('year_input').value) || 0) : 0; document.getElementById('saad_adad_display').innerText = cols.saad ? (parseInt(document.getElementById('saad').value) || 0) : 0; document.getElementById('question_adad_display').innerText = (allQuestions[currentCategoryKey]?.questions?.[questionSelect.value]?.adad) || 0; }
         document.getElementById('date').addEventListener('change', updateLiveAdads); document.getElementById('month').addEventListener('change', updateLiveAdads); document.getElementById('year_input').addEventListener('input', updateLiveAdads); document.getElementById('saad').addEventListener('change', updateLiveAdads);
 
-        function setupUrduTranslation(input, display, hidden, engineSelectId) { 
-            const debouncedTranslate = debounce(async (value) => { 
-                const fullText = value.trim(); if (!fullText) { display.textContent = ''; hidden.value = ''; updateLiveAdads(); return; }
-                display.textContent = '⏳'; const engine = document.getElementById(engineSelectId).value;
-                const urduText = await translateToUrdu(fullText, engine, 1); 
-                if(urduText !== '❌ Error') { display.textContent = urduText; hidden.value = urduText; updateLiveAdads(); } else { display.textContent = '❌'; }
-            }, 600); 
-            input.addEventListener('input', (e) => debouncedTranslate(e.target.value)); 
-            document.getElementById(engineSelectId).addEventListener('change', () => { if(input.value) debouncedTranslate(input.value); });
-        }
-        
-        // FIX: TRANSLITERATION FUNCTION (Exact Sound Transcription)
-        async function translateToUrdu(fullText, engine, retries = 0) { 
-            const lower = fullText.toLowerCase(); 
-            const matchingKey = Object.keys(hindiSpecialCases).find(k => k.toLowerCase() === lower); 
-            if (matchingKey) return hindiSpecialCases[matchingKey]; 
-            
-            try { 
-                const isHindi = /[\u0900-\u097F]/.test(fullText); // Detect Devanagari
+        // =========================================================================
+        // 100% OFFLINE + ONLINE SMART TRANSLITERATION ENGINE (Exact Sound)
+        // =========================================================================
 
-                if (engine === 'auto') {
-                    // For Exact Transcription
-                    if (isHindi) {
-                        // Hindi to Urdu transcription using Aksharamukha (No translation, exact spelling)
-                        const res = await fetch(AKSHAR_API + encodeURIComponent(fullText)); 
-                        if (!res.ok) throw new Error('API Error'); 
-                        let data = await res.text(); 
-                        return data.replace(/[\u064B-\u065F\u0670]/g, '');
-                    } else {
-                        // English to Urdu exact phonetic transliteration using Google Input Tools
-                        const res = await fetch(`https://inputtools.google.com/request?text=${encodeURIComponent(fullText)}&itc=ur-t-i0-und&num=1`);
-                        if (!res.ok) throw new Error('API Error'); 
-                        const data = await res.json();
-                        if (data[0] === 'SUCCESS' && data[1] && data[1][0] && data[1][0][1]) {
-                            return data[1][0][1][0].replace(/[\u064B-\u065F\u0670]/g, '');
-                        }
-                        throw new Error('Input Tools Failed');
-                    }
+        function cleanUrduText(str) {
+            return (str || '').replace(/[\u064B-\u065F\u0670\u0640]/g, '').trim();
+        }
+
+        function lookupSpecialCase(text) {
+            const lower = text.toLowerCase();
+            // Custom translations override defaults
+            const customMatch = Object.keys(customTranslations).find(k => k.toLowerCase() === lower);
+            if (customMatch) return cleanUrduText(customTranslations[customMatch]);
+            const specialMatch = Object.keys(hindiSpecialCases).find(k => k.toLowerCase() === lower);
+            if (specialMatch) return cleanUrduText(hindiSpecialCases[specialMatch]);
+            return null;
+        }
+
+        // 1. Offline Devanagari (Hindi) -> Urdu Exact Phonetic Transliterator
+        function devanagariWordToUrdu(word) {
+            // Normalize precomposed nukta chars to base + nukta
+            word = word
+                .replace(/\u0958/g, 'क\u093C').replace(/\u0959/g, 'ख\u093C')
+                .replace(/\u095A/g, 'ग\u093C').replace(/\u095B/g, 'ज\u093C')
+                .replace(/\u095C/g, 'ड\u093C').replace(/\u095D/g, 'ढ\u093C')
+                .replace(/\u095E/g, 'फ\u093C').replace(/\u095F/g, 'य\u093C');
+
+            const indepVowels = {
+                'अ': 'ا', 'आ': 'آ', 'इ': 'ا', 'ई': 'ای', 'उ': 'ا', 'ऊ': 'او',
+                'ऋ': 'ر', 'ए': 'ای', 'ऐ': 'ای', 'ओ': 'او', 'औ': 'او', 'ऑ': 'آ', 'ऍ': 'اے'
+            };
+            const consonants = {
+                'क': 'ک', 'ख': 'کھ', 'ग': 'گ', 'घ': 'گھ', 'ङ': 'ن',
+                'च': 'چ', 'छ': 'چھ', 'ज': 'ج', 'झ': 'جھ', 'ञ': 'ن',
+                'ट': 'ٹ', 'ठ': 'ٹھ', 'ड': 'ڈ', 'ढ': 'ڈھ', 'ण': 'ن',
+                'त': 'ت', 'थ': 'تھ', 'द': 'د', 'ध': 'دھ', 'न': 'ن',
+                'प': 'پ', 'फ': 'پھ', 'ब': 'ب', 'भ': 'بھ', 'म': 'م',
+                'य': 'ی', 'र': 'ر', 'ल': 'ل', 'व': 'و',
+                'श': 'ش', 'ष': 'ش', 'स': 'س', 'ह': 'ہ',
+                'क़': 'ق', 'ख़': 'خ', 'ग़': 'غ', 'ज़': 'ز',
+                'ड़': 'ڑ', 'ढ़': 'ڑھ', 'फ़': 'ف', 'य़': 'ی'
+            };
+            const matras = new Set(['ा', 'ि', 'ी', 'ु', 'ू', 'ृ', 'े', 'ै', 'ो', 'ौ', 'ॉ', 'ॅ']);
+            const labials = new Set(['प', 'फ', 'ब', 'भ', 'म']);
+
+            let tokens = [];
+            for (let i = 0; i < word.length; i++) {
+                let ch = word[i];
+                if (i + 1 < word.length && word[i + 1] === '\u093C') {
+                    tokens.push(ch + '\u093C');
+                    i++;
                 } else {
-                    // Force Google Translate (Translation of Meaning)
-                    const res = await fetch(`${GOOGLE_API}${encodeURIComponent(fullText)}`); 
-                    if (!res.ok) throw new Error('API Error'); 
-                    const data = await res.json(); 
-                    return data[0][0][0].replace(/[\u064B-\u065F\u0670]/g, '');
+                    tokens.push(ch);
                 }
-            } catch (e) { 
-                // Fallback to Google Translate if everything else fails
+            }
+
+            let out = '';
+            const n = tokens.length;
+
+            for (let i = 0; i < n; i++) {
+                const t = tokens[i];
+                const next = i + 1 < n ? tokens[i + 1] : '';
+                const next2 = i + 2 < n ? tokens[i + 2] : '';
+
+                // Independent vowels
+                if (indepVowels[t] !== undefined) {
+                    if (t === 'ए' && i === n - 1) out += 'اے';
+                    else out += indepVowels[t];
+                    continue;
+                }
+
+                // Special conjunct: क्ष, त्र, ज्ञ, श्र
+                if (next === '्' && consonants[next2]) {
+                    const pair = t + next2;
+                    if (pair === 'कष') { out += 'کش'; i += 2; continue; }
+                    if (pair === 'तर') { out += 'تر'; i += 2; continue; }
+                    if (pair === 'जञ') { out += 'گی'; i += 2; continue; }
+                    if (pair === 'शर') { out += 'شر'; i += 2; continue; }
+
+                    // Collapse identical double consonants across halant (e.g., म् + म -> م)
+                    if (t === next2) {
+                        continue; // skip first consonant + halant; second will be emitted next
+                    }
+                }
+
+                // Consonants
+                if (consonants[t] !== undefined) {
+                    const prev = i > 0 ? tokens[i - 1] : '';
+                    // Final य without matra (e.g., संजय -> سنجے, सत्य -> ستیہ)
+                    if (t === 'य' && i === n - 1 && !matras.has(next)) {
+                        if (prev === '्') out += 'یہ';
+                        else out += 'ے';
+                        continue;
+                    }
+                    // Final ह with halant or normal
+                    out += consonants[t];
+                    continue;
+                }
+
+                // Halant
+                if (t === '्') {
+                    continue;
+                }
+
+                // Matras
+                if (t === 'ा') { out += 'ا'; continue; }
+                if (t === 'ि') {
+                    // At end of word, short 'i' is pronounced 'ee' -> ی (e.g. ज्योति -> جیوتی)
+                    if (i === n - 1) out += 'ی';
+                    continue; // Inside word omitted (e.g. प्रिया, अमित, कपिल)
+                }
+                if (t === 'ी') {
+                    // Avoid double ی before य+ा
+                    if (next === 'य' && matras.has(next2)) continue;
+                    out += 'ی';
+                    continue;
+                }
+                if (t === 'ु') {
+                    // At end of word, short 'u' -> و (e.g. मनु -> منو)
+                    if (i === n - 1) out += 'و';
+                    continue; // Inside word omitted (e.g. सुमन, कुमार)
+                }
+                if (t === 'ू') { out += 'و'; continue; }
+                if (t === 'ृ') { out += 'ر'; continue; }
+                if (t === 'े' || t === 'ै') {
+                    if (i === n - 1) out += 'ے';
+                    else out += 'ی';
+                    continue;
+                }
+                if (t === 'ो' || t === 'ौ' || t === 'ॉ') { out += 'و'; continue; }
+                if (t === 'ॅ') { out += 'ی'; continue; }
+
+                // Anusvara (ं) & Chandrabindu (ँ)
+                if (t === 'ं') {
+                    if (i === n - 1) out += 'ں';
+                    else if (labials.has(next)) out += 'م';
+                    else out += 'ن';
+                    continue;
+                }
+                if (t === 'ँ') {
+                    if (i === n - 1) out += 'ں';
+                    else out += 'ن';
+                    continue;
+                }
+                if (t === 'ः') { out += 'ہ'; continue; }
+
+                // Keep Urdu/Arabic characters or digits as-is if mixed
+                if (/[\u0600-\u06FF0-9]/.test(t)) out += t;
+            }
+            return out;
+        }
+
+        // 2. Offline English (Roman) -> Urdu Exact Phonetic Transliterator
+        function romanWordToUrdu(word) {
+            let w = word.toLowerCase().replace(/[^a-z]/g, '');
+            if (!w) return word;
+
+            // Collapse double consonants (e.g., mm->m, ll->l, ss->s, nn->n, tt->t) while preserving aa, ee, oo, ii, uu
+            w = w.replace(/([bcdfghjklmnpqrstvwxyz])\1+/g, '$1');
+
+            const vowelCount = (w.match(/[aeiou]+/g) || []).length;
+            let out = '';
+            let i = 0;
+
+            // Handle starting vowels
+            if (w.startsWith('aa')) { out += 'آ'; i = 2; }
+            else if (w.startsWith('ai') || w.startsWith('ei')) { out += 'ای'; i = 2; }
+            else if (w.startsWith('au') || w.startsWith('ou')) { out += 'او'; i = 2; }
+            else if (w.startsWith('ee') || w.startsWith('ea')) { out += 'ای'; i = 2; }
+            else if (w.startsWith('oo') || w.startsWith('uu')) { out += 'او'; i = 2; }
+            else if (w[0] === 'o') { out += 'او'; i = 1; }
+            else if (w[0] === 'e') { out += (w.length <= 4 ? 'ای' : 'ا'); i = 1; }
+            else if (w[0] === 'a' || w[0] === 'i' || w[0] === 'u') { out += 'ا'; i = 1; }
+
+            while (i < w.length) {
+                const rem = w.slice(i);
+                const isEnd = (len) => (i + len >= w.length);
+
+                // Trigraphs & Digraphs
+                if (rem.startsWith('chh')) { out += 'چھ'; i += 3; continue; }
+                if (rem.startsWith('sh')) { out += 'ش'; i += 2; continue; }
+                if (rem.startsWith('ch')) { out += 'چ'; i += 2; continue; }
+                if (rem.startsWith('kh')) { out += 'کھ'; i += 2; continue; }
+                if (rem.startsWith('gh')) { out += 'گھ'; i += 2; continue; }
+                if (rem.startsWith('th')) { out += 'تھ'; i += 2; continue; }
+                if (rem.startsWith('dh')) { out += 'دھ'; i += 2; continue; }
+                if (rem.startsWith('bh')) { out += 'بھ'; i += 2; continue; }
+                if (rem.startsWith('ph')) { out += 'پھ'; i += 2; continue; }
+                if (rem.startsWith('jh')) { out += 'جھ'; i += 2; continue; }
+                if (rem.startsWith('zh')) { out += 'ژ'; i += 2; continue; }
+                if (rem.startsWith('jy')) { out += 'جی'; i += 2; continue; }
+                if (rem.startsWith('aa')) { out += 'ا'; i += 2; continue; }
+                if (rem.startsWith('ee') || rem.startsWith('ii')) { out += 'ی'; i += 2; continue; }
+                if (rem.startsWith('oo') || rem.startsWith('uu')) { out += 'و'; i += 2; continue; }
+                if (rem.startsWith('ai') || rem.startsWith('ay') || rem.startsWith('ey') || rem.startsWith('ei')) {
+                    out += isEnd(2) ? 'ے' : 'ی';
+                    i += 2;
+                    continue;
+                }
+                if (rem.startsWith('au') || rem.startsWith('ou') || rem.startsWith('aw')) {
+                    out += 'و';
+                    i += 2;
+                    continue;
+                }
+
+                const ch = w[i];
+                const next = w[i + 1] || '';
+
+                // Single vowels
+                if (ch === 'a') {
+                    if (isEnd(1)) out += 'ا';
+                    else if (vowelCount === 1) out += 'ا'; // e.g., Ram -> رام, Raj -> راج, Khan -> خان
+                    i++;
+                    continue;
+                }
+                if (ch === 'i') {
+                    if (isEnd(1)) out += 'ی';
+                    else if ('aeou'.includes(next)) out += 'ی'; // e.g., Sonia -> سونیا, Ria -> ریا
+                    i++;
+                    continue;
+                }
+                if (ch === 'u') {
+                    if (isEnd(1)) out += 'و';
+                    i++;
+                    continue;
+                }
+                if (ch === 'o') { out += 'و'; i++; continue; }
+                if (ch === 'e') {
+                    out += isEnd(1) ? 'ے' : 'ی';
+                    i++;
+                    continue;
+                }
+
+                // Single consonants
+                const map = {
+                    b: 'ب', d: 'د', f: 'ف', g: 'گ', h: 'ہ', j: 'ج',
+                    k: 'ک', l: 'ل', m: 'م', n: 'ن', p: 'پ', q: 'ق',
+                    r: 'ر', s: 'س', t: 'ت', v: 'و', w: 'و', x: 'کس',
+                    y: 'ی', z: 'ز'
+                };
+                if (ch === 'c') {
+                    out += ('eiy'.includes(next)) ? 'س' : 'ک';
+                } else if (map[ch]) {
+                    out += map[ch];
+                }
+                i++;
+            }
+            return out;
+        }
+
+        function offlineTransliteratePhrase(fullText) {
+            const direct = lookupSpecialCase(fullText);
+            if (direct) return direct;
+
+            const words = fullText.trim().split(/\s+/);
+            const resultWords = words.map(word => {
+                const match = lookupSpecialCase(word);
+                if (match) return match;
+
+                // Already Urdu script
+                if (/[\u0600-\u06FF]/.test(word) && !/[\u0900-\u097F]/.test(word) && !/[a-zA-Z]/.test(word)) {
+                    return cleanUrduText(word);
+                }
+                // Devanagari (Hindi)
+                if (/[\u0900-\u097F]/.test(word)) {
+                    return devanagariWordToUrdu(word);
+                }
+                // Roman (English)
+                if (/[a-zA-Z]/.test(word)) {
+                    return romanWordToUrdu(word);
+                }
+                return word;
+            });
+            return cleanUrduText(resultWords.join(' '));
+        }
+
+        async function fetchWithTimeout(url, timeoutMs = 2500) {
+            const controller = new AbortController();
+            const timer = setTimeout(() => controller.abort(), timeoutMs);
+            try {
+                const res = await fetch(url, { signal: controller.signal });
+                clearTimeout(timer);
+                return res;
+            } catch (e) {
+                clearTimeout(timer);
+                throw e;
+            }
+        }
+
+        async function translateToUrdu(fullText, engine) {
+            const trimmed = fullText.trim();
+            if (!trimmed) return '';
+
+            // 1. Check exact full-phrase match from custom names / dictionary first
+            const exactMatch = lookupSpecialCase(trimmed);
+            if (exactMatch) return exactMatch;
+
+            // 2. If already Urdu script, return cleaned Urdu
+            if (/[\u0600-\u06FF]/.test(trimmed) && !/[\u0900-\u097F]/.test(trimmed) && !/[a-zA-Z]/.test(trimmed)) {
+                return cleanUrduText(trimmed);
+            }
+
+            // 3. Offline Mode OR Offline device OR Devanagari (Hindi) in Auto mode
+            // Note: Built-in Devanagari->Urdu engine is exact phonetic & avoids meaning-translation/CORS issues
+            const isHindi = /[\u0900-\u097F]/.test(trimmed);
+            if (engine === 'offline' || !navigator.onLine) {
+                return offlineTransliteratePhrase(trimmed);
+            }
+
+            // 4. Google Translate Mode (when online, with automatic offline fallback)
+            if (engine === 'google') {
                 try {
-                    const res = await fetch(`${GOOGLE_API}${encodeURIComponent(fullText)}`);
-                    const data = await res.json();
-                    return data[0][0][0].replace(/[\u064B-\u065F\u0670]/g, '');
-                } catch(err) {
-                    if (retries > 0) { 
-                        await new Promise(r => setTimeout(r, 500)); 
-                        return await translateToUrdu(fullText, engine, retries - 1); 
-                    } 
-                    return '❌ Error'; 
+                    const res = await fetchWithTimeout(`${GOOGLE_API}${encodeURIComponent(trimmed)}`, 3000);
+                    if (res.ok) {
+                        const data = await res.json();
+                        const translated = cleanUrduText(data?.[0]?.[0]?.[0] || '');
+                        if (translated && /[\u0600-\u06FF]/.test(translated)) {
+                            return translated;
+                        }
+                    }
+                } catch (e) {
+                    console.log('Google Translate unavailable, using offline engine.');
                 }
-            } 
+                return offlineTransliteratePhrase(trimmed);
+            }
+
+            // 5. Auto Mode (Online + Offline Hybrid)
+            if (isHindi) {
+                // Use our exact Devanagari-to-Urdu phonetic engine (works identically online & offline)
+                return offlineTransliteratePhrase(trimmed);
+            } else {
+                // For English/Roman words: check word-by-word dictionary first; only query Input Tools for unknown words
+                const words = trimmed.split(/\s+/);
+                const allKnown = words.every(w => lookupSpecialCase(w) !== null);
+                if (allKnown) {
+                    return offlineTransliteratePhrase(trimmed);
+                }
+
+                try {
+                    const translatedParts = await Promise.all(words.map(async (word) => {
+                        const known = lookupSpecialCase(word);
+                        if (known) return known;
+                        if (!/[a-zA-Z]/.test(word)) return word;
+                        try {
+                            const res = await fetchWithTimeout(`${INPUT_TOOLS_API}${encodeURIComponent(word)}`, 2200);
+                            if (res.ok) {
+                                const data = await res.json();
+                                const candidate = cleanUrduText(data?.[1]?.[0]?.[1]?.[0] || '');
+                                if (candidate && /[\u0600-\u06FF]/.test(candidate)) {
+                                    return candidate;
+                                }
+                            }
+                        } catch (_) {}
+                        return romanWordToUrdu(word);
+                    }));
+                    return cleanUrduText(translatedParts.join(' '));
+                } catch (e) {
+                    return offlineTransliteratePhrase(trimmed);
+                }
+            }
+        }
+
+        function setupUrduTranslation(input, display, hidden, engineSelectId) { 
+            const runTranslation = async (value) => {
+                const fullText = value.trim();
+                if (!fullText) {
+                    display.textContent = '';
+                    hidden.value = '';
+                    updateLiveAdads();
+                    return;
+                }
+                const engine = document.getElementById(engineSelectId).value;
+                // Instant preview from offline engine when offline or in offline mode
+                if (engine === 'offline' || !navigator.onLine) {
+                    const urduText = offlineTransliteratePhrase(fullText);
+                    display.textContent = urduText;
+                    hidden.value = urduText;
+                    updateLiveAdads();
+                    return;
+                }
+                display.textContent = '⏳';
+                const urduText = await translateToUrdu(fullText, engine);
+                display.textContent = urduText;
+                hidden.value = urduText;
+                updateLiveAdads();
+            };
+
+            const debouncedTranslate = debounce(runTranslation, 300);
+            input.addEventListener('input', (e) => debouncedTranslate(e.target.value));
+            document.getElementById(engineSelectId).addEventListener('change', () => {
+                if (input.value) runTranslation(input.value);
+            });
         }
 
         function debounce(func, delay) { let timeoutId; return (...args) => { clearTimeout(timeoutId); timeoutId = setTimeout(() => func.apply(this, args), delay); }; }
@@ -893,7 +1502,22 @@
         entryForm.addEventListener('submit', async (e) => { 
             e.preventDefault(); const qKey = questionSelect.value; if(!qKey) { alert("पेज चुनें!"); return; } 
             const cols = allQuestions[currentCategoryKey].questions[qKey].columns || defaultColumns;
-            
+
+            // Ensure all visible text fields are translated before calculating (in case user hit submit immediately)
+            if (cols.name && nameInput.value.trim() && !nameUrduHidden.value) {
+                const u = await translateToUrdu(nameInput.value, document.getElementById('name_engine').value);
+                nameUrduHidden.value = u; nameUrduDisplay.textContent = u;
+            }
+            if (cols.motherName && motherNameInput.value.trim() && !motherNameUrduHidden.value) {
+                const u = await translateToUrdu(motherNameInput.value, document.getElementById('mother_engine').value);
+                motherNameUrduHidden.value = u; motherNameUrduDisplay.textContent = u;
+            }
+            if (cols.fatherName && fatherNameInput.value.trim() && !fatherNameUrduHidden.value) {
+                const u = await translateToUrdu(fatherNameInput.value, document.getElementById('father_engine').value);
+                fatherNameUrduHidden.value = u; fatherNameUrduDisplay.textContent = u;
+            }
+            updateLiveAdads();
+
             function calculateAdadWithBreakdown(urduText, isActive) { if (!isActive || !urduText) return { total: 0, breakdown: [] }; let totalSum = 0; let allBreakdowns = []; urduText.trim().split(/\s+/).forEach(word => { if (!word) return; let wordSum = 0; let letterBreakdown = []; for (let char of word) { const v = urduAbjad[char] || 0; if (v > 0) { wordSum += v; letterBreakdown.push({ urdu: char, value: v }); } } if (letterBreakdown.length > 0) { allBreakdowns.push({ urduWord: word, letters: letterBreakdown, wordTotal: wordSum }); totalSum += wordSum; } }); return { total: totalSum, breakdown: allBreakdowns }; } 
             
             const nameAdad = calculateAdadWithBreakdown(nameUrduHidden.value, cols.name); const motherAdad = calculateAdadWithBreakdown(motherNameUrduHidden.value, cols.motherName); const fatherAdad = calculateAdadWithBreakdown(fatherNameUrduHidden.value, cols.fatherName); 
@@ -920,9 +1544,9 @@
         }
         document.getElementById('open-privacy-policy').addEventListener('click', () => { document.getElementById('privacyPolicyModal').style.display = 'block'; });
         
-        if ('serviceWorker' in navigator) { window.addEventListener('load', () => { navigator.serviceWorker.register('/sw.js').catch(e => console.log('SW fail')); }); }
+        if ('serviceWorker' in navigator) { window.addEventListener('load', () => { navigator.serviceWorker.register('/sw.js').catch(() => {}); }); }
         
-        // Start Process
+        // Start Process (Immediate Offline-First Boot)
         loadCustomNames(); 
         mergeSpecialCases(); 
         loadData(); 
@@ -933,9 +1557,8 @@
         setupUrduTranslation(motherNameInput, motherNameUrduDisplay, motherNameUrduHidden, 'mother_engine'); 
         setupUrduTranslation(fatherNameInput, fatherNameUrduDisplay, fatherNameUrduHidden, 'father_engine');
 
-        // Sync with Firebase in background
-        setTimeout(syncFromFirebase, 1000); 
-
+        // Initialize Firebase & Sync in Background (Never blocks offline usage)
+        setTimeout(initFirebase, 500); 
     </script>
 </body>
 </html>
